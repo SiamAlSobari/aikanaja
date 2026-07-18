@@ -24,8 +24,8 @@ interface Toast {
 	duration?: number;
 }
 
-const LS_APPEARANCE = 'schemaflow.appearance';
-const LS_NOTIFICATIONS = 'schemaflow.notifications';
+const LS_APPEARANCE = 'aikanaja.appearance';
+const LS_NOTIFICATIONS = 'aikanaja.notifications';
 const LS_THEME = 'theme';
 
 const DEFAULT_APPEARANCE: AppearancePrefs = { theme: 'system', fontSize: 'medium', canvasBg: 'dots' };

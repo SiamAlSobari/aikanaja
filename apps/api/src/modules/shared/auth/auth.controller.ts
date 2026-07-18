@@ -4,6 +4,7 @@ import { AuthService } from './auth.service'
 import { GoogleService } from './google.service'
 import { LoginBody, RegisterBody } from './auth.validation'
 import { authMiddleware } from '../../../common/middlewares/auth.middleware'
+import { prisma } from '../../../lib/prisma'
 import { config, resolveFrontend } from '../../../config'
 
 const authService = new AuthService()
@@ -126,4 +127,31 @@ export const authController = new Elysia({ prefix: '/auth' })
     cookie.token.maxAge = 0
 
     return { message: 'Logged out' }
+  })
+
+  // Current session user — dipakai dashboard guard (server-side fetch)
+  .get('/session', async ({ jwt, cookie, set }) => {
+    const tokenValue = cookie.token.value as string
+    if (!tokenValue) {
+      set.status = 401
+      return { message: 'Unauthorized', data: null }
+    }
+
+    const payload = (await jwt.verify(tokenValue)) as unknown as { id: string } | null
+    if (!payload) {
+      set.status = 401
+      return { message: 'Unauthorized', data: null }
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: payload.id },
+      select: { id: true, name: true, email: true, role: true, avatar: true, bio: true },
+    })
+
+    if (!user) {
+      set.status = 401
+      return { message: 'User not found', data: null }
+    }
+
+    return { data: user }
   })

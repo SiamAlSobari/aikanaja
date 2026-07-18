@@ -4,7 +4,7 @@ import { getApiUrl } from '$lib/server/env';
 
 export const load: LayoutServerLoad = async ({ fetch }) => {
 	try {
-		const res = await fetch(`${getApiUrl()}/session`, {
+		const res = await fetch(`${getApiUrl()}/auth/session`, {
 			credentials: 'include'
 		});
 

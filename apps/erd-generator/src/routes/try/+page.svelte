@@ -126,7 +126,7 @@
 				<div class="w-8 h-8 rounded-lg bg-slate-900 border border-orange-600/30 flex items-center justify-center shadow-[0_0_15px_rgba(255,62,0,0.1)] group-hover:border-orange-600/50 transition-colors">
 					<Database class="w-4 h-4 text-orange-500" />
 				</div>
-				<span class="text-sm font-bold text-white hidden sm:block">Schema<span class="text-orange-500">Flow</span></span>
+				<span class="text-sm font-bold text-white hidden sm:block">Ai<span class="text-orange-500">KanAja</span></span>
 			</a>
 
 			{#if schema}

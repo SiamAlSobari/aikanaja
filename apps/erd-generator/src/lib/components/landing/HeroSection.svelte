@@ -88,7 +88,7 @@
 					<span class="w-3 h-3 rounded-full bg-rose-500/40"></span>
 					<span class="w-3 h-3 rounded-full bg-amber-500/40"></span>
 					<span class="w-3 h-3 rounded-full bg-orange-600/40"></span>
-					<span class="text-xs text-slate-500 font-mono ml-2">schemaflow-generator.sh</span>
+					<span class="text-xs text-slate-500 font-mono ml-2">aikanaja-generator.sh</span>
 				</div>
 				<span class="text-[10px] text-orange-500/60 font-mono flex items-center gap-1.5">
 					<span class="w-1.5 h-1.5 rounded-full bg-orange-600 animate-ping"></span> AI Engine Ready

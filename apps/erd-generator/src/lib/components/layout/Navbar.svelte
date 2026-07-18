@@ -22,7 +22,7 @@
 				<Database class="w-4.5 h-4.5 text-orange-500 animate-pulse" />
 			</div>
 			<span class="text-lg font-bold tracking-tight text-white"
-				>Schema<span class="text-orange-500">Flow</span></span
+				>Ai<span class="text-orange-500">KanAja</span></span
 			>
 		</div>
 

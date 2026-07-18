@@ -38,7 +38,7 @@
 	let mobileOpen = $state(false);
 </script>
 
-<div class="min-h-screen bg-slate-950 text-slate-100 flex selection:bg-orange-600/30 selection:text-orange-300">
+<div class="h-screen overflow-hidden bg-slate-950 text-slate-100 flex selection:bg-orange-600/30 selection:text-orange-300">
 	<!-- Desktop Sidebar -->
 	<aside
 		class="hidden lg:flex flex-col {collapsed ? 'w-[76px]' : 'w-[264px]'} shrink-0 border-r border-slate-800/60 bg-slate-900/50 backdrop-blur-sm transition-all duration-300 relative z-30"
@@ -53,7 +53,7 @@
 					<Database class="w-4.5 h-4.5 text-orange-500" />
 				</div>
 				{#if !collapsed}
-					<span class="text-sm font-bold text-white tracking-tight">Schema<span class="text-orange-500">Flow</span></span>
+					<span class="text-sm font-bold text-white tracking-tight">Ai<span class="text-orange-500">KanAja</span></span>
 				{/if}
 			</a>
 		</div>
@@ -181,7 +181,7 @@
 			<div class="w-7 h-7 rounded-lg bg-slate-950 border border-orange-600/30 flex items-center justify-center">
 				<Database class="w-3.5 h-3.5 text-orange-500" />
 			</div>
-			<span class="text-sm font-bold text-white">Schema<span class="text-orange-500">Flow</span></span>
+			<span class="text-sm font-bold text-white">Ai<span class="text-orange-500">KanAja</span></span>
 		</a>
 
 		<a href="/dashboard/projects/new" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-600 text-xs font-bold text-slate-950 shadow-lg shadow-orange-600/20">
@@ -206,7 +206,7 @@
 					<div class="w-8 h-8 rounded-lg bg-slate-950 border border-orange-600/30 flex items-center justify-center">
 						<Database class="w-4 h-4 text-orange-500" />
 					</div>
-					<span class="text-sm font-bold text-white">Schema<span class="text-orange-500">Flow</span></span>
+					<span class="text-sm font-bold text-white">Ai<span class="text-orange-500">KanAja</span></span>
 				</div>
 
 				<!-- New Project -->
@@ -259,7 +259,7 @@
 	{/if}
 
 	<!-- Main Content -->
-	<main class="flex-1 min-w-0 pt-14 lg:pt-0 overflow-x-hidden">
+	<main class="flex-1 min-w-0 pt-14 lg:pt-0 overflow-y-auto overflow-x-hidden">
 		{@render children()}
 	</main>
 </div>

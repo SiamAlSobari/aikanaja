@@ -33,7 +33,7 @@
 					<div class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping"></div>
 				</div>
 				<span class="text-2xl font-bold tracking-tight text-white">
-					Schema<span class="text-orange-500">Flow</span>
+					Ai<span class="text-orange-500">KanAja</span>
 				</span>
 			</div>
 
@@ -66,14 +66,14 @@
 					<span class="w-2.5 h-2.5 rounded-full bg-rose-500/40"></span>
 					<span class="w-2.5 h-2.5 rounded-full bg-amber-500/40"></span>
 					<span class="w-2.5 h-2.5 rounded-full bg-orange-600/40"></span>
-					<span class="text-[10px] text-slate-600 font-mono ml-1.5">schemaflow</span>
+					<span class="text-[10px] text-slate-600 font-mono ml-1.5">aikanaja</span>
 					<span class="ml-auto flex items-center gap-1.5">
 						<span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-ping"></span>
 						<span class="text-[10px] text-orange-500/60 font-mono">ready</span>
 					</span>
 				</div>
 				<div class="font-mono text-xs space-y-1.5 relative">
-					<p class="text-slate-500 animate-typing"><span class="text-orange-500">$</span> schemaflow generate</p>
+					<p class="text-slate-500 animate-typing"><span class="text-orange-500">$</span> aikanaja generate</p>
 					<p class="text-slate-500 animate-typing-delay-1"><span class="text-orange-500">→</span> Analyzing prompt...</p>
 					<p class="text-slate-500 animate-typing-delay-2"><span class="text-orange-500">→</span> Detecting entities...</p>
 					<p class="text-emerald-400 animate-typing-delay-3"><span class="text-orange-500">✓</span> Generated 5 tables, 7 relations</p>
@@ -99,7 +99,7 @@
 					<Database class="w-5 h-5 text-orange-500" />
 				</div>
 				<span class="text-xl font-bold tracking-tight text-white">
-					Schema<span class="text-orange-500">Flow</span>
+					Ai<span class="text-orange-500">KanAja</span>
 				</span>
 			</div>
 

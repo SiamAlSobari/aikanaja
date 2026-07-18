@@ -22,7 +22,7 @@
 			<Sparkles class="w-3.5 h-3.5 animate-sparkle" /> AI-Driven Database Modeling
 		</div>
 		<h1 class="text-2xl font-bold text-white tracking-tight">
-			Masuk ke <span class="text-orange-500">Schema</span>Flow
+			Masuk ke Ai<span class="text-orange-500">KanAja</span>
 		</h1>
 		<p class="text-sm text-slate-400 leading-relaxed">
 			Buat, edit, dan ekspor ERD secara visual dengan bantuan AI.
