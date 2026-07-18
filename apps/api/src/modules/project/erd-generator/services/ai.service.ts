@@ -1,6 +1,7 @@
 import { createGroq } from '@ai-sdk/groq'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { generateText, streamText } from 'ai'
+import { config } from '../../../../config'
 
 type Provider = 'groq' | 'gemini'
 
@@ -17,21 +18,11 @@ const geminiKeyIndex = { current: 0 }
 
 // Load keys dari env
 function getGroqKeys(): string[] {
-  const keys: string[] = []
-  for (let i = 1; i <= 4; i++) {
-    const key = process.env[`GROQ_AI_API_KEY${i}`]
-    if (key) keys.push(key)
-  }
-  return keys
+  return config.ai.groqKeys
 }
 
 function getGeminiKeys(): string[] {
-  const keys: string[] = []
-  for (let i = 1; i <= 3; i++) {
-    const key = process.env[`GEMINI_API_KEY${i}`]
-    if (key) keys.push(key)
-  }
-  return keys
+  return config.ai.geminiKeys
 }
 
 // Round-robin key selection

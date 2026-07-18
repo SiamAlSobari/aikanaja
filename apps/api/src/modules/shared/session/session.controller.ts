@@ -1,6 +1,7 @@
 import Elysia, { t } from "elysia";
 import { authMiddleware } from "../../../common/middlewares/auth.middleware";
 import { prisma } from "../../../lib/prisma";
+import { config } from "../../../config";
 
 export const sessionController = new Elysia({ prefix: '/session' })
   .use(authMiddleware())
@@ -36,11 +37,11 @@ export const sessionController = new Elysia({ prefix: '/session' })
       try {
         const form = new FormData()
         form.append('file', body.file)
-        form.append('api_key', process.env.CLOUDINARY_API_KEY!)
-        form.append('api_secret', process.env.CLOUDINARY_API_SECRET!)
-        form.append('folder', 'schemaflow/avatars')
-        const res = await fetch(
-          `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`,
+		form.append('api_key', config.cloudinary.apiKey)
+		form.append('api_secret', config.cloudinary.apiSecret)
+		form.append('folder', 'aikanaja/avatars')
+		const res = await fetch(
+			`https://api.cloudinary.com/v1_1/${config.cloudinary.cloudName}/image/upload`,
           { method: 'POST', body: form }
         )
         const data = await res.json()

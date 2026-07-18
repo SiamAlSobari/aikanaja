@@ -1,6 +1,7 @@
 import { Elysia } from 'elysia'
 import { jwt } from '@elysia/jwt'
 import { ForbiddenException } from 'elysia-http-exception'
+import { config } from '../../config'
 
 /**
  * Admin middleware — cek user.role === 'admin'.
@@ -8,7 +9,7 @@ import { ForbiddenException } from 'elysia-http-exception'
  */
 export const adminMiddleware = () =>
   new Elysia()
-    .use(jwt({ name: 'jwt', secret: process.env.JWT_SECRET || 'super-secret-key' }))
+    .use(jwt({ name: 'jwt', secret: config.jwt.secret }))
     .derive({ as: 'scoped' }, async ({ cookie, jwt, set }) => {
       const token = cookie.token
       if (!token?.value) {

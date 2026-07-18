@@ -1,4 +1,5 @@
 import { prisma } from '../../../lib/prisma'
+import { config } from '../../../config'
 
 interface GoogleUserInfo {
   id: string
@@ -18,9 +19,9 @@ interface GoogleTokenResponse {
 }
 
 export class GoogleService {
-  private clientId = process.env.GOOGLE_CLIENT_ID || ''
-  private clientSecret = process.env.GOOGLE_CLIENT_SECRET || ''
-  private redirectUri = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:3000/auth/callback'
+  private clientId = config.google.clientId
+  private clientSecret = config.google.clientSecret
+  private redirectUri = config.google.redirectUri
 
   getAuthUrl(): string {
     const params = new URLSearchParams({

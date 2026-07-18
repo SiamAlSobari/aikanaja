@@ -4,12 +4,13 @@ import { AuthService } from './auth.service'
 import { GoogleService } from './google.service'
 import { LoginBody, RegisterBody } from './auth.validation'
 import { authMiddleware } from '../../../common/middlewares/auth.middleware'
+import { config } from '../../../config'
 
 const authService = new AuthService()
 const googleService = new GoogleService()
 
 export const authController = new Elysia({ prefix: '/auth' })
-  .use(jwt({ name: 'jwt', secret: process.env.JWT_SECRET || 'super-secret-key' }))
+  .use(jwt({ name: 'jwt', secret: config.jwt.secret }))
 
   // Register (email/password) — legacy, bisa dihapus nanti
   .post(
@@ -93,9 +94,8 @@ export const authController = new Elysia({ prefix: '/auth' })
         cookie.token.maxAge = 60 * 60 * 24 * 7 // 7 hari
 
         // Redirect ke frontend dashboard
-        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173'
         set.status = 302
-        set.headers['Location'] = `${frontendUrl}/dashboard`
+        set.headers['Location'] = `${config.frontendUrl}/dashboard`
 
         return { message: 'Login successful', data: user }
       } catch (err) {

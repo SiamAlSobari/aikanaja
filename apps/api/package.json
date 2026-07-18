@@ -1,28 +1,29 @@
 {
 	"name": "@aikanaja/api",
-  "version": "1.0.50",
-  "scripts": {
-    "dev": "bun run --watch src/index.ts",
-    "db:migrate": "bunx prisma migrate dev",
-    "db:generate": "bunx prisma generate",
-    "db:push": "bunx prisma db push",
-    "db:studio": "bunx prisma studio"
-  },
-  "dependencies": {
-    "@ai-sdk/google": "^4.0.18",
-    "@ai-sdk/groq": "^4.0.12",
-    "@elysia/jwt": "^1.4.2",
-    "@prisma/client": "^7.8.0",
-    "ai": "^7.0.31",
-    "dotenv": "^17.4.2",
-    "elysia": "latest",
-    "elysia-http-exception": "^0.1.5",
-    "logixlysia": "^6.6.0",
-    "prisma-adapter-bun-sqlite": "^0.8.0"
-  },
-  "devDependencies": {
-    "bun-types": "latest",
-    "prisma": "^7.8.0"
-  },
-  "module": "src/index.js"
+	"version": "1.0.50",
+	"scripts": {
+		"dev": "bun run --watch src/index.ts",
+		"db:migrate": "bunx prisma migrate dev",
+		"db:generate": "bunx prisma generate",
+		"db:push": "bunx prisma db push",
+		"db:studio": "bunx prisma studio"
+	},
+	"dependencies": {
+		"@ai-sdk/google": "^4.0.18",
+		"@ai-sdk/groq": "^4.0.12",
+		"@elysia/cors": "^1.4.2",
+		"@elysia/jwt": "^1.4.2",
+		"@prisma/client": "^7.8.0",
+		"ai": "^7.0.31",
+		"dotenv": "^17.4.2",
+		"elysia": "latest",
+		"elysia-http-exception": "^0.1.5",
+		"logixlysia": "^6.6.0",
+		"prisma-adapter-bun-sqlite": "^0.8.0"
+	},
+	"devDependencies": {
+		"bun-types": "latest",
+		"prisma": "^7.8.0"
+	},
+	"module": "src/index.js"
 }

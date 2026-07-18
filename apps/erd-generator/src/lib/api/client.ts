@@ -1,6 +1,7 @@
 import { browser } from '$app/environment';
+import { config } from '$lib/config';
 
-const API_URL = browser ? (import.meta.env.VITE_API_URL || 'http://localhost:3000') : '';
+const API_URL = browser ? '' : config.apiBaseUrl;
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 	const url = `${API_URL}/api${path}`;

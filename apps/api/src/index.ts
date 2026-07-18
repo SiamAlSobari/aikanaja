@@ -1,4 +1,5 @@
 import { Elysia } from 'elysia'
+import { cors } from '@elysia/cors'
 import logixlysia from 'logixlysia'
 import { httpExceptionPlugin } from 'elysia-http-exception'
 import { config } from './config'
@@ -9,6 +10,12 @@ import { erdModule } from './modules/project/erd-generator'
 import { prdModule } from './modules/project/prd-generator'
 
 const app = new Elysia({ prefix: '/api' })
+  .use(
+    cors({
+      origin: config.cors.origin,
+      credentials: true
+    })
+  )
   .use(httpExceptionPlugin())
   .use(
     logixlysia({

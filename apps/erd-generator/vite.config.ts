@@ -10,6 +10,14 @@ export default defineConfig({
 			'@aikanaja/shared': fileURLToPath(new URL('../../packages/shared/src/index.ts', import.meta.url))
 		}
 	},
+	server: {
+		proxy: {
+			'/api': {
+				target: process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3000}`,
+				changeOrigin: true
+			}
+		}
+	},
 	plugins: [
 		tailwindcss(),
 		sveltekit({

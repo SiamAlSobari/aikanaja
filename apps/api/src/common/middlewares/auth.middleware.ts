@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia'
 import { jwt } from '@elysia/jwt'
+import { config } from '../../config'
 
 export interface AuthUser {
   id: string
@@ -10,7 +11,7 @@ export interface AuthUser {
 // Auth middleware yang WAJIB authenticated
 export const authMiddleware = () =>
   new Elysia()
-    .use(jwt({ name: 'jwt', secret: process.env.JWT_SECRET || 'super-secret-key' }))
+    .use(jwt({ name: 'jwt', secret: config.jwt.secret }))
     .derive({ as: 'scoped' }, async ({ cookie, jwt, set }) => {
       const token = cookie.token
       if (!token?.value) {
@@ -36,7 +37,7 @@ export const authMiddleware = () =>
 // Auth middleware yang OPSIONAL (user bisa null untuk guest routes)
 export const optionalAuthMiddleware = () =>
   new Elysia()
-    .use(jwt({ name: 'jwt', secret: process.env.JWT_SECRET || 'super-secret-key' }))
+    .use(jwt({ name: 'jwt', secret: config.jwt.secret }))
     .derive({ as: 'scoped' }, async ({ cookie, jwt }) => {
       const token = cookie.token
       if (!token?.value) {
