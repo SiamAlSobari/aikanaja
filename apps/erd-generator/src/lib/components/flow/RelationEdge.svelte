@@ -10,9 +10,19 @@
 	width="100%"
 	height="100"
 	class="erd-edge {isSelected ? 'erd-edge-selected' : ''}"
+	role="button"
+	tabindex="0"
+	aria-label="Select relation {props.data.label || props.id}"
 	onclick={(e) => {
 		e.stopPropagation();
 		flowStore.selectEdge(props.id);
+	}}
+	onkeydown={(e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			e.stopPropagation();
+			flowStore.selectEdge(props.id);
+		}
 	}}
 >
 	<div xmlns="http://www.w3.org/1999/xhtml" class="erd-edge-wrapper">

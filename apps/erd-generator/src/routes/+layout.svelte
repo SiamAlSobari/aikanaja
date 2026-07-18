@@ -21,14 +21,14 @@
 <!-- Global Toaster -->
 <div class="fixed bottom-4 right-4 z-[100] flex flex-col gap-2 w-[300px] max-w-[calc(100vw-2rem)]">
 	{#each toasts as t (t.id)}
-		<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-		<div
-			role="status"
+		<button
+			type="button"
+			aria-label="Dismiss notification"
 			onclick={() => removeToast(t.id)}
-			class="px-4 py-3 rounded-xl border backdrop-blur-md shadow-lg shadow-black/30 text-[13px] font-medium cursor-pointer animate-toast {toastClass[t.type] || toastClass.info}"
+			class="px-4 py-3 rounded-xl border backdrop-blur-md shadow-lg shadow-black/30 text-[13px] font-medium cursor-pointer text-left animate-toast {toastClass[t.type] || toastClass.info}"
 		>
 			{t.message}
-		</div>
+		</button>
 	{/each}
 </div>
 

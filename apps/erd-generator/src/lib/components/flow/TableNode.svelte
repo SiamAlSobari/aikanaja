@@ -32,7 +32,16 @@
 </script>
 
 <div
+	role="button"
+	tabindex="0"
+	aria-label="Select table {table.name}"
 	onclick={handleNodeClick}
+	onkeydown={(e) => {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			handleNodeClick();
+		}
+	}}
 	class="rounded-xl border-2 transition-all duration-200 select-none min-w-[200px] max-w-[240px] backdrop-blur-sm {isSelected ? 'ring-2 ring-orange-500/40 border-orange-500/50 shadow-orange-500/10' : 'bg-slate-950/95 border-slate-800 shadow-lg shadow-black/30'}"
 >
 	<!-- Header -->
@@ -70,6 +79,7 @@
 				<!-- Delete button (hover only) -->
 				<button
 					class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-slate-600 hover:text-red-400"
+					aria-label={'Delete column ' + col.name}
 					onclick={(e) => { e.stopPropagation(); handleDeleteColumn(col.id); }}
 				>
 					<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

@@ -58,19 +58,24 @@ export const authController = new Elysia({ prefix: '/auth' })
   .get(
     '/callback',
     async ({ query, jwt, cookie, set }) => {
+      const { code, error } = query as { code?: string; error?: string }
+
+      const redirectToLogin = (err: string) => {
+        set.status = 302
+        set.headers['Location'] = `${config.frontendUrl}/auth/login?error=${encodeURIComponent(err)}`
+      }
+
+      if (error) {
+        redirectToLogin(error)
+        return
+      }
+
+      if (!code) {
+        redirectToLogin('missing_code')
+        return
+      }
+
       try {
-        const { code, error } = query as { code?: string; error?: string }
-
-        if (error) {
-          set.status = 400
-          return { message: `Google OAuth error: ${error}`, data: null }
-        }
-
-        if (!code) {
-          set.status = 400
-          return { message: 'Missing authorization code', data: null }
-        }
-
         // Exchange code untuk tokens
         const tokens = await googleService.exchangeCode(code)
 
@@ -97,11 +102,11 @@ export const authController = new Elysia({ prefix: '/auth' })
         set.status = 302
         set.headers['Location'] = `${config.frontendUrl}/dashboard`
 
-        return { message: 'Login successful', data: user }
+        return
       } catch (err) {
         console.error('Google OAuth callback error:', err)
-        set.status = 500
-        return { message: 'Failed to process Google OAuth callback', data: null }
+        redirectToLogin('server_error')
+        return
       }
     }
   )
