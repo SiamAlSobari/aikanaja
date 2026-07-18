@@ -23,7 +23,7 @@ export class GoogleService {
   private clientSecret = config.google.clientSecret
   private redirectUri = config.google.redirectUri
 
-  getAuthUrl(): string {
+  getAuthUrl(state?: string): string {
     const params = new URLSearchParams({
       client_id: this.clientId,
       redirect_uri: this.redirectUri,
@@ -32,6 +32,7 @@ export class GoogleService {
       access_type: 'offline',
       prompt: 'consent',
     })
+    if (state) params.set('state', state)
 
     return `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`
   }

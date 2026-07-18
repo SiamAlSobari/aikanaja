@@ -4,7 +4,7 @@ import { AuthService } from './auth.service'
 import { GoogleService } from './google.service'
 import { LoginBody, RegisterBody } from './auth.validation'
 import { authMiddleware } from '../../../common/middlewares/auth.middleware'
-import { config } from '../../../config'
+import { config, resolveFrontend } from '../../../config'
 
 const authService = new AuthService()
 const googleService = new GoogleService()
@@ -49,8 +49,10 @@ export const authController = new Elysia({ prefix: '/auth' })
   )
 
   // Google OAuth — redirect ke Google consent screen
-  .get('/google', () => {
-    const url = googleService.getAuthUrl()
+  .get('/google', ({ request }) => {
+    const origin = request.headers.get('origin')
+    const state = encodeURIComponent(resolveFrontend(origin))
+    const url = googleService.getAuthUrl(state)
     return { redirect: url }
   })
 
@@ -58,11 +60,16 @@ export const authController = new Elysia({ prefix: '/auth' })
   .get(
     '/callback',
     async ({ query, jwt, cookie, set }) => {
-      const { code, error } = query as { code?: string; error?: string }
+      const { code, error, state } = query as {
+        code?: string
+        error?: string
+        state?: string
+      }
+      const target = resolveFrontend(state ? decodeURIComponent(state) : null)
 
       const redirectToLogin = (err: string) => {
         set.status = 302
-        set.headers['Location'] = `${config.frontendUrl}/auth/login?error=${encodeURIComponent(err)}`
+        set.headers['Location'] = `${target}/auth/login?error=${encodeURIComponent(err)}`
       }
 
       if (error) {
@@ -98,9 +105,9 @@ export const authController = new Elysia({ prefix: '/auth' })
         cookie.token.sameSite = 'lax'
         cookie.token.maxAge = 60 * 60 * 24 * 7 // 7 hari
 
-        // Redirect ke frontend dashboard
+        // Redirect ke frontend yang memulai login
         set.status = 302
-        set.headers['Location'] = `${config.frontendUrl}/dashboard`
+        set.headers['Location'] = `${target}/dashboard`
 
         return
       } catch (err) {
