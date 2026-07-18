@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("user")
+  avatar    String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // ERD Generator relations
+  erdProjects  ErdProject[]
+  erdShares    ErdShare[]
+  usage        Usage[]
+  payments     Payment[]
+  activities   Activity[]
+  apiKeys      ApiKey[]
+}
+
+model ApiKey {
+  id        String   @id @default(uuid())
+  userId    String
+  provider  String // 'groq' | 'gemini'
+  key       String // raw API key (dipakai server-side)
+  label     String?
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider, key])
+  @@index([userId, provider])
+}

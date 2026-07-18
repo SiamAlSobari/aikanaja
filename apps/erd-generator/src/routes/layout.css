@@ -1,0 +1,103 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@plugin 'daisyui';
+
+@theme {
+	--color-brand-orange: #ff3e00;
+	--color-brand-amber: #f97316;
+}
+
+/* Custom background grid pattern */
+.bg-grid-pattern {
+	background-size: 40px 40px;
+	background-image:
+		linear-gradient(to right, rgba(255, 62, 0, 0.02) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(255, 62, 0, 0.02) 1px, transparent 1px);
+}
+
+/* Soft ambient glow effect */
+.glow-blur {
+	filter: blur(120px);
+	will-change: filter;
+}
+
+/* SVG Line dash animation */
+@keyframes flow {
+	to {
+		stroke-dashoffset: -20;
+	}
+}
+
+.animate-flow-line {
+	stroke-dasharray: 5, 5;
+	animation: flow 1s linear infinite;
+}
+
+/* Float animation for 3D elements */
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-8px);
+	}
+}
+
+.animate-float {
+	animation: float 6s ease-in-out infinite;
+}
+
+/* Scroll smoothness */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Orbit rotating animation */
+@keyframes orbit-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.animate-orbit {
+	animation: orbit-spin 40s linear infinite;
+}
+
+/* Reverse orbit rotation to keep badges upright */
+@keyframes orbit-spin-reverse {
+	from {
+		transform: rotate(360deg);
+	}
+	to {
+		transform: rotate(0deg);
+	}
+}
+
+.animate-orbit-reverse {
+	animation: orbit-spin-reverse 40s linear infinite;
+}
+
+/* Sleek custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #020617; /* slate-950 */
+}
+
+::-webkit-scrollbar-thumb {
+	background: #1e293b; /* slate-800 */
+	border-radius: 9999px;
+	border: 2px solid #020617;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #ff3e00; /* brand-orange */
+}

@@ -1,0 +1,117 @@
+model ErdProject {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  userId      String
+  schema      String? // JSON string: ErdSchema
+  status      String   @default("active") // active, deleted
+  visibility  String   @default("private") // private, public
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  versions  ErdVersion[]
+  shares    ErdShare[]
+  shareLinks ErdShareLink[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([userId, status])
+}
+
+model ErdVersion {
+  id          String   @id @default(uuid())
+  projectId   String
+  schema      String // JSON snapshot
+  description String? // auto-generated
+  createdAt   DateTime @default(now())
+
+  project ErdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([projectId, createdAt])
+}
+
+model ErdShare {
+  id        String   @id @default(uuid())
+  projectId String
+  userId    String
+  role      String   @default("view") // view, edit
+  createdAt DateTime @default(now())
+
+  project ErdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([userId])
+}
+
+model ErdShareLink {
+  id        String    @id @default(uuid())
+  projectId String
+  link      String    @unique
+  expiresAt DateTime?
+  createdAt DateTime  @default(now())
+
+  project ErdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model ErdTemplate {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  category    String
+  schema      String // JSON
+  thumbnail   String? // URL atau base64
+  createdAt   DateTime @default(now())
+
+  @@index([category])
+}
+
+model Usage {
+  id     String @id @default(uuid())
+  userId String
+  month  String // format: "2026-07"
+  count  Int    @default(0)
+  limit  Int    @default(10) // free: 10, pro: -1 (unlimited)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, month])
+}
+
+model Payment {
+  id         String    @id @default(uuid())
+  userId     String
+  plan       String // pro, team
+  amount     Float
+  method     String    @default("dana")
+  status     String    @default("pending") // pending, verified, rejected
+  proof      String? // URL bukti transfer
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([userId, status])
+}
+
+model Activity {
+  id          String   @id @default(uuid())
+  userId      String
+  type        String   // create, generate, edit, export, share, delete, restore
+  message     String
+  projectId   String?
+  projectName String?
+  metadata    String?  // JSON string for extra data
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, createdAt])
+}

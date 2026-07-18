@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Bun (keep bun.lock text lockfile — commit it)
+bun.lockb
+
+
+# SvelteKit
+.svelte-kit/
+build/
+.svelte-kit/dev/
+
+# Turbo
+.turbo/
+
+# Prisma generated client
+generated/
+**/generated/**
+
+# Database (local SQLite — contains user data)
+*.db
+*.sqlite
+*.sqlite3
+apps/api/data/
+
+# Env / secrets — NEVER commit
+.env
+.env.*
+!.env.example
+
+# Vercel / deploy artifacts
+.vercel
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp
+
+# Test / coverage
+coverage/

@@ -1,0 +1,114 @@
+## Project Configuration
+
+- **Language**: TypeScript
+- **Framework**: SvelteKit (Svelte 5 runes)
+- **Styling**: Tailwind CSS + DaisyUI
+- **ERD**: @xyflow/svelte
+- **Package Manager**: bun
+
+## Commands
+
+Prefix `rtk` untuk hemat token.
+
+| Command             | Fungsi           |
+| ------------------- | ---------------- |
+| `rtk bun run dev`   | Dev server       |
+| `rtk bun run build` | Build production |
+| `rtk bun run check` | Type check       |
+| `rtk bun run lint`  | Lint check       |
+
+## Structure
+
+```
+src/lib/
+├── api/              # Fetch wrapper, typed
+├── stores/           # Svelte 5 $state, $derived
+├── types/            # TypeScript types
+├── utils/            # Pure functions
+└── components/
+    ├── ui/           # Base (Button, Input, Modal)
+    ├── layout/       # Navbar, Sidebar, Footer
+    ├── flow/         # Svelte Flow (ERDCanvas, TableNode)
+    └── features/     # AIChat, ExportModal, ProjectCard
+```
+
+## Rules: DRY, KISS, YAGNI
+
+**DRY** — Jangan copy-paste. Extract ke component/utils/store jika 2+ kali pakai. API client di `$lib/api/`, types di `$lib/types/`.
+
+**KISS** — Simple. Component max 100-150 baris. Satu component = satu tanggung jawab. Nama jelas.
+
+**YAGNI** — Implementasi HANYA untuk kebutuhan saat ini. Jangan bikin reusable component sebelum dipakai 2+ kali. Hapus dead code.
+
+### File Size Rules
+
+- **Page (`+page.svelte`)** max **200 baris** — lebih dari itu, pecah jadi component di `src/lib/components/features/`
+- **Component** max **100-150 baris** — lebih dari itu, pecah jadi sub-component
+- **Store** max **100 baris** — lebih dari itu, pisah jadi multiple store per domain
+- **Utility/Helper** max **80 baris** — lebih dari itu, split jadi module terpisah
+
+### Cara Pecah Page yang Gemuk
+
+1. **UI section** → pindah ke `src/lib/components/features/[nama]/[NamaSection].svelte`
+2. **Logic complex** → pindah ke `src/lib/utils/[nama].ts` (pure function)
+3. **State banyak** → pindah ke `src/lib/stores/[nama].store.svelte.ts`
+4. **Data transform** → pindah ke `src/lib/utils/[nama].ts`
+
+Contoh:
+```
+# Page kegemukan (500 baris)
+src/routes/dashboard/projects/+page.svelte
+
+# Pecah jadi:
+src/lib/components/features/project/ProjectGrid.svelte      # Grid view
+src/lib/components/features/project/ProjectList.svelte      # List view
+src/lib/components/features/project/ProjectFilters.svelte   # Search + sort + filter
+src/lib/components/features/project/NewProjectModal.svelte  # Modal create
+src/routes/dashboard/projects/+page.svelte                  # Compose aja (< 150 baris)
+```
+
+### Data Fetching
+
+- `+page.server.ts` → load function → return data
+- `+page.svelte` → `let { data } = $props()`
+- Mutation via form action atau API call di event handler
+- ❌ DILARANG fetch di component (kecuali SSE/real-time)
+
+### Svelte Flow
+
+- `$state.raw` untuk nodes/edges (bukan deep reactive)
+- Custom node/edge di `src/lib/components/flow/`
+- Undo/redo via snapshot stack
+
+### Error Handling
+
+- Try-catch di setiap async operation
+- Loading state untuk UX
+- `console.error` dengan context: `[ComponentName.method]`
+
+### Naming
+
+| Item           | Format               | Contoh               |
+| -------------- | -------------------- | -------------------- |
+| Component file | `PascalCase.svelte`  | `ProjectCard.svelte` |
+| Other file     | `kebab-case.ts`      | `project.service.ts` |
+| Component      | `PascalCase`         | `<ProjectCard />`    |
+| Function       | `camelCase`          | `getProjects`        |
+| Variable       | `camelCase`          | `isLoading`          |
+| Store          | `camelCase.store.ts` | `auth.store.ts`      |
+| Type           | `PascalCase`         | `ErdProject`         |
+
+### Styling
+
+- Tailwind CSS + DaisyUI components
+- Responsive: `sm:`, `md:`, `lg:`
+- Dark mode: `dark:` prefix
+
+---
+
+## Svelte MCP Tools
+
+1. **list-sections** — Discover documentation sections. Use FIRST.
+2. **get-documentation** — Fetch content for specific sections.
+3. **svelte-autofixer** — Analyze Svelte code for issues. Use before sending code.
+4. **playground-link** — Generate Svelte Playground link. Ask user confirmation first.
