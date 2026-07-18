@@ -1,4 +1,4 @@
-# Todo Frontend — SchemaFlow
+# Todo Frontend — AiKanAja
 
 _Last updated: 19/7/2026_
 _Status: IN PROGRESS_
@@ -276,7 +276,7 @@ _Status: IN PROGRESS_
 
 - [x] 🔴 `src/routes/auth/login/+page.svelte`:
   - Google OAuth button (single button, besar)
-  - SchemaFlow logo
+  - AiKanAja logo
   - Tagline "Buat ERD dari deskripsi teks"
   - Loading state saat redirect
 - [x] 🔴 `src/routes/auth/login/+page.server.ts`:
@@ -308,7 +308,7 @@ _Status: IN PROGRESS_
 - [x] 🔴 `src/routes/+page.svelte`:
   - Hero section:
     - Headline: "Buat ERD Otomatis dari Deskripsi Teks"
-    - Subheadline: deskripsi singkat SchemaFlow
+    - Subheadline: deskripsi singkat AiKanAja
     - CTA buttons: "Coba Gratis" → `/try`, "Login" → `/auth/login`
     - Quick input: textarea + generate button (redirect ke `/try`)
   - Features section:
@@ -673,27 +673,27 @@ _Status: IN PROGRESS_
 
 ### 7.5 Appearance Settings
 
-- [ ] 🟡 `src/routes/settings/appearance/+page.svelte`:
+- [x] 🟡 `src/routes/settings/appearance/+page.svelte`:
   - Theme: Light, Dark, System (radio cards)
   - Font size: Small, Medium, Large (radio)
   - Canvas background: Dots, Lines, Cross (radio)
   - Preview section
-- [ ] 🟡 `src/routes/settings/appearance/+page.server.ts`:
-  - Load: preferences
-  - Form action: save preferences
+  - Preferensi disimpan di localStorage via `ui.store` (`setAppearance`), diterapkan via `data-theme`/`data-font-size`/`data-canvas-bg` di `document.documentElement`
+- [x] 🟡 `src/routes/settings/appearance/+page.server.ts`:
+  - Tidak ada (preferensi client-only, persist via localStorage)
 
 ### 7.6 Notification Settings
 
-- [ ] 🟡 `src/routes/settings/notifications/+page.svelte`:
+- [x] 🟡 `src/routes/settings/notifications/+page.svelte`:
   - Toggles:
     - Email notifications
     - Project shared notification
     - Quota warning (80%, 90%, 100%)
     - Billing notification
   - Save button
-- [ ] 🟡 `src/routes/settings/notifications/+page.server.ts`:
-  - Load: notification prefs
-  - Form action: save prefs
+  - Preferensi disimpan di localStorage via `ui.store` (`setNotifications`)
+- [x] 🟡 `src/routes/settings/notifications/+page.server.ts`:
+  - Tidak ada (preferensi client-only, persist via localStorage)
 
 ---
 
@@ -893,7 +893,7 @@ _Status: IN PROGRESS_
 | 4 — Landing & Try          | ✅ Done         | 100%     |
 | 5 — Dashboard              | ✅ Done         | 100%     |
 | 6 — ERD Workspace          | ✅ Done         | 100%     |
-| 7 — Settings               | 🟡 In Progress  | 67%      |
+| 7 — Settings               | ✅ Done         | 100%     |
 | 8 — Billing & Quota        | 🔴 Not Started  | 0%       |
 | 9 — Project Sub-pages      | 🔴 Not Started  | 0%       |
 | 10 — Error & Polish        | 🔴 Not Started  | 0%       |

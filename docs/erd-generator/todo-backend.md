@@ -1,4 +1,4 @@
-# Todo Backend — AI Kanaja Backend (SchemaFlow Module)
+# Todo Backend — AI Kanaja Backend (AiKanAja Module)
 
 _Last updated: 17/7/2026_
 _Status: IN PROGRESS_

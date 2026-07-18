@@ -38,7 +38,7 @@
 </script>
 
 <svelte:head>
-	<title>Trash — SchemaFlow</title>
+	<title>Trash — AiKanAja</title>
 </svelte:head>
 
 <div class="relative min-h-full">

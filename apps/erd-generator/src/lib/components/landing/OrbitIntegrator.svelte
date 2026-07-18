@@ -173,7 +173,7 @@
 			</h2>
 
 			<p class="text-slate-400 leading-relaxed">
-				SchemaFlow secara otomatis menyesuaikan sintaks tipe data, format penulisan primary key,
+				AiKanAja secara otomatis menyesuaikan sintaks tipe data, format penulisan primary key,
 				dan constraint relasi sesuai dengan target engine database yang Anda pilih.
 			</p>
 

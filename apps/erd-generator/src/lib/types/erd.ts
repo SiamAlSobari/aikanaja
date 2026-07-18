@@ -1,1 +1,1 @@
-export * from '@schemaflow/shared';
+export * from '@aikanaja/shared';

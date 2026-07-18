@@ -114,7 +114,7 @@
 </script>
 
 <svelte:head>
-	<title>Dashboard — SchemaFlow</title>
+	<title>Dashboard — AiKanAja</title>
 </svelte:head>
 
 <div class="relative min-h-full">

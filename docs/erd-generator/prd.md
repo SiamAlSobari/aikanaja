@@ -1,4 +1,4 @@
-# SchemaFlow: Aplikasi Pembuat ERD Otomatis
+# AiKanAja: Aplikasi Pembuat ERD Otomatis
 
 _Product Requirement Document (PRD)_
 _Dibuat: 29/5/2026_
@@ -9,7 +9,7 @@ _Status: SYNCED_
 
 ## Ringkasan Eksekutif
 
-SchemaFlow adalah aplikasi web yang memungkinkan pengguna untuk membuat Entity Relationship Diagram (ERD) secara otomatis hanya dengan memberikan deskripsi teks. Aplikasi ini akan memproses deskripsi tersebut, menghasilkan struktur database, dan memvisualisasikannya secara interaktif di kanvas.
+AiKanAja adalah aplikasi web yang memungkinkan pengguna untuk membuat Entity Relationship Diagram (ERD) secara otomatis hanya dengan memberikan deskripsi teks. Aplikasi ini akan memproses deskripsi tersebut, menghasilkan struktur database, dan memvisualisasikannya secara interaktif di kanvas.
 
 **Tujuan Utama:**
 
@@ -44,7 +44,7 @@ SchemaFlow adalah aplikasi web yang memungkinkan pengguna untuk membuat Entity R
 
 ### Visi
 
-SchemaFlow bertujuan untuk menjadi aplikasi utama dalam pembuatan ERD secara otomatis, memudahkan pengguna untuk membuat struktur database yang akurat dan efisien.
+AiKanAja bertujuan untuk menjadi aplikasi utama dalam pembuatan ERD secara otomatis, memudahkan pengguna untuk membuat struktur database yang akurat dan efisien.
 
 ### Target Audiens
 
@@ -847,5 +847,5 @@ Backend ini dirancang sebagai **multi-project monolith**:
 
 Project yang sudah ada:
 
-- **ERD Generator** (`/erd`) — SchemaFlow
+- **ERD Generator** (`/erd`) — AiKanAja
 - **PRD Generator** (`/prd`) — PRD generation tool

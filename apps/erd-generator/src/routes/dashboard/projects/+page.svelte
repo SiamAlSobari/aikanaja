@@ -133,7 +133,7 @@
 </script>
 
 <svelte:head>
-	<title>Projects — SchemaFlow</title>
+	<title>Projects — AiKanAja</title>
 </svelte:head>
 
 <div class="relative min-h-full">

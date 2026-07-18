@@ -1,8 +1,8 @@
-# Enhanced SchemaFlow Landing Page Implementation Plan
+# Enhanced AiKanAja Landing Page Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Implement a highly animated, premium, and benefits-focused landing page for SchemaFlow featuring a floating glassmorphic pill navbar on scroll, before/after comparative panel, database stack orbit visualizer, and FAQ accordion.
+**Goal:** Implement a highly animated, premium, and benefits-focused landing page for AiKanAja featuring a floating glassmorphic pill navbar on scroll, before/after comparative panel, database stack orbit visualizer, and FAQ accordion.
 
 **Architecture:** A single high-performance Svelte page (`src/routes/+page.svelte`) utilizing Svelte 5 `$state` and `$derived` runes for mouse parallax, dynamic navbar scrolling thresholds, accordion states, and interactive orbit callbacks. All visual transitions and layout adaptations run via GPU-accelerated CSS and reactive classes for maximum performance.
 
@@ -43,7 +43,7 @@
 - Modify: `src/routes/+page.svelte`
 
 **Interfaces:**
-- Produces: A highly polished landing page with a dynamic navbar, benefit-driven copywriting, a visual SQL vs SchemaFlow comparison section, a database stack orbit connector, and a smooth FAQ accordion.
+- Produces: A highly polished landing page with a dynamic navbar, benefit-driven copywriting, a visual SQL vs AiKanAja comparison section, a database stack orbit connector, and a smooth FAQ accordion.
 
 - [ ] **Step 1: Write Svelte 5 logic and markup in `+page.svelte`**
   Completed. Clean landing page written with floating navbar, orbit, comparative before/after, and accordions.

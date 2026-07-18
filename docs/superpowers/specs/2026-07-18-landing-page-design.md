@@ -1,4 +1,4 @@
-# Design Spec: SchemaFlow Landing Page (Enhanced Version)
+# Design Spec: AiKanAja Landing Page (Enhanced Version)
 
 **Date**: 2026-07-18  
 **Status**: APPROVED  
@@ -6,7 +6,7 @@
 ---
 
 ## 1. Overview & Objectives
-Update the SchemaFlow landing page to make it highly interactive, visually "alive", and densely informative. The layout will transition from a developer-focused jargon page to a highly polished, benefits-focused, soft-dark landing page.
+Update the AiKanAja landing page to make it highly interactive, visually "alive", and densely informative. The layout will transition from a developer-focused jargon page to a highly polished, benefits-focused, soft-dark landing page.
 
 ---
 
@@ -31,10 +31,10 @@ Update the SchemaFlow landing page to make it highly interactive, visually "aliv
 ### 3.2 Visual Comparison Section (Before/After)
 - Side-by-side comparison panel:
   - **Left (Manual Coding)**: Red-tinted, full of lint errors, slow, manual.
-  - **Right (SchemaFlow)**: Green-tinted, instant visual connection, automated.
+  - **Right (AiKanAja)**: Green-tinted, instant visual connection, automated.
 
 ### 3.3 Tech Stack Orbit Integrator
-- Central SchemaFlow icon orbited by brand badges: PostgreSQL, MySQL, SQLite, Prisma, Supabase, Neon, PlanetScale, Drizzle.
+- Central AiKanAja icon orbited by brand badges: PostgreSQL, MySQL, SQLite, Prisma, Supabase, Neon, PlanetScale, Drizzle.
 - Hovering an icon animates a glowing bezier path from the badge to the center, demonstrating native compatibility.
 
 ### 3.4 FAQ Accordion Grid

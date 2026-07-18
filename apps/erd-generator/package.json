@@ -1,5 +1,5 @@
 {
-	"name": "@schemaflow/erd-generator",
+	"name": "@aikanaja/erd-generator",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -37,7 +37,7 @@
 		"vite": "^8.0.16"
 	},
 	"dependencies": {
-		"@schemaflow/shared": "workspace:*",
+		"@aikanaja/shared": "workspace:*",
 		"@xyflow/svelte": "^1.6.2",
 		"daisyui": "^5.6.18",
 		"lucide-svelte": "^1.0.1"

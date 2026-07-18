@@ -8,7 +8,7 @@
 	>
 		<div class="flex items-center gap-2">
 			<Database class="w-4 h-4 text-orange-600/50" />
-			<span>© 2026 SchemaFlow. Hak cipta dilindungi undang-undang.</span>
+			<span>© 2026 AiKanAja. Hak cipta dilindungi undang-undang.</span>
 		</div>
 		<div class="flex gap-6">
 			<a href="#features" class="hover:text-slate-400">Fitur</a>

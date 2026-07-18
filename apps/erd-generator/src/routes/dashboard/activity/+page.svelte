@@ -71,7 +71,7 @@
 </script>
 
 <svelte:head>
-	<title>Activity — SchemaFlow</title>
+	<title>Activity — AiKanAja</title>
 </svelte:head>
 
 <div class="relative min-h-full">

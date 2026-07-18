@@ -43,7 +43,7 @@
 </script>
 
 <svelte:head>
-	<title>{template?.name || 'Template'} — SchemaFlow</title>
+	<title>{template?.name || 'Template'} — AiKanAja</title>
 </svelte:head>
 
 <div class="relative min-h-full">

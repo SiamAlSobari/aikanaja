@@ -1,7 +1,8 @@
 import { Elysia, t } from 'elysia'
 import { authMiddleware } from '../../../common/middlewares/auth.middleware'
-import { apiKeyService } from './api-key.service'
+import { ApiKeyService } from './api-key.service'
 
+const apiKeyService = new ApiKeyService()
 const providerEnum = t.Union([t.Literal('groq'), t.Literal('gemini')])
 
 export const apiKeyController = new Elysia({ prefix: '/api-keys' })

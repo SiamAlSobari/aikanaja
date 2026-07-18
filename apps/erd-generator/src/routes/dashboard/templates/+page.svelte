@@ -55,7 +55,7 @@
 </script>
 
 <svelte:head>
-	<title>Templates — SchemaFlow</title>
+	<title>Templates — AiKanAja</title>
 </svelte:head>
 
 <div class="relative min-h-full">

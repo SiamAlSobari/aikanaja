@@ -13,7 +13,7 @@
 		"moduleResolution": "bundler",
 		"baseUrl": ".",
 		"paths": {
-			"@schemaflow/shared": ["../../packages/shared/src/index.ts"]
+			"@aikanaja/shared": ["../../packages/shared/src/index.ts"]
 		}
 	}
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias

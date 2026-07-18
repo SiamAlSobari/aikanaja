@@ -6,7 +6,7 @@
 
 	const faqs = [
 		{
-			q: 'Bagaimana AI SchemaFlow mengenali relasi database?',
+			q: 'Bagaimana AI AiKanAja mengenali relasi database?',
 			a: 'AI kami dilatih untuk memindai deskripsi teks dan mencari entitas yang memiliki hubungan logis (misal: "setiap User dapat memiliki banyak Order"). Hubungan tersebut secara otomatis diterjemahkan menjadi foreign key dan index pada tingkat database SQL/Prisma.'
 		},
 		{
@@ -15,7 +15,7 @@
 		},
 		{
 			q: 'Bagaimana cara kerja Custom API Keys di aplikasi ini?',
-			a: 'Anda cukup pergi ke menu Settings -> API Keys dan menempelkan kunci OpenAI/Gemini Anda. Saat kunci terpasang, backend SchemaFlow akan memproses generate ERD menggunakan kuota token Anda sendiri. Hal ini menghilangkan batasan kuota gratis kami sepenuhnya.'
+			a: 'Anda cukup pergi ke menu Settings -> API Keys dan menempelkan kunci OpenAI/Gemini Anda. Saat kunci terpasang, backend AiKanAja akan memproses generate ERD menggunakan kuota token Anda sendiri. Hal ini menghilangkan batasan kuota gratis kami sepenuhnya.'
 		},
 		{
 			q: 'Format database apa saja yang didukung untuk ekspor skema?',

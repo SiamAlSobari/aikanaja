@@ -117,7 +117,7 @@
 
 			<!-- Footer -->
 			<p class="text-center text-xs text-slate-600/60 mt-6 animate-fade-in-up" style="animation-delay: 0.8s;">
-				© 2026 SchemaFlow. All rights reserved.
+				© 2026 AiKanAja. All rights reserved.
 			</p>
 		</div>
 	</div>

@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>Login — SchemaFlow</title>
+	<title>Login — AiKanAja</title>
 </svelte:head>
 
 <div class="space-y-7">

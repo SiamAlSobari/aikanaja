@@ -13,7 +13,7 @@
 				Bandingkan Sendiri Kemudahannya
 			</h2>
 			<p class="text-slate-400">
-				Merancang relasi database dengan baris sintaks manual rawan kesalahan ketik. SchemaFlow
+				Merancang relasi database dengan baris sintaks manual rawan kesalahan ketik. AiKanAja
 				memvisualisasikannya secara otomatis.
 			</p>
 		</div>
@@ -95,7 +95,7 @@
 							class="text-xs font-semibold text-orange-500 uppercase tracking-widest flex items-center gap-1.5"
 						>
 							<span class="w-1.5 h-1.5 rounded-full bg-orange-600 animate-ping"></span>
-							SchemaFlow Generator
+							AiKanAja Generator
 						</span>
 						<span class="text-[10px] text-orange-500/60 font-mono"
 							>100% Valid & Auto-Formatted</span

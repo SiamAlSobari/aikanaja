@@ -44,7 +44,7 @@
 					Generasi ERD Otomatis via AI
 				</h3>
 				<p class="text-slate-400 text-sm leading-relaxed max-w-xl">
-					Tulis kebutuhan aplikasi Anda secara bebas. Engine kecerdasan buatan SchemaFlow secara
+					Tulis kebutuhan aplikasi Anda secara bebas. Engine kecerdasan buatan AiKanAja secara
 					cerdas mengekstrak nama entitas, relasi parent-child, constraints, dan tipe field
 					database dalam sekejap.
 				</p>

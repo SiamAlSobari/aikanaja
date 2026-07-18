@@ -91,7 +91,7 @@
 </script>
 
 <svelte:head>
-	<title>Try SchemaFlow — Guest Workspace</title>
+	<title>Try AiKanAja — Guest Workspace</title>
 	<meta name="description" content="Coba buat ERD dari deskripsi teks secara gratis tanpa login." />
 </svelte:head>
 
