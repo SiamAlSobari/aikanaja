@@ -6,6 +6,7 @@
 <div class="mx-auto max-w-4xl space-y-6 p-6">
 	<div class="flex items-center gap-3">
 		<a
+			id="back-billing-btn"
 			href="/settings/billing"
 			class="btn rounded-xl btn-ghost text-slate-400 btn-sm hover:text-white"
 		>
@@ -14,12 +15,12 @@
 		<h1 class="text-xl font-bold text-white">Payment History Logs</h1>
 	</div>
 
-	<div class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm">
+	<div class="overflow-hidden rounded-2xl border border-slate-800/60 bg-slate-900/40 backdrop-blur-sm">
 		{#if data.payments && data.payments.length > 0}
 			<div class="overflow-x-auto">
 				<table class="table w-full text-slate-300">
 					<thead>
-						<tr class="border-b border-slate-800 text-slate-400">
+						<tr class="border-b border-slate-800/60 text-slate-400">
 							<th class="px-4 py-3 text-left text-xs font-semibold">Date</th>
 							<th class="px-4 py-3 text-left text-xs font-semibold">Plan</th>
 							<th class="px-4 py-3 text-left text-xs font-semibold">Amount</th>

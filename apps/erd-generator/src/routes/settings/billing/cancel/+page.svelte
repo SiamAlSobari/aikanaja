@@ -9,6 +9,7 @@
 <div class="mx-auto max-w-lg space-y-6 p-6">
 	<div class="flex items-center gap-3">
 		<a
+			id="cancel-billing-back-btn"
 			href="/settings/billing"
 			class="btn rounded-xl btn-ghost text-slate-400 btn-sm hover:text-white"
 		>
@@ -25,7 +26,7 @@
 		</div>
 	{/if}
 
-	<div class="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/40 p-6 backdrop-blur-sm">
+	<div class="space-y-4 rounded-2xl border border-slate-800/60 bg-slate-900/40 p-6 backdrop-blur-sm">
 		<div class="flex gap-3 rounded-xl border border-red-900/30 bg-red-950/15 p-4 text-red-200">
 			<AlertTriangle class="h-5 w-5 shrink-0 text-red-500" />
 			<div class="space-y-1 text-xs">
@@ -41,6 +42,7 @@
 			<div class="form-control">
 				<label class="label flex cursor-pointer justify-start gap-3">
 					<input
+						id="confirm-downgrade-checkbox"
 						type="checkbox"
 						bind:checked={confirmed}
 						class="checkbox-orange checkbox rounded-md border-slate-700 bg-slate-950"
@@ -53,6 +55,7 @@
 
 			<div class="flex gap-3">
 				<button
+					id="confirm-downgrade-btn"
 					type="submit"
 					disabled={!confirmed}
 					class="btn flex-1 rounded-xl border-none bg-red-600 font-semibold text-white btn-sm hover:bg-red-700 disabled:opacity-30"
@@ -60,6 +63,7 @@
 					Confirm Downgrade
 				</button>
 				<a
+					id="nevermind-billing-cancel-btn"
 					href="/settings/billing"
 					class="btn rounded-xl btn-ghost text-xs text-slate-400 btn-sm hover:bg-slate-800"
 				>

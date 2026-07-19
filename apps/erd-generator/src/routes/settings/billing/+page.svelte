@@ -13,7 +13,7 @@
 	{#if billing}
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 			<!-- Current Plan Card -->
-			<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden">
+			<div class="bg-slate-900/50 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden">
 				<div class="absolute top-0 right-0 w-24 h-24 bg-orange-600/5 rounded-full blur-2xl"></div>
 				<div class="flex items-center gap-3 mb-4">
 					<div class="w-10 h-10 rounded-xl bg-orange-600/10 border border-orange-600/20 flex items-center justify-center">
@@ -30,11 +30,11 @@
 				</div>
 				<div class="flex gap-3">
 					{#if billing.plan === 'free' || !billing.plan}
-						<a href="/settings/billing/upgrade" class="btn btn-sm bg-gradient-to-r from-orange-600 to-amber-500 border-none text-white font-semibold rounded-xl px-4 shadow-[0_0_15px_rgba(249,115,22,0.2)] hover:opacity-90 transition-opacity">
+						<a id="upgrade-plan-btn" href="/settings/billing/upgrade" class="btn btn-sm bg-gradient-to-r from-orange-600 to-amber-500 border-none text-white font-semibold rounded-xl px-4 shadow-[0_0_15px_rgba(249,115,22,0.2)] hover:opacity-90 transition-opacity">
 							Upgrade Plan <ArrowUpRight class="w-4 h-4" />
 						</a>
 					{:else}
-						<a href="/settings/billing/cancel" class="text-xs text-slate-500 hover:text-red-400 transition-colors font-medium self-center">
+						<a id="cancel-sub-link" href="/settings/billing/cancel" class="text-xs text-slate-500 hover:text-red-400 transition-colors font-medium self-center">
 							Cancel Subscription
 						</a>
 					{/if}
@@ -42,7 +42,7 @@
 			</div>
 
 			<!-- Usage Quotas Card -->
-			<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm">
+			<div class="bg-slate-900/50 border border-slate-800/60 rounded-2xl p-6 backdrop-blur-sm">
 				<h3 class="text-sm font-semibold text-white mb-4">Quota Usage (Monthly)</h3>
 				<div class="space-y-4">
 					<div>
@@ -72,8 +72,8 @@
 		</div>
 
 		<!-- Secondary Nav Info -->
-		<div class="flex gap-4 border-t border-slate-800 pt-6">
-			<a href="/settings/billing/payment" class="text-xs text-orange-500 hover:text-orange-400 transition-colors font-semibold">
+		<div class="flex gap-4 border-t border-slate-800/60 pt-6">
+			<a id="payment-logs-link" href="/settings/billing/payment" class="text-xs text-orange-500 hover:text-orange-400 transition-colors font-semibold">
 				View Payment Logs &rarr;
 			</a>
 		</div>

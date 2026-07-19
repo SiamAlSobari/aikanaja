@@ -15,7 +15,7 @@
 
 <div class="p-6 max-w-4xl mx-auto space-y-6">
 	<div class="flex items-center gap-3">
-		<a href="/settings/billing" class="btn btn-sm btn-ghost rounded-xl text-slate-400 hover:text-white">
+		<a id="back-billing-btn" href="/settings/billing" class="btn btn-sm btn-ghost rounded-xl text-slate-400 hover:text-white">
 			<ArrowLeft class="w-4 h-4" /> Back
 		</a>
 		<h1 class="text-xl font-bold text-white">Upgrade Account Plan</h1>
@@ -29,7 +29,7 @@
 
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 		<!-- Pro Card -->
-		<div class="bg-slate-900/40 border {selectedPlan === 'pro' ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]' : 'border-slate-800'} rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
+		<div class="bg-slate-900/40 border {selectedPlan === 'pro' ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]' : 'border-slate-800/60'} rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
 			<div>
 				<h3 class="text-lg font-bold text-white mb-2">Pro Plan</h3>
 				<p class="text-xs text-slate-400 mb-4">For power developers and independent creators.</p>
@@ -43,14 +43,14 @@
 			</div>
 			<form use:enhance method="POST" class="mt-8">
 				<input type="hidden" name="plan" value="pro" />
-				<button type="submit" onclick={() => selectedPlan = 'pro'} class="w-full btn btn-sm {selectedPlan === 'pro' ? 'bg-orange-600 text-white' : 'bg-slate-800 text-slate-300'} border-none font-semibold rounded-xl">
+				<button id="choose-pro-btn" type="submit" onclick={() => selectedPlan = 'pro'} class="w-full btn btn-sm {selectedPlan === 'pro' ? 'bg-gradient-to-r from-brand-orange to-brand-amber text-white shadow-[0_0_15px_rgba(255,62,0,0.2)] hover:opacity-90 transition-opacity' : 'bg-slate-800 text-slate-300'} border-none font-semibold rounded-xl">
 					Choose Pro Plan
 				</button>
 			</form>
 		</div>
 
 		<!-- Team Card -->
-		<div class="bg-slate-900/40 border {selectedPlan === 'team' ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]' : 'border-slate-800'} rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
+		<div class="bg-slate-900/40 border {selectedPlan === 'team' ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]' : 'border-slate-800/60'} rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
 			<div>
 				<h3 class="text-lg font-bold text-white mb-2">Team Plan</h3>
 				<p class="text-xs text-slate-400 mb-4">For engineering teams and collaborative setups.</p>
@@ -64,7 +64,7 @@
 			</div>
 			<form use:enhance method="POST" class="mt-8">
 				<input type="hidden" name="plan" value="team" />
-				<button type="submit" onclick={() => selectedPlan = 'team'} class="w-full btn btn-sm {selectedPlan === 'team' ? 'bg-orange-600 text-white' : 'bg-slate-800 text-slate-300'} border-none font-semibold rounded-xl">
+				<button id="choose-team-btn" type="submit" onclick={() => selectedPlan = 'team'} class="w-full btn btn-sm {selectedPlan === 'team' ? 'bg-gradient-to-r from-brand-orange to-brand-amber text-white shadow-[0_0_15px_rgba(255,62,0,0.2)] hover:opacity-90 transition-opacity' : 'bg-slate-800 text-slate-300'} border-none font-semibold rounded-xl">
 					Choose Team Plan
 				</button>
 			</form>
@@ -74,18 +74,18 @@
 	<!-- Payment Instructions Modal -->
 	{#if showInstructions && form?.paymentInfo}
 		<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-			<div class="bg-slate-900 border border-slate-800 max-w-md w-full rounded-2xl p-6 space-y-4">
+			<div class="bg-slate-900 border border-slate-800/60 max-w-md w-full rounded-2xl p-6 space-y-4">
 				<h3 class="text-lg font-bold text-white">Payment Request Created</h3>
-				<div class="bg-slate-950 p-4 border border-slate-800 rounded-xl space-y-2 text-xs">
+				<div class="bg-slate-950 p-4 border border-slate-800/60 rounded-xl space-y-2 text-xs">
 					{#each form.paymentInfo.instructions as instr}
 						<p class="text-slate-300">{instr}</p>
 					{/each}
 				</div>
 				<div class="flex gap-3">
-					<a href="{form.paymentInfo.paymentInfo.whatsappUrl}" target="_blank" class="flex-1 btn btn-sm bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl border-none gap-2">
+					<a id="send-wa-proof-btn" href="{form.paymentInfo.paymentInfo.whatsappUrl}" target="_blank" class="flex-1 btn btn-sm bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl border-none gap-2">
 						<MessageSquare class="w-4 h-4" /> Send Proof on WhatsApp
 					</a>
-					<button onclick={() => showInstructions = false} class="btn btn-sm btn-ghost hover:bg-slate-800 rounded-xl text-xs text-slate-400">
+					<button id="close-instructions-btn" onclick={() => showInstructions = false} class="btn btn-sm btn-ghost hover:bg-slate-800 rounded-xl text-xs text-slate-400">
 						Close
 					</button>
 				</div>
