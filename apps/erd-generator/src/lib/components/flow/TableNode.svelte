@@ -4,8 +4,9 @@
 	import { flowStore } from '$lib/stores/flow.store.svelte';
 	import type { ErdTable, ErdColumn } from '$lib/types/erd';
 
-	let { data }: { data: { table: ErdTable } } = $props();
+	let { data }: { data: { table: ErdTable; isReadOnly?: boolean } } = $props();
 	const table = $derived(data.table);
+	const isReadOnly = $derived(data.isReadOnly ?? false);
 	const isSelected = $derived(flowStore.selectedNodeId === table.id);
 
 	function handleNodeClick() {
@@ -77,27 +78,31 @@
 				</span>
 
 				<!-- Delete button (hover only) -->
-				<button
-					class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-slate-600 hover:text-red-400"
-					aria-label={'Delete column ' + col.name}
-					onclick={(e) => { e.stopPropagation(); handleDeleteColumn(col.id); }}
-				>
-					<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-					</svg>
-				</button>
+				{#if !isReadOnly}
+					<button
+						class="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-slate-600 hover:text-red-400"
+						aria-label={'Delete column ' + col.name}
+						onclick={(e) => { e.stopPropagation(); handleDeleteColumn(col.id); }}
+					>
+						<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+						</svg>
+					</button>
+				{/if}
 			</div>
 		{/each}
 
 		<!-- Add column -->
-		<button
-			onclick={handleAddColumn}
-			class="flex items-center justify-center gap-1 w-full py-1.5 text-[10px] text-slate-600 hover:text-orange-400 hover:bg-orange-500/5 transition-colors"
-		>
-			<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-			</svg>
-			Add Column
-		</button>
+		{#if !isReadOnly}
+			<button
+				onclick={handleAddColumn}
+				class="flex items-center justify-center gap-1 w-full py-1.5 text-[10px] text-slate-600 hover:text-orange-400 hover:bg-orange-500/5 transition-colors"
+			>
+				<svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+				</svg>
+				Add Column
+			</button>
+		{/if}
 	</div>
 </div>

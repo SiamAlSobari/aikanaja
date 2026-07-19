@@ -22,6 +22,11 @@
 
 	const activeReadOnly = $derived(readonly || isReadOnly);
 
+	const mappedNodes = $derived((nodes ?? flowStore.nodes).map(n => ({
+		...n,
+		data: { ...n.data, isReadOnly: activeReadOnly }
+	})));
+
 	const nodeTypes = { table: TableNode };
 	const edgeTypes = { relation: RelationEdge };
 
@@ -58,7 +63,7 @@
 <div class="w-full h-full relative" class:select-none={!activeReadOnly}>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<SvelteFlow
-		nodes={nodes ?? flowStore.nodes}
+		nodes={mappedNodes}
 		edges={edges ?? flowStore.edges}
 		{nodeTypes}
 		{edgeTypes}

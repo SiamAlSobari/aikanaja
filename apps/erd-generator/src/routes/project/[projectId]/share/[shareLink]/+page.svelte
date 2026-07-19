@@ -1,7 +1,10 @@
 <script lang="ts">
 	import ERDCanvas from '$lib/components/flow/ERDCanvas.svelte';
-	import { Database, LogIn } from 'lucide-svelte';
+	import { Database, LogIn, Download } from 'lucide-svelte';
+	import ExportModal from '$lib/components/features/export/ExportModal.svelte';
 	let { data } = $props();
+
+	let isExportOpen = $state(false);
 
 	// Construct nodes/edges read-only data for ERDCanvas
 	const nodes = $derived(data.project?.schema?.tables?.map((table: any) => ({
@@ -38,9 +41,14 @@
 				<span class="ml-2 bg-slate-800 text-[10px] text-slate-400 border border-slate-700 px-1.5 py-0.5 rounded" id="view-only-badge">View Only</span>
 			</div>
 		</div>
-		<a href="/auth/login" id="signin-btn" class="btn btn-xs bg-orange-600 hover:bg-orange-700 text-white rounded-lg border-none font-medium gap-1">
-			<LogIn class="w-3.5 h-3.5" /> Sign In to Fork
-		</a>
+		<div class="flex items-center gap-2">
+			<button onclick={() => isExportOpen = true} id="export-btn" class="btn btn-xs bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border-none font-medium gap-1 px-3">
+				<Download class="w-3.5 h-3.5" /> Export
+			</button>
+			<a href="/auth/login" id="signin-btn" class="btn btn-xs bg-gradient-to-r from-brand-orange to-brand-amber text-white shadow-[0_0_15px_rgba(255,62,0,0.2)] hover:opacity-90 transition-opacity rounded-lg border-none font-medium gap-1 px-3">
+				<LogIn class="w-3.5 h-3.5" /> Sign In to Fork
+			</a>
+		</div>
 	</header>
 
 	<!-- Diagram Canvas Area -->
@@ -48,3 +56,5 @@
 		<ERDCanvas {nodes} {edges} isReadOnly={true} />
 	</div>
 </div>
+
+<ExportModal bind:open={isExportOpen} schema={data.project.schema} projectName={data.project.name} />

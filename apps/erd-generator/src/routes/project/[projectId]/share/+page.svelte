@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { ArrowLeft, UserPlus, Link, Copy, Check, Trash } from 'lucide-svelte';
 	import { enhance } from '$app/forms';
+	import { page } from '$app/state';
 	let { data, form } = $props();
 
 	let copied = $state(false);
 
 	function copyToClipboard(linkStr: string) {
-		const fullLink = `${window.location.origin}/project/${data.project.id}/share/${linkStr}`;
+		const fullLink = `${page.url.origin}/project/${data.project.id}/share/${linkStr}`;
 		navigator.clipboard.writeText(fullLink);
 		copied = true;
 		setTimeout(() => copied = false, 2000);
@@ -41,7 +42,7 @@
 						<option value="view">Can View</option>
 						<option value="edit">Can Edit</option>
 					</select>
-					<button type="submit" id="invite-submit-btn" class="btn btn-sm bg-orange-600 hover:bg-orange-700 text-white rounded-xl border-none font-semibold px-4">
+					<button type="submit" id="invite-submit-btn" class="btn btn-sm bg-gradient-to-r from-brand-orange to-brand-amber text-white shadow-[0_0_15px_rgba(255,62,0,0.2)] hover:opacity-90 transition-opacity rounded-xl border-none font-semibold px-4">
 						Invite
 					</button>
 				</form>
@@ -54,7 +55,7 @@
 				</h3>
 				{#if data.shareLink}
 					<div class="flex gap-2">
-						<input type="text" readonly id="share-link-input" value="{window.location.origin}/project/{data.project.id}/share/{data.shareLink.link}" class="input input-bordered bg-slate-950 border-slate-800 rounded-xl text-xs flex-1 text-slate-400 select-all" />
+						<input type="text" readonly id="share-link-input" value="{page.url.origin}/project/{data.project.id}/share/{data.shareLink.link}" class="input input-bordered bg-slate-950 border-slate-800 rounded-xl text-xs flex-1 text-slate-400 select-all" />
 						<button onclick={() => copyToClipboard(data.shareLink.link)} id="copy-share-link-btn" class="btn btn-sm bg-slate-800 hover:bg-slate-700 text-white rounded-xl border-none gap-1">
 							{#if copied}
 								<Check class="w-3.5 h-3.5 text-emerald-500" /> Copied

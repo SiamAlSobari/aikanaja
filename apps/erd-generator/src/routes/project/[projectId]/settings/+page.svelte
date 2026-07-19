@@ -23,27 +23,27 @@
 		</div>
 	{/if}
 
-	<div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 space-y-4 backdrop-blur-sm">
+	<div class="bg-slate-900/40 border border-slate-800/60 rounded-2xl p-6 space-y-4 backdrop-blur-sm">
 		<form use:enhance action="?/update" method="POST" class="space-y-4" id="update-project-form">
 			<div class="form-control">
 				<label class="label text-xs font-semibold text-slate-400 uppercase tracking-wider" for="name-field">Project Name</label>
-				<input id="name-field" type="text" name="name" value={data.project.name} required class="input input-bordered bg-slate-950 border-slate-800 rounded-xl text-sm w-full focus:border-orange-500/50" />
+				<input id="name-field" type="text" name="name" value={data.project.name} required class="input input-bordered bg-slate-950 border-slate-800/60 rounded-xl text-sm w-full focus:border-orange-500/50" />
 			</div>
 
 			<div class="form-control">
 				<label class="label text-xs font-semibold text-slate-400 uppercase tracking-wider" for="desc-field">Description</label>
-				<textarea id="desc-field" name="description" rows="3" class="textarea textarea-bordered bg-slate-950 border-slate-800 rounded-xl text-sm w-full focus:border-orange-500/50">{data.project.description ?? ''}</textarea>
+				<textarea id="desc-field" name="description" rows="3" class="textarea textarea-bordered bg-slate-950 border-slate-800/60 rounded-xl text-sm w-full focus:border-orange-500/50">{data.project.description ?? ''}</textarea>
 			</div>
 
 			<div class="form-control">
 				<label class="label text-xs font-semibold text-slate-400 uppercase tracking-wider" for="visibility-field">Visibility</label>
-				<select id="visibility-field" name="visibility" class="select select-bordered bg-slate-950 border-slate-800 rounded-xl text-sm w-full focus:border-orange-500/50">
+				<select id="visibility-field" name="visibility" class="select select-bordered bg-slate-950 border-slate-800/60 rounded-xl text-sm w-full focus:border-orange-500/50">
 					<option value="private" selected={data.project.visibility === 'private'}>Private (Only invited members)</option>
 					<option value="public" selected={data.project.visibility === 'public'}>Public (Anyone with link can view)</option>
 				</select>
 			</div>
 
-			<button type="submit" id="save-settings-btn" class="btn btn-sm bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-semibold gap-2 border-none">
+			<button type="submit" id="save-settings-btn" class="btn btn-sm bg-gradient-to-r from-brand-orange to-brand-amber text-white shadow-[0_0_15px_rgba(255,62,0,0.2)] hover:opacity-90 transition-opacity rounded-xl font-semibold gap-2 border-none">
 				<Save class="w-4 h-4" /> Save Changes
 			</button>
 		</form>
