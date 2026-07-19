@@ -91,7 +91,19 @@ function redo() {
 	isDirty = false;
 }
 
-function loadFromSchema(schema: ErdSchema) {
+function loadFromSchema(raw: ErdSchema | string | null | undefined) {
+	if (!raw) return;
+
+	// Auto-parse if still a JSON string from the DB
+	let schema: ErdSchema;
+	if (typeof raw === 'string') {
+		try { schema = JSON.parse(raw); } catch { return; }
+	} else {
+		schema = raw;
+	}
+
+	if (!schema?.tables || !Array.isArray(schema.tables)) return;
+
 	const flowNodes: Node[] = schema.tables.map((t: ErdTable) => ({
 		id: t.id,
 		type: 'table',
@@ -99,7 +111,7 @@ function loadFromSchema(schema: ErdSchema) {
 		data: { table: t },
 	}));
 
-	const flowEdges: Edge[] = schema.relations.map((r: ErdRelation) => ({
+	const flowEdges: Edge[] = (schema.relations ?? []).map((r: ErdRelation) => ({
 		id: r.id,
 		source: r.sourceTableId,
 		target: r.targetTableId,
