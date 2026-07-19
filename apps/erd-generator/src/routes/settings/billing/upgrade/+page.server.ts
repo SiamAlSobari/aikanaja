@@ -25,7 +25,7 @@ export const actions: Actions = {
 				return fail(res.status, { error: e.message || 'Gagal upgrade' });
 			}
 			const result = await res.json();
-			return { success: true, paymentInfo: result.data };
+			return { success: true, paymentInfo: result };
 		} catch (e: any) {
 			return fail(500, { error: e.message || 'Terjadi kesalahan' });
 		}
