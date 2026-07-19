@@ -68,7 +68,10 @@
 		{nodeTypes}
 		{edgeTypes}
 		fitView
-		panOnDrag={!activeReadOnly}
+		panOnDrag={true}
+		nodesDraggable={!activeReadOnly}
+		nodesConnectable={!activeReadOnly}
+		elementsSelectable={!activeReadOnly}
 		zoomOnScroll
 		connectOnDrag={!activeReadOnly}
 		onConnect={handleConnect}
