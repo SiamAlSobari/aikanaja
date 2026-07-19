@@ -18,8 +18,14 @@
 	const schema = $derived(flowStore.toSchema());
 
 	onMount(() => {
-		if (data.project?.schema) {
-			flowStore.loadFromSchema(data.project.schema);
+		let schema = data.project?.schema;
+		if (schema) {
+			if (typeof schema === 'string') {
+				try { schema = JSON.parse(schema); } catch { schema = null; }
+			}
+			if (schema && schema.tables && schema.relations) {
+				flowStore.loadFromSchema(schema as ErdSchema);
+			}
 		}
 	});
 

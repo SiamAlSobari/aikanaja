@@ -19,6 +19,15 @@ export const load: LayoutServerLoad = async ({ params, fetch }) => {
 		const data = await res.json();
 		const project = data.data !== undefined ? data.data : data;
 
+		// Parse schema from JSON string if needed
+		if (project.schema && typeof project.schema === 'string') {
+			try {
+				project.schema = JSON.parse(project.schema);
+			} catch {
+				project.schema = null;
+			}
+		}
+
 		return {
 			project
 		};
