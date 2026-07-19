@@ -3,7 +3,7 @@
 	import { useStore } from '@xyflow/svelte';
 
 	let store = $derived(useStore());
-	let zoomLevel = $derived(((store as any).transform[2] * 100).toFixed(0));
+	let zoomLevel = $derived((store as any)?.transform?.[2] !== undefined ? (((store as any).transform[2] * 100).toFixed(0)) : '100');
 	let isLocked = $state(false);
 
 	function zoomIn() {
