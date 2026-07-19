@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import ProjectCard from '$lib/components/features/project/ProjectCard.svelte';
+	import { openNewProject } from '$lib/stores/new-project.store.svelte';
 	import {
 		Plus,
 		Search,
@@ -130,12 +131,12 @@
 				<h1 class="text-2xl font-extrabold text-white tracking-tight">Projects</h1>
 				<p class="text-sm text-slate-500 mt-1">{data.pagination.total} project{data.pagination.total !== 1 ? 's' : ''}</p>
 			</div>
-			<a
-				href="/dashboard/projects/new"
+			<button
+				onclick={openNewProject}
 				class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 hover:shadow-orange-600/30 transition-all active:scale-[0.98]"
 			>
 				<Plus class="w-4 h-4" /> New Project
-			</a>
+			</button>
 		</div>
 
 		<!-- Toolbar -->
@@ -306,12 +307,12 @@
 						{data.filters.search ? `No projects matching "${data.filters.search}"` : 'Create your first ERD from a text description.'}
 					</p>
 					{#if !data.filters.search}
-						<a
-							href="/dashboard/projects/new"
+						<button
+							onclick={openNewProject}
 							class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 transition-all active:scale-[0.98]"
 						>
 							<Zap class="w-3.5 h-3.5" /> Get Started
-						</a>
+						</button>
 					{/if}
 				</div>
 			</div>

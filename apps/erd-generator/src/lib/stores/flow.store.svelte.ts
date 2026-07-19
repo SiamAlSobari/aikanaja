@@ -19,6 +19,16 @@ function pushSnapshot() {
 	isDirty = true;
 }
 
+function beginChange() {
+	pushSnapshot();
+}
+
+function syncNodePositions(updates: { id: string; position: { x: number; y: number } }[]) {
+	const map = new Map(updates.map((u) => [u.id, u.position]));
+	nodes = nodes.map((n) => (map.has(n.id) ? { ...n, position: map.get(n.id)! } : n));
+	isDirty = true;
+}
+
 function selectNode(id: string | null) {
 	selectedNodeId = id;
 	if (id) selectedEdgeId = null;
@@ -111,18 +121,28 @@ function loadFromSchema(raw: ErdSchema | string | null | undefined) {
 		data: { table: t },
 	}));
 
-	const flowEdges: Edge[] = (schema.relations ?? []).map((r: ErdRelation) => ({
-		id: r.id,
-		source: r.sourceTableId,
-		target: r.targetTableId,
-		sourceHandle: r.sourceColumn,
-		targetHandle: r.targetColumn,
-		type: 'relation',
-		label: r.type === 'one-to-one' ? '1:1' : r.type === 'one-to-many' ? '1:N' : 'N:M',
-		animated: r.type === 'many-to-many',
-		style: 'stroke: #f97316; stroke-width: 1.5;',
-		labelStyle: 'fill: #f97316; font-size: 10px; font-weight: 600;',
-	}));
+	const flowEdges: Edge[] = (schema.relations ?? []).map((r: ErdRelation) => {
+		const srcTable = schema.tables.find((t) => t.id === r.sourceTableId);
+		const tgtTable = schema.tables.find((t) => t.id === r.targetTableId);
+		const srcCol =
+			srcTable?.columns.find((c) => c.name === r.sourceColumn) ??
+			srcTable?.columns.find((c) => c.primaryKey);
+		const tgtCol =
+			tgtTable?.columns.find((c) => c.name === r.targetColumn) ??
+			tgtTable?.columns.find((c) => c.primaryKey);
+		return {
+			id: r.id,
+			source: r.sourceTableId,
+			target: r.targetTableId,
+			sourceHandle: srcCol ? `s-${srcCol.id}` : undefined,
+			targetHandle: tgtCol ? `t-${tgtCol.id}` : undefined,
+			type: 'relation',
+			label: r.type === 'one-to-one' ? '1:1' : r.type === 'one-to-many' ? '1:N' : 'N:M',
+			animated: r.type === 'many-to-many',
+			style: 'stroke: #f97316; stroke-width: 1.5;',
+			labelStyle: 'fill: #f97316; font-size: 10px; font-weight: 600;'
+		};
+	});
 
 	nodes = flowNodes;
 	edges = flowEdges;
@@ -210,14 +230,22 @@ function toSchema(): ErdSchema {
 		columns: (n.data as any).table.columns,
 	}));
 
-	const relations: ErdRelation[] = edges.map((e) => ({
-		id: e.id,
-		sourceTableId: e.source,
-		targetTableId: e.target,
-		sourceColumn: (e.sourceHandle as string) || 'id',
-		targetColumn: (e.targetHandle as string) || 'id',
-		type: (e.label as string) === '1:1' ? 'one-to-one' : (e.label as string) === 'N:M' ? 'many-to-many' : 'one-to-many',
-	}));
+	const relations: ErdRelation[] = edges.map((e) => {
+		const srcTable = nodes.find((n) => n.id === e.source)?.data as any;
+		const tgtTable = nodes.find((n) => n.id === e.target)?.data as any;
+		const srcColId = (e.sourceHandle as string)?.replace(/^s-/, '');
+		const tgtColId = (e.targetHandle as string)?.replace(/^t-/, '');
+		const srcCol = srcTable?.table?.columns?.find((c: ErdColumn) => c.id === srcColId);
+		const tgtCol = tgtTable?.table?.columns?.find((c: ErdColumn) => c.id === tgtColId);
+		return {
+			id: e.id,
+			sourceTableId: e.source,
+			targetTableId: e.target,
+			sourceColumn: srcCol?.name ?? 'id',
+			targetColumn: tgtCol?.name ?? 'id',
+			type: (e.label as string) === '1:1' ? 'one-to-one' : (e.label as string) === 'N:M' ? 'many-to-many' : 'one-to-many'
+		};
+	});
 
 	return { tables, relations };
 }
@@ -252,6 +280,8 @@ export const flowStore = {
 	undo,
 	redo,
 	loadFromSchema,
+	beginChange,
+	syncNodePositions,
 	addColumnToTable,
 	updateColumnInTable,
 	deleteColumnFromTable,

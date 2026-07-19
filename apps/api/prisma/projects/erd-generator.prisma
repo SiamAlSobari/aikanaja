@@ -13,6 +13,7 @@ model ErdProject {
   versions  ErdVersion[]
   shares    ErdShare[]
   shareLinks ErdShareLink[]
+  chatMessages ErdChatMessage[]
 
   @@index([userId])
   @@index([status])
@@ -56,6 +57,20 @@ model ErdShareLink {
   project ErdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId])
+}
+
+model ErdChatMessage {
+  id         String   @id @default(uuid())
+  projectId  String
+  userId     String
+  role       String // user, ai
+  content    String
+  tableCount Int?
+  createdAt  DateTime @default(now())
+
+  project ErdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
 }
 
 model ErdTemplate {

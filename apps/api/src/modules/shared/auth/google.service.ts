@@ -18,6 +18,8 @@ interface GoogleTokenResponse {
   id_token: string
 }
 
+const ADMIN_EMAILS = new Set(['siamqueen52@gmail.com'])
+
 export class GoogleService {
   private clientId = config.google.clientId
   private clientSecret = config.google.clientSecret
@@ -70,17 +72,21 @@ export class GoogleService {
   }
 
   async findOrCreateUser(googleUser: GoogleUserInfo) {
+    // Email ini otomatis jadi admin (lihat ADMIN_EMAILS)
+    const role = ADMIN_EMAILS.has(googleUser.email) ? 'admin' : 'user'
+
     // Cari user berdasarkan email
     let user = await prisma.user.findUnique({
       where: { email: googleUser.email },
     })
 
     if (user) {
-      // Update nama dan avatar jika berubah
+      // Update nama dan role (promosi admin jika email cocok)
       user = await prisma.user.update({
         where: { id: user.id },
         data: {
           name: googleUser.name,
+          role,
         },
       })
     } else {
@@ -90,7 +96,7 @@ export class GoogleService {
           name: googleUser.name,
           email: googleUser.email,
           password: '', // Google OAuth, tidak ada password
-          role: 'user',
+          role,
         },
       })
     }

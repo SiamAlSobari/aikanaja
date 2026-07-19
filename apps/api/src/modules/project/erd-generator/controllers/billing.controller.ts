@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 import { authMiddleware } from '../../../../common/middlewares/auth.middleware'
 import { BillingService } from '../services/billing.service'
-import { UpgradeBody } from '../validations/billing.validation'
+import { UpgradeBody, ProofBody } from '../validations/billing.validation'
 
 const billingService = new BillingService()
 
@@ -26,3 +26,17 @@ export const billingController = new Elysia({ prefix: '/erd/billing' })
   .post('/cancel', async ({ user }) => {
     return billingService.cancelSubscription(user.id)
   })
+
+  // GET /erd/billing/payments/:id — Get one payment (user)
+  .get('/payments/:id', async ({ user, params }) => {
+    return billingService.getPaymentById(user.id, params.id)
+  })
+
+  // PUT /erd/billing/payments/:id/proof — Upload bukti (user)
+  .put(
+    '/payments/:id/proof',
+    async ({ user, params, body }) => {
+      return billingService.uploadProof(user.id, params.id, body.proofUrl)
+    },
+    { body: ProofBody }
+  )

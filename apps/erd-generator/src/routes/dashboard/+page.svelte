@@ -15,6 +15,7 @@
 		FileCode,
 		GitBranch,
 	} from 'lucide-svelte';
+	import { openNewProject } from '$lib/stores/new-project.store.svelte';
 
 	let { data } = $props();
 	const user = $derived(data.user);
@@ -45,24 +46,6 @@
 	function truncate(str: string, len: number): string {
 		if (!str) return '';
 		return str.length > len ? str.slice(0, len) + '...' : str;
-	}
-
-	let showNewProjectModal = $state(false);
-	let newProjectName = $state('');
-	let isCreating = $state(false);
-
-	async function createProject() {
-		if (!newProjectName.trim() || isCreating) return;
-		isCreating = true;
-		try {
-			const { erdApi } = await import('$lib/api/erd');
-			const res = await erdApi.create({ name: newProjectName });
-			if (res.data?.id) window.location.href = `/project/${res.data.id}`;
-		} catch (err) {
-			console.error('[dashboard.createProject]', err);
-		} finally {
-			isCreating = false;
-		}
 	}
 
 	const statCards = $derived([
@@ -130,10 +113,10 @@
 				</h1>
 				<p class="text-sm text-slate-500">Here's what's happening with your projects.</p>
 			</div>
-			<button
-				onclick={() => showNewProjectModal = true}
-				class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 hover:shadow-orange-600/30 transition-all active:scale-[0.98]"
-			>
+		<button
+			onclick={openNewProject}
+			class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 hover:shadow-orange-600/30 transition-all active:scale-[0.98]"
+		>
 				<Plus class="w-4 h-4" /> New Project
 			</button>
 		</div>
@@ -180,9 +163,9 @@
 
 		<!-- Quick Actions -->
 		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-			<button
-				onclick={() => showNewProjectModal = true}
-				onmousemove={handleCardMouseMove}
+		<button
+			onclick={openNewProject}
+			onmousemove={handleCardMouseMove}
 				class="group relative flex items-center gap-5 p-6 rounded-2xl overflow-hidden text-left w-full transition-all duration-300 animate-fade-in-up"
 				style="animation-delay: 350ms;"
 			>
@@ -287,10 +270,10 @@
 							</div>
 							<p class="text-sm font-medium text-slate-400 mb-1">No projects yet</p>
 							<p class="text-xs text-slate-600 mb-4 max-w-xs mx-auto">Create your first ERD from a text description.</p>
-							<button
-								onclick={() => showNewProjectModal = true}
-								class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 transition-all active:scale-[0.98]"
-							>
+						<button
+							onclick={openNewProject}
+							class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 transition-all active:scale-[0.98]"
+						>
 								<Zap class="w-3.5 h-3.5" /> Get Started
 							</button>
 						</div>
@@ -340,71 +323,13 @@
 	</div>
 </div>
 
-<!-- New Project Modal -->
-{#if showNewProjectModal}
-	<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-	<div
-		class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
-		onclick={() => showNewProjectModal = false}
-	>
-		<div
-			class="w-full max-w-md bg-slate-900 border border-slate-800/80 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden animate-scale-in"
-			onclick={(e) => e.stopPropagation()}
-		>
-			<div class="px-6 py-5 border-b border-slate-800/60">
-				<h3 class="text-lg font-bold text-white">New Project</h3>
-				<p class="text-xs text-slate-500 mt-1">Give your project a name to get started.</p>
-			</div>
-			<div class="px-6 py-5">
-				<input
-					type="text"
-					bind:value={newProjectName}
-					placeholder="e.g., E-Commerce Database"
-					class="w-full bg-slate-950/60 border border-slate-800 text-slate-200 text-sm rounded-xl
-						focus:outline-none focus:border-orange-600/50 focus:ring-1 focus:ring-orange-600/20
-						placeholder:text-slate-600 px-4 py-3"
-					onkeydown={(e) => { if (e.key === 'Enter') createProject(); }}
-				/>
-			</div>
-			<div class="px-6 py-4 border-t border-slate-800/60 flex items-center justify-end gap-3">
-				<button
-					onclick={() => showNewProjectModal = false}
-					class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/50 transition-colors"
-				>Cancel</button>
-				<button
-					onclick={createProject}
-					disabled={!newProjectName.trim() || isCreating}
-					class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-600/20"
-				>
-					{#if isCreating}
-						<span class="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin"></span>
-					{:else}
-						<Zap class="w-4 h-4" />
-					{/if}
-					Create
-				</button>
-			</div>
-		</div>
-	</div>
-{/if}
-
 <style>
 	@keyframes fade-in-up {
-		from { opacity: 0; transform: translateY(12px); }
-		to { opacity: 1; transform: translateY(0); }
+		from { opacity:0; transform: translateY(12px); }
+		to { opacity:1; transform: translateY(0); }
 	}
 	.animate-fade-in-up {
-		opacity: 0;
+		opacity:0;
 		animation: fade-in-up 0.5s ease-out forwards;
 	}
-	@keyframes fade-in {
-		from { opacity: 0; }
-		to { opacity: 1; }
-	}
-	.animate-fade-in { animation: fade-in 0.2s ease-out; }
-	@keyframes scale-in {
-		from { opacity: 0; transform: scale(0.95); }
-		to { opacity: 1; transform: scale(1); }
-	}
-	.animate-scale-in { animation: scale-in 0.2s ease-out; }
 </style>

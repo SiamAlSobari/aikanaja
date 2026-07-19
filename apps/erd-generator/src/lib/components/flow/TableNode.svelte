@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Key, Link, Hash } from 'lucide-svelte';
+	import { Handle, Position } from '@xyflow/svelte';
 	import { getColumnColor } from '$lib/utils/schema-transform';
 	import { flowStore } from '$lib/stores/flow.store.svelte';
 	import type { ErdTable, ErdColumn } from '$lib/types/erd';
@@ -55,7 +56,19 @@
 	<!-- Columns -->
 	<div class="py-0.5">
 		{#each table.columns as col (col.id)}
-			<div class="flex items-center gap-1.5 px-3 py-1.5 hover:bg-slate-800/40 transition-colors group border-b border-slate-800/20 last:border-0">
+			<div class="relative flex items-center gap-1.5 px-3 py-1.5 hover:bg-slate-800/40 transition-colors group border-b border-slate-800/20 last:border-0">
+				<Handle
+					type="target"
+					position={Position.Left}
+					id={'t-' + col.id}
+					class="!w-2 !h-2 !min-w-0 !bg-teal-500 !border-0"
+				/>
+				<Handle
+					type="source"
+					position={Position.Right}
+					id={'s-' + col.id}
+					class="!w-2 !h-2 !min-w-0 !bg-orange-500 !border-0"
+				/>
 				<!-- Icon -->
 				<span class="shrink-0 w-4 flex justify-center">
 					{#if col.primaryKey}

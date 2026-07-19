@@ -184,6 +184,30 @@ export const adminController = new Elysia({ prefix: '/erd/admin' })
     }),
   })
 
+  // GET /admin/payments/:id — Payment detail
+  .get('/payments/:id', async ({ params }) => {
+    const payment = await prisma.payment.findUnique({
+      where: { id: params.id },
+      select: {
+        id: true,
+        plan: true,
+        amount: true,
+        method: true,
+        status: true,
+        proof: true,
+        verifiedAt: true,
+        createdAt: true,
+        user: { select: { id: true, name: true, email: true, role: true } },
+      },
+    })
+
+    if (!payment) throw new NotFoundException('Payment not found')
+
+    return { data: payment }
+  }, {
+    params: t.Object({ id: t.String() }),
+  })
+
   // POST /admin/payments/:id/verify — Verify payment
   .post('/payments/:id/verify', async ({ params }) => {
     const payment = await prisma.payment.findUnique({ where: { id: params.id } })

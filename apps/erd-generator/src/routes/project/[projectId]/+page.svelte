@@ -68,7 +68,7 @@
 
 	<SchemaToolbar project={data.project} onExport={() => (exportOpen = true)} />
 
-	<AIChatPanel bind:collapsed={aiCollapsed} onGenerated={handleSave} />
+	<AIChatPanel bind:collapsed={aiCollapsed} projectId={data.project.id} onGenerated={handleSave} />
 
 	<TableDetailPanel />
 

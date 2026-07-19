@@ -1,95 +1,87 @@
 <script lang="ts">
-	import { Check, ArrowLeft, MessageSquare } from 'lucide-svelte';
-	import { enhance } from '$app/forms';
-	let { data, form } = $props();
+	import { goto } from '$app/navigation';
+	import { Sparkles, Check, Loader2, Crown, Users } from 'lucide-svelte';
+	import { erdApi, type PlanTier } from '$lib/api/erd';
+	import { addToast } from '$lib/stores/ui.store.svelte';
 
-	let selectedPlan = $state<'pro' | 'team'>('pro');
-	let showInstructions = $state(false);
+	let { data }: { data: { billing: any } } = $props();
+	let current = $derived(data.billing?.plan ?? 'free');
 
-	$effect(() => {
-		if (form?.success) {
-			showInstructions = true;
+	const PLANS: { tier: PlanTier; name: string; price: string; period: string; desc: string; features: string[]; icon: any; highlight?: boolean }[] = [
+		{ tier: 'free', name: 'Free', price: 'Rp 0', period: 'selamanya', desc: 'Untuk eksplorasi.', icon: Sparkles, features: ['10 tabel', 'Export SQL/Prisma', '1 project aktif'] },
+		{ tier: 'pro', name: 'Pro', price: 'Rp 49.000', period: '/ bulan', desc: 'Untuk developer solo.', icon: Crown, highlight: true, features: ['Tabel unlimited', 'AI generate unlimited', 'Project unlimited', 'Priority support'] },
+		{ tier: 'team', name: 'Team', price: 'Rp 149.000', period: '/ bulan', desc: 'Untuk tim.', icon: Users, features: ['Semua fitur Pro', 'Kolaborasi tim', 'Share & role', 'Version history'] }
+	];
+
+	let loading = $state<PlanTier | null>(null);
+	async function choose(tier: PlanTier) {
+		if (tier === 'free' || tier === current) return;
+		loading = tier;
+		try {
+			const res = await erdApi.requestUpgrade(tier);
+			addToast('success', `Permintaan ${tier} dibuat. Upload bukti transfer.`);
+			goto(`/settings/billing/payment/${res.payment.id}`);
+		} catch (e: any) {
+			addToast('error', e.message || 'Gagal memproses');
+		} finally {
+			loading = null;
 		}
-	});
+	}
 </script>
 
-<div class="p-6 max-w-4xl mx-auto space-y-6">
-	<div class="flex items-center gap-3">
-		<a id="back-billing-btn" href="/settings/billing" class="btn btn-sm btn-ghost rounded-xl text-slate-400 hover:text-white">
-			<ArrowLeft class="w-4 h-4" /> Back
-		</a>
-		<h1 class="text-xl font-bold text-white">Upgrade Account Plan</h1>
+<div class="max-w-5xl mx-auto px-6 py-8 md:py-12">
+	<div class="text-center mb-10">
+		<h1 class="text-2xl font-bold text-white">Pilih Plan</h1>
+		<p class="text-sm text-slate-500 mt-1">Upgrade untuk tabel & generate unlimited.</p>
 	</div>
 
-	{#if form?.error}
-		<div class="alert alert-error bg-red-950/20 border-red-800 text-red-200 rounded-xl p-4 text-xs font-medium">
-			{form.error}
-		</div>
-	{/if}
-
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-		<!-- Pro Card -->
-		<div class="bg-slate-900/40 border {selectedPlan === 'pro' ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]' : 'border-slate-800/60'} rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
-			<div>
-				<h3 class="text-lg font-bold text-white mb-2">Pro Plan</h3>
-				<p class="text-xs text-slate-400 mb-4">For power developers and independent creators.</p>
-				<p class="text-3xl font-black text-white mb-6">Rp 99.000 <span class="text-xs font-normal text-slate-500">/ month</span></p>
-				<ul class="space-y-2.5 text-xs text-slate-300">
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Unlimited AI Schema Generates</li>
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Unlimited Projects Saved</li>
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Version history snapshots</li>
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Custom API keys support</li>
-				</ul>
-			</div>
-			<form use:enhance method="POST" class="mt-8">
-				<input type="hidden" name="plan" value="pro" />
-				<button id="choose-pro-btn" type="submit" onclick={() => selectedPlan = 'pro'} class="w-full btn btn-sm {selectedPlan === 'pro' ? 'bg-gradient-to-r from-brand-orange to-brand-amber text-white shadow-[0_0_15px_rgba(255,62,0,0.2)] hover:opacity-90 transition-opacity' : 'bg-slate-800 text-slate-300'} border-none font-semibold rounded-xl">
-					Choose Pro Plan
-				</button>
-			</form>
-		</div>
-
-		<!-- Team Card -->
-		<div class="bg-slate-900/40 border {selectedPlan === 'team' ? 'border-orange-500 shadow-[0_0_20px_rgba(249,115,22,0.15)]' : 'border-slate-800/60'} rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between">
-			<div>
-				<h3 class="text-lg font-bold text-white mb-2">Team Plan</h3>
-				<p class="text-xs text-slate-400 mb-4">For engineering teams and collaborative setups.</p>
-				<p class="text-3xl font-black text-white mb-6">Rp 299.000 <span class="text-xs font-normal text-slate-500">/ month</span></p>
-				<ul class="space-y-2.5 text-xs text-slate-300">
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Everything in Pro Plan</li>
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Unlimited Collaborators</li>
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Team workspaces</li>
-					<li class="flex items-center gap-2"><Check class="w-4 h-4 text-orange-500" /> Priority support</li>
-				</ul>
-			</div>
-			<form use:enhance method="POST" class="mt-8">
-				<input type="hidden" name="plan" value="team" />
-				<button id="choose-team-btn" type="submit" onclick={() => selectedPlan = 'team'} class="w-full btn btn-sm {selectedPlan === 'team' ? 'bg-gradient-to-r from-brand-orange to-brand-amber text-white shadow-[0_0_15px_rgba(255,62,0,0.2)] hover:opacity-90 transition-opacity' : 'bg-slate-800 text-slate-300'} border-none font-semibold rounded-xl">
-					Choose Team Plan
-				</button>
-			</form>
-		</div>
-	</div>
-
-	<!-- Payment Instructions Modal -->
-	{#if showInstructions && form?.paymentInfo}
-		<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-			<div class="bg-slate-900 border border-slate-800/60 max-w-md w-full rounded-2xl p-6 space-y-4">
-				<h3 class="text-lg font-bold text-white">Payment Request Created</h3>
-				<div class="bg-slate-950 p-4 border border-slate-800/60 rounded-xl space-y-2 text-xs">
-					{#each form.paymentInfo.instructions as instr}
-						<p class="text-slate-300">{instr}</p>
+	<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+		{#each PLANS as p}
+			{@const active = p.tier === current}
+			{@const isLoading = loading === p.tier}
+			<div class="relative flex flex-col p-6 rounded-2xl border transition-all {p.highlight ? 'border-orange-600/40 bg-orange-600/[0.06] shadow-lg shadow-orange-600/10' : 'border-slate-800/60 bg-slate-900/40'} {active ? 'ring-1 ring-orange-500/40' : ''}">
+				{#if p.highlight}
+					<span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-slate-950 bg-orange-500">Populer</span>
+				{/if}
+				<div class="w-10 h-10 rounded-xl flex items-center justify-center {p.highlight ? 'bg-orange-600/15 text-orange-500' : 'bg-slate-800 text-slate-400'}">
+					<p.icon class="w-5 h-5" />
+				</div>
+				<h3 class="mt-4 text-lg font-bold text-white">{p.name}</h3>
+				<p class="text-[11px] text-slate-500">{p.desc}</p>
+				<div class="mt-3 flex items-baseline gap-1">
+					<span class="text-2xl font-bold text-white">{p.price}</span>
+					<span class="text-xs text-slate-500">{p.period}</span>
+				</div>
+				<ul class="mt-5 space-y-2 flex-1">
+					{#each p.features as f}
+						<li class="flex items-center gap-2 text-sm text-slate-300"><Check class="w-4 h-4 text-orange-500 shrink-0" />{f}</li>
 					{/each}
-				</div>
-				<div class="flex gap-3">
-					<a id="send-wa-proof-btn" href="{form.paymentInfo.paymentInfo.whatsappUrl}" target="_blank" class="flex-1 btn btn-sm bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl border-none gap-2">
-						<MessageSquare class="w-4 h-4" /> Send Proof on WhatsApp
-					</a>
-					<button id="close-instructions-btn" onclick={() => showInstructions = false} class="btn btn-sm btn-ghost hover:bg-slate-800 rounded-xl text-xs text-slate-400">
-						Close
-					</button>
-				</div>
+				</ul>
+				<button
+					onclick={() => choose(p.tier)}
+					disabled={active || isLoading}
+					class="mt-6 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-[0.98] disabled:cursor-default
+						{active
+							? 'bg-slate-800 text-slate-500'
+							: p.highlight
+								? 'bg-orange-600 hover:bg-orange-700 text-slate-950 shadow-lg shadow-orange-600/20'
+								: 'bg-slate-800 hover:bg-slate-700 text-white'}"
+				>
+					{#if isLoading}
+						<Loader2 class="w-4 h-4 animate-spin" />
+					{:else if active}
+						Plan Aktif
+					{:else if p.tier === 'free'}
+						Pilih Free
+					{:else}
+						Upgrade ke {p.name}
+					{/if}
+				</button>
 			</div>
-		</div>
-	{/if}
+		{/each}
+	</div>
+
+	<div class="mt-8 p-4 rounded-xl bg-slate-900/40 border border-slate-800/60 text-center text-xs text-slate-500">
+		Pembayaran via <span class="text-slate-300 font-medium">Dana 08826545202</span> · Konfirmasi otomatis setelah admin verifikasi.
+	</div>
 </div>

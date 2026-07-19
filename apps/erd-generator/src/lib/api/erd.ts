@@ -31,11 +31,21 @@ interface Template {
 	thumbnail: string | null;
 }
 
-interface Version {
+export interface Version {
 	id: string;
 	projectId: string;
 	schema: ErdSchema;
 	description: string | null;
+	createdAt: string;
+}
+
+export interface ChatMessage {
+	id: string;
+	projectId: string;
+	userId: string;
+	role: 'user' | 'ai';
+	content: string;
+	tableCount: number | null;
 	createdAt: string;
 }
 
@@ -49,6 +59,28 @@ interface Collaborator {
 interface ShareLink {
 	link: string;
 	expiresAt: string | null;
+}
+
+export type PlanTier = 'free' | 'pro' | 'team';
+export type PaymentStatus = 'pending' | 'verified' | 'rejected';
+
+export interface Payment {
+	id: string;
+	plan: PlanTier;
+	amount: number;
+	method: string;
+	status: PaymentStatus;
+	proof: string | null;
+	note: string | null;
+	createdAt: string;
+	verifiedAt: string | null;
+}
+
+export interface BillingInfo {
+	plan: PlanTier;
+	status: string;
+	usage: { count: number; limit: number; remaining: number };
+	payments: Payment[];
 }
 
 export const erdApi = {
@@ -65,6 +97,15 @@ export const erdApi = {
 
 	getProject: (id: string) =>
 		api.get<ApiResponse<ErdProject>>(`/erd/projects/${id}`),
+
+	getChat: (projectId: string) =>
+		api.get<ApiResponse<ChatMessage[]>>(`/erd/projects/${projectId}/chat`),
+
+	addChatMessage: (projectId: string, msg: { role: 'user' | 'ai'; content: string; tableCount?: number }) =>
+		api.post<ApiResponse<ChatMessage>>(`/erd/projects/${projectId}/chat`, msg),
+
+	clearChat: (projectId: string) =>
+		api.delete<ApiResponse<null>>(`/erd/projects/${projectId}/chat`),
 
 	create: (data: { name: string; description?: string }) =>
 		api.post<ApiResponse<ErdProject>>('/erd/projects', data),
@@ -101,6 +142,36 @@ export const erdApi = {
 
 	restoreVersion: (projectId: string, versionId: string) =>
 		api.post<ApiResponse<ErdProject>>(`/erd/projects/${projectId}/history/${versionId}/restore`),
+
+	getVersion: (projectId: string, versionId: string) =>
+		api.get<ApiResponse<Version>>(`/erd/projects/${projectId}/history/${versionId}`),
+
+	getBilling: () =>
+		api.get<ApiResponse<BillingInfo>>('/erd/billing'),
+
+	requestUpgrade: (plan: PlanTier) =>
+		api.post<ApiResponse<{ payment: Payment; paymentInfo: { danaNumber: string; whatsappUrl: string }; instructions: string[] }>>('/erd/billing/upgrade', { plan }),
+
+	cancelSubscription: () =>
+		api.post<ApiResponse<null>>('/erd/billing/cancel'),
+
+	getPayment: (id: string) =>
+		api.get<ApiResponse<Payment>>(`/erd/billing/payments/${id}`),
+
+	uploadProof: (id: string, proofUrl: string) =>
+		api.put<ApiResponse<Payment>>(`/erd/billing/payments/${id}/proof`, { proofUrl }),
+
+	getShare: (projectId: string) =>
+		api.get<ApiResponse<{ collaborators: Collaborator[] }>>(`/erd/projects/${projectId}/share`),
+
+	updateShareRole: (projectId: string, userId: string, role: 'view' | 'edit') =>
+		api.patch<ApiResponse<Collaborator>>(`/erd/projects/${projectId}/share/${userId}`, { role }),
+
+	getShareLink: (projectId: string) =>
+		api.get<ApiResponse<ShareLink>>(`/erd/projects/${projectId}/share/link`),
+
+	getProjectByShareLink: (link: string) =>
+		api.get<ApiResponse<{ id: string; name: string; schema: ErdSchema; collaborators: Collaborator[] }>>(`/erd/share/${link}`),
 
 	share: (projectId: string, email: string, role: 'view' | 'edit') =>
 		api.post<ApiResponse<Collaborator>>(`/erd/projects/${projectId}/share`, { email, role }),

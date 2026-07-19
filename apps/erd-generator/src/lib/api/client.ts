@@ -47,5 +47,12 @@ export const api = {
 		}),
 
 	delete: <T>(path: string, options?: RequestInit) =>
-		request<T>(path, { ...options, method: 'DELETE' })
+		request<T>(path, { ...options, method: 'DELETE' }),
+
+	put: <T>(path: string, body?: unknown, options?: RequestInit) =>
+		request<T>(path, {
+			...options,
+			method: 'PUT',
+			body: body ? JSON.stringify(body) : undefined
+		})
 };

@@ -1,62 +1,43 @@
 <script lang="ts">
-	import type { EdgeProps } from '@xyflow/svelte';
+	import { BaseEdge, getBezierPath, type EdgeProps } from '@xyflow/svelte';
 	import { flowStore } from '$lib/stores/flow.store.svelte';
 
 	let props = $props() as EdgeProps;
 	const isSelected = $derived(flowStore.selectedEdgeId === props.id);
+
+	const pathData = $derived(
+		getBezierPath({
+			sourceX: props.sourceX,
+			sourceY: props.sourceY,
+			sourcePosition: props.sourcePosition,
+			targetX: props.targetX,
+			targetY: props.targetY,
+			targetPosition: props.targetPosition
+		})
+	);
+	const path = $derived(pathData[0]);
+	const labelX = $derived(pathData[1]);
+	const labelY = $derived(pathData[2]);
 </script>
 
-<foreignObject
-	width="100%"
-	height="100"
-	class="erd-edge {isSelected ? 'erd-edge-selected' : ''}"
-	role="button"
-	tabindex="0"
-	aria-label="Select relation {props.data.label || props.id}"
-	onclick={(e) => {
-		e.stopPropagation();
-		flowStore.selectEdge(props.id);
-	}}
-	onkeydown={(e) => {
-		if (e.key === 'Enter' || e.key === ' ') {
-			e.preventDefault();
-			e.stopPropagation();
-			flowStore.selectEdge(props.id);
-		}
-	}}
->
-	<div xmlns="http://www.w3.org/1999/xhtml" class="erd-edge-wrapper">
-		{#if props.data.label}
-			<div class="erd-edge-label">
-				{props.data.label}
-			</div>
-		{/if}
-	</div>
-</foreignObject>
+<BaseEdge
+	id={props.id}
+	path={path}
+	markerEnd={props.markerEnd}
+	style={isSelected ? 'stroke: #fb923c; stroke-width: 2.5;' : 'stroke: #f97316; stroke-width: 1.5;'}
+/>
+
+{#if props.label}
+	<foreignObject x={labelX - 26} y={labelY - 12} width="52" height="24" class="overflow-visible pointer-events-none">
+		<div class="erd-edge-label {isSelected ? 'erd-edge-selected' : ''}">{props.label}</div>
+	</foreignObject>
+{/if}
 
 <style>
-	:global(.erd-edge) {
-		opacity: 0.7;
-		transition: opacity 0.15s;
-	}
-
-	:global(.erd-edge:hover) {
-		opacity: 1;
-	}
-
-	:global(.erd-edge-selected) {
-		opacity: 1;
-	}
-
-	:global(.erd-edge-wrapper) {
-		display: flex;
+	:global(.erd-edge-label) {
+		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		height: 100%;
-		width: 100%;
-	}
-
-	:global(.erd-edge-label) {
 		background: rgba(15, 23, 42, 0.9);
 		border: 1px solid rgba(249, 115, 22, 0.3);
 		border-radius: 4px;

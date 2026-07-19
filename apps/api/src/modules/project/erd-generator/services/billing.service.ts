@@ -159,6 +159,31 @@ export class BillingService {
     return { message: 'Payment rejected' }
   }
 
+  /** Get single payment milik user */
+  async getPaymentById(userId: string, paymentId: string) {
+    const payment = await prisma.payment.findFirst({
+      where: { id: paymentId, userId },
+    })
+    if (!payment) throw new NotFoundException('Payment not found')
+    return payment
+  }
+
+  /** Upload bukti transfer (user) */
+  async uploadProof(userId: string, paymentId: string, proofUrl: string) {
+    const payment = await prisma.payment.findFirst({
+      where: { id: paymentId, userId },
+    })
+    if (!payment) throw new NotFoundException('Payment not found')
+    if (payment.status !== 'pending') {
+      throw new BadRequestException('Payment sudah diproses')
+    }
+    const updated = await prisma.payment.update({
+      where: { id: paymentId },
+      data: { proof: proofUrl },
+    })
+    return { payment: updated }
+  }
+
   /** Cancel subscription (back to free) */
   async cancelSubscription(userId: string) {
     const user = await prisma.user.findUnique({

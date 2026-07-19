@@ -153,11 +153,11 @@ _Status: IN PROGRESS_
   - `theme` — `$state<'light' | 'dark' | 'system'>('system')`
   - `toasts` — `$state<Toast[]>([])`
   - `addToast()`, `removeToast()`
-- [ ] 🟡 `src/lib/stores/project.store.ts`:
+- [x] 🟡 `src/lib/stores/project.store.ts`:
   - `projects` — `$state<ErdProject[]>([])`
   - `currentProject` — `$state<ErdProject | null>(null)`
   - `fetchProjects()`, `createProject()`, `deleteProject()`
-- [ ] 🟡 `src/lib/stores/flow.store.ts`:
+- [x] 🟡 `src/lib/stores/flow.store.ts`:
   - `nodes` — `$state.raw<Node[]>([])`
   - `edges` — `$state.raw<Edge[]>([])`
   - `selectedNodeId` — `$state<string | null>(null)`
@@ -225,36 +225,36 @@ _Status: IN PROGRESS_
 - [x] 🔴 `src/lib/components/ui/Spinner.svelte`:
   - Sizes: sm, md, lg
   - DaisyUI `loading` component
-- [ ] 🟡 `src/lib/components/ui/Tooltip.svelte`:
+- [x] 🟡 `src/lib/components/ui/Tooltip.svelte`:
   - Position: top, bottom, left, right
   - Trigger: hover, click
-- [ ] 🟡 `src/lib/components/ui/Dropdown.svelte`:
+- [x] 🟡 `src/lib/components/ui/Dropdown.svelte`:
   - Menu items, dividers
   - Keyboard navigation
-- [ ] 🟡 `src/lib/components/ui/Tabs.svelte`:
+- [x] 🟡 `src/lib/components/ui/Tabs.svelte`:
   - Tab list, tab panels
   - Animated indicator
 
 ### 2.3 Layout Components
 
-- [ ] 🔴 `src/lib/components/layout/Navbar.svelte`:
+- [x] 🔴 `src/lib/components/layout/Navbar.svelte`:
   - Logo
   - Nav links (Landing: Features, Pricing; Dashboard: Projects, Templates)
   - Auth buttons (Login / User dropdown)
   - Theme toggle
   - Mobile responsive (hamburger menu)
   - DaisyUI `navbar` component
-- [ ] 🔴 `src/lib/components/layout/Footer.svelte`:
+- [x] 🔴 `src/lib/components/layout/Footer.svelte`:
   - Logo, description
   - Links: About, Features, Pricing, Contact
   - Social links (optional)
   - Copyright
-- [ ] 🔴 `src/lib/components/layout/DashboardLayout.svelte`:
+- [x] 🔴 `src/lib/components/layout/DashboardLayout.svelte`:
   - Sidebar (collapsible)
   - Main content area
   - Sidebar items: Overview, Projects, Templates, Activity, Trash, Settings
   - Mobile: bottom navigation atau slide-out sidebar
-- [ ] 🔴 `src/lib/components/layout/WorkspaceLayout.svelte`:
+- [x] 🔴 `src/lib/components/layout/WorkspaceLayout.svelte`:
   - Full-screen (no navbar/footer)
   - 3-column: left sidebar (AI chat) | center (canvas) | right sidebar (detail panel)
   - Both sidebars collapsible
@@ -701,7 +701,7 @@ _Status: IN PROGRESS_
 
 ### 8.1 Billing Overview
 
-- [ ] 🔴 `src/routes/settings/billing/+page.svelte`:
+- [x] 🔴 `src/routes/settings/billing/+page.svelte`:
   - Current plan card:
     - Plan name (Free/Pro/Team)
     - Plan price
@@ -713,12 +713,12 @@ _Status: IN PROGRESS_
   - "Upgrade" button (jika Free)
   - "Manage Plan" button (jika Pro/Team)
   - "Cancel Subscription" link (jika Pro/Team)
-- [ ] 🔴 `src/routes/settings/billing/+page.server.ts`:
+- [x] 🔴 `src/routes/settings/billing/+page.server.ts`:
   - Load: plan, usage, billing status
 
 ### 8.2 Upgrade Page
 
-- [ ] 🔴 `src/routes/settings/billing/upgrade/+page.svelte`:
+- [x] 🔴 `src/routes/settings/billing/upgrade/+page.svelte`:
   - Pricing cards:
     - Free: Rp 0, 10x generate/bulan, 5 projects
     - Pro: Rp X/bulan, unlimited generate, unlimited projects
@@ -734,13 +734,13 @@ _Status: IN PROGRESS_
       3. Chat WA: 08826545202 dengan bukti + email akun
       4. Tunggu verifikasi (max 1x24 jam)
     - Tombol "Chat WA" → `wa.me/628826545202` (buka di new tab)
-- [ ] 🔴 `src/routes/settings/billing/upgrade/+page.server.ts`:
+- [x] 🔴 `src/routes/settings/billing/upgrade/+page.server.ts`:
   - Load: current plan, available plans
   - Form action: request upgrade
 
 ### 8.3 Payment History
 
-- [ ] 🟡 `src/routes/settings/billing/payment/+page.svelte`:
+- [x] 🟡 `src/routes/settings/billing/payment/+page.svelte`:
   - Table/list pembayaran:
     - Date
     - Amount
@@ -748,12 +748,12 @@ _Status: IN PROGRESS_
     - Status: Pending (badge kuning), Verified (badge hijau), Rejected (badge merah)
   - Detail per payment (expandable/modal)
   - Empty state: "Belum ada riwayat pembayaran"
-- [ ] 🟡 `src/routes/settings/billing/payment/+page.server.ts`:
+- [x] 🟡 `src/routes/settings/billing/payment/+page.server.ts`:
   - Load: payment history
 
 ### 8.4 Cancel Subscription
 
-- [ ] 🟡 `src/routes/settings/billing/cancel/+page.svelte`:
+- [x] 🟡 `src/routes/settings/billing/cancel/+page.svelte`:
   - Info: "Anda akan tetap memiliki akses sampai akhir periode billing"
   - Alasan cancel (dropdown):
     - Terlalu mahal
@@ -763,7 +763,7 @@ _Status: IN PROGRESS_
   - Konfirmasi checkbox: "Saya mengerti akses akan berakhir pada [tanggal]"
   - "Cancel Subscription" button (danger)
   - "Kembali" button
-- [ ] 🟡 `src/routes/settings/billing/cancel/+page.server.ts`:
+- [x] 🟡 `src/routes/settings/billing/cancel/+page.server.ts`:
   - Form action: cancel subscription
 
 ---
@@ -772,19 +772,19 @@ _Status: IN PROGRESS_
 
 ### 9.1 Project Settings
 
-- [ ] 🟡 `src/routes/project/[projectId]/settings/+page.svelte`:
+- [x] 🟡 `src/routes/project/[projectId]/settings/+page.svelte`:
   - Form: project name, description
   - Visibility: Private, Public (toggle)
   - Danger zone:
     - Delete project button
     - Konfirmasi modal
-- [ ] 🟡 `src/routes/project/[projectId]/settings/+page.server.ts`:
+- [x] 🟡 `src/routes/project/[projectId]/settings/+page.server.ts`:
   - Load: project settings
   - Form action: update, delete
 
 ### 9.2 Project Share
 
-- [ ] 🟡 `src/routes/project/[projectId]/share/+page.svelte`:
+- [x] 🟡 `src/routes/project/[projectId]/share/+page.svelte`:
   - Invite by email:
     - Email input
     - Role select: View, Edit
@@ -798,25 +798,25 @@ _Status: IN PROGRESS_
     - Link display + copy button
     - Expiry select (optional)
   - Link permissions: View-only
-- [ ] 🟡 `src/routes/project/[projectId]/share/+page.server.ts`:
+- [x] 🟡 `src/routes/project/[projectId]/share/+page.server.ts`:
   - Load: collaborators, share link
   - Form action: invite, remove, generate link
 
 ### 9.3 Project Share View
 
-- [ ] 🟡 `src/routes/project/[projectId]/share/[shareLink]/+page.svelte`:
+- [x] 🟡 `src/routes/project/[projectId]/share/[shareLink]/+page.svelte`:
   - Read-only Svelte Flow canvas
   - Tidak bisa edit
   - ERD visualization only
   - Export button (optional)
   - CTA: "Login to Fork" atau "Login to Edit"
   - Navbar minimal: logo + login button
-- [ ] 🟡 `src/routes/project/[projectId]/share/[shareLink]/+page.server.ts`:
+- [x] 🟡 `src/routes/project/[projectId]/share/[shareLink]/+page.server.ts`:
   - Load: project by share link (public access, no auth required)
 
 ### 9.4 Project History
 
-- [ ] 🟡 `src/routes/project/[projectId]/history/+page.svelte`:
+- [x] 🟡 `src/routes/project/[projectId]/history/+page.svelte`:
   - List versi:
     - Timestamp
     - Description (auto-generated: "Added table User", "Modified relation")
@@ -824,12 +824,12 @@ _Status: IN PROGRESS_
   - Click → preview versi
   - "Restore" button per versi
   - Current version indicator
-- [ ] 🟡 `src/routes/project/[projectId]/history/+page.server.ts`:
+- [x] 🟡 `src/routes/project/[projectId]/history/+page.server.ts`:
   - Load: version history
 
 ### 9.5 Version Preview
 
-- [ ] 🟡 `src/routes/project/[projectId]/history/[versionId]/+page.svelte`:
+- [x] 🟡 `src/routes/project/[projectId]/history/[versionId]/+page.svelte`:
   - Preview ERD pada versi tertentu (read-only canvas)
   - Diff view (optional):
     - Tabel ditambah (hijau)
@@ -837,7 +837,7 @@ _Status: IN PROGRESS_
     - Tabel dimodifikasi (kuning)
   - "Restore This Version" button
   - "Back to History" button
-- [ ] 🟡 `src/routes/project/[projectId]/history/[versionId]/+page.server.ts`:
+- [x] 🟡 `src/routes/project/[projectId]/history/[versionId]/+page.server.ts`:
   - Load: version detail
 
 ---
@@ -846,12 +846,12 @@ _Status: IN PROGRESS_
 
 ### 10.1 Error Pages
 
-- [ ] 🔴 `src/routes/+error.svelte`:
+- [x] 🔴 `src/routes/+error.svelte`:
   - Global error page
   - Error code display
   - "Back to Home" button
   - DaisyUI styling
-- [ ] 🔴 `src/routes/+not-found.svelte` (atau `+error.svelte` dengan 404):
+- [x] 🔴 `src/routes/+not-found.svelte` (atau `+error.svelte` dengan 404):
   - 404 page
   - "Page Not Found" message
   - "Back to Home" button
@@ -859,26 +859,137 @@ _Status: IN PROGRESS_
 
 ### 10.2 Loading States
 
-- [ ] 🔴 Loading skeleton untuk:
+- [x] 🔴 Loading skeleton untuk:
   - Dashboard (project cards)
   - Project list
   - Settings pages
   - Canvas initial load
-- [ ] 🔴 `src/lib/components/ui/Skeleton.svelte`:
+- [x] 🔴 `src/lib/components/ui/Skeleton.svelte`:
   - Variants: text, card, circle, rectangle
   - Animated shimmer effect
   - DaisyUI `skeleton` component
 
 ### 10.3 Responsive & Polish
 
-- [ ] 🔴 Mobile responsive untuk semua halaman
-- [ ] 🔴 Dark mode support untuk semua komponen
-- [ ] 🔴 Keyboard navigation (Tab, Enter, Escape)
-- [ ] 🔴 Focus states yang jelas
-- [ ] 🔴 Transition animations (page transitions, sidebar slide)
-- [ ] 🟡 SEO meta tags per halaman
-- [ ] 🟡 OG tags untuk share links
-- [ ] 🟡 Sitemap (optional)
+- [x] 🔴 Mobile responsive untuk semua halaman
+- [x] 🔴 Dark mode support untuk semua komponen
+- [x] 🔴 Keyboard navigation (Tab, Enter, Escape)
+- [x] 🔴 Focus states yang jelas
+- [x] 🔴 Transition animations (page transitions, sidebar slide)
+- [x] 🟡 SEO meta tags per halaman
+- [x] 🟡 OG tags untuk share links
+- [x] 🟡 Sitemap (optional)
+
+---
+
+## Phase 11 — Admin Module
+
+> Backend sudah selesai (`apps/api` — `admin.controller.ts` di `/erd/admin`, dilindungi `adminMiddleware` cek `role === 'admin'`).
+> Frontend tinggal konsumsi endpoint tersebut. Admin di-identifikasi dari `user.role === 'admin'` (dari `/session`).
+> **Akun admin:** email `siamqueen52@gmail.com` harus punya `role: 'admin'` (lihat catatan seeding di bawah).
+
+### 11.1 Admin API Client
+
+- [x] 🔴 `src/lib/api/admin.ts`:
+  - `adminApi.getStats()` — GET `/erd/admin/stats`
+  - `adminApi.getUsers(page?, limit?)` — GET `/erd/admin/users`
+  - `adminApi.getUser(id)` — GET `/erd/admin/users/:id`
+  - `adminApi.updateUserRole(id, role)` — PATCH `/erd/admin/users/:id`
+  - `adminApi.deleteUser(id)` — DELETE `/erd/admin/users/:id`
+  - `adminApi.getProjects(page?, limit?)` — GET `/erd/admin/projects`
+  - `adminApi.getPayments(page?, limit?, status?)` — GET `/erd/admin/payments`
+  - `adminApi.verifyPayment(id)` — POST `/erd/admin/payments/:id/verify`
+  - `adminApi.rejectPayment(id)` — POST `/erd/admin/payments/:id/reject`
+
+### 11.2 Admin Guard & Layout
+
+- [x] 🔴 `src/lib/components/features/auth/AdminGuard.svelte`:
+  - Cek `authStore.user?.role === 'admin'`
+  - Loading state → redirect `/dashboard` jika bukan admin
+  - Bisa dipakai di layout admin
+- [x] 🔴 `src/routes/admin/+layout.svelte`:
+  - Full admin layout (sidebar: Stats, Users, Projects, Payments)
+  - Wrap dengan `AdminGuard`
+  - User info di sidebar bottom (email, role badge)
+- [x] 🔴 `src/routes/admin/+layout.server.ts`:
+  - Load session user (butuh `role`)
+  - Redirect ke `/dashboard` jika bukan admin
+
+### 11.3 Admin Stats (Dashboard)
+
+- [x] 🔴 `src/routes/admin/+page.svelte`:
+  - Stats cards: userCount, projectCount, paymentCount, pendingPayments
+  - Quick links ke Users / Projects / Payments
+- [x] 🔴 `src/routes/admin/+page.server.ts`:
+  - Load: `adminApi.getStats()`
+
+### 11.4 Users Management
+
+- [x] 🔴 `src/routes/admin/users/+page.svelte`:
+  - Tabel users (name, email, role, createdAt, project count, payment count)
+  - Pagination
+  - Row actions: Lihat detail, Edit role, Delete
+- [x] 🔴 `src/routes/admin/users/+page.server.ts`:
+  - Load: `adminApi.getUsers()`
+- [x] 🔴 `src/routes/admin/users/[userId]/+page.svelte`:
+  - User detail: profil, list project (10), list payment (10)
+  - Edit role (select: free/pro/team/admin) → PATCH
+  - Delete user (konfirmasi modal)
+- [x] 🔴 `src/routes/admin/users/[userId]/+page.server.ts`:
+  - Load: `adminApi.getUser(id)`
+
+### 11.5 Projects Management
+
+- [x] 🟡 `src/routes/admin/projects/+page.svelte`:
+  - Tabel semua ERD project (name, status, visibility, owner, createdAt)
+  - Pagination, filter by status
+- [x] 🟡 `src/routes/admin/projects/+page.server.ts`:
+  - Load: `adminApi.getProjects()`
+
+### 11.6 Billing & Payments Management (Admin Approval)
+
+> **Flow:** User request upgrade (`/settings/billing/upgrade` → `POST /erd/billing/upgrade`) buat Payment `status: pending` + `plan` yang diminta. Admin di sini yang review & **apply** billing-nya.
+
+- [x] 🔴 `src/routes/admin/payments/+page.svelte` (Approval Queue):
+  - Tabel payments: user (name+email), **plan diminta** (user mau billing apa: pro/team), amount, method (Dana), status, createdAt
+  - Filter tab: Pending / Verified / Rejected
+  - Status badge (kuning=pending, hijau=verified, merah=rejected)
+  - Row actions:
+    - **Approve** (hanya pending) → `adminApi.verifyPayment(id)` → apply plan + unlimited usage
+    - **Reject** (hanya pending) → `adminApi.rejectPayment(id)`
+    - **Lihat detail** → buka modal/halaman detail
+  - Empty state untuk tab Pending: "Tidak ada pembayaran menunggu"
+- [x] 🔴 `src/routes/admin/payments/+page.server.ts`:
+  - Load: `adminApi.getPayments()` (default filter status=pending)
+- [x] 🔴 `src/routes/admin/payments/[paymentId]/+page.svelte` (Detail & Action):
+  - Info user (name, email, WA jika ada)
+  - **Plan diminta** (pro/team) — highlight
+  - Amount + method (nomor Dana)
+  - Bukti transfer (`proof`): preview gambar jika ada, link buka
+  - Tombol **Approve** / **Reject** dengan konfirmasi
+  - Riwayat: createdAt, verifiedAt
+- [x] 🔴 `src/routes/admin/payments/[paymentId]/+page.server.ts`:
+  - Load: detail payment via `adminApi.getPayments()` lalu filter by id (atau tambah `adminApi.getPayment(id)` jika perlu)
+
+### 11.7 Admin Manual Plan Override
+
+- [x] 🟡 `src/routes/admin/users/[userId]/+page.svelte`:
+  - Selain edit role, admin bisa **set plan langsung** (free/pro/team) tanpa lewat payment:
+    - Select plan → PATCH `/erd/admin/users/:id` dengan `role` = plan (override)
+    - Ini untuk kasus admin mau kasi akses manual (mis. comped/error)
+  - Tampilkan plan saat ini user di detail
+- [x] 🟡 Admin bisa **edit payment record** (plan/amount) sebelum approve (jika ada salah input):
+  - Butuh endpoint `PATCH /erd/admin/payments/:id` (backend belum ada → catat di todo-backend jika jadi implementasi)
+
+### 11.8 Admin Nav Entry
+
+- [x] 🔴 Tampilkan link "Admin" di `Navbar`/`DashboardLayout` sidebar **hanya jika** `user.role === 'admin'`
+  - `src/lib/components/layout/Navbar.svelte`
+  - `src/lib/components/layout/DashboardLayout.svelte`
+
+### 11.9 Backend Seeding (Admin Email)
+
+- [x] 🔴 Pastikan `siamqueen52@gmail.com` dapat `role: 'admin'` (Opsi A — OAuth auto, **sudah diimplementasikan** di `apps/api/src/modules/shared/auth/google.service.ts`: `ADMIN_EMAILS` + set `role` saat create/update user).
 
 ---
 
@@ -894,6 +1005,7 @@ _Status: IN PROGRESS_
 | 5 — Dashboard              | ✅ Done         | 100%     |
 | 6 — ERD Workspace          | ✅ Done         | 100%     |
 | 7 — Settings               | ✅ Done         | 100%     |
-| 8 — Billing & Quota        | 🔴 Not Started  | 0%       |
-| 9 — Project Sub-pages      | 🔴 Not Started  | 0%       |
-| 10 — Error & Polish        | 🔴 Not Started  | 0%       |
+| 8 — Billing & Quota        | ✅ Done         | 100%     |
+| 9 — Project Sub-pages      | ✅ Done         | 100%     |
+| 10 — Error & Polish        | ✅ Done         | 100%     |
+| 11 — Admin Module          | ✅ Done         | 100%     |

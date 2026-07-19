@@ -43,6 +43,16 @@
 		flowStore.deselectAll();
 	}
 
+	function handleNodeDragStart() {
+		flowStore.beginChange();
+	}
+
+	function handleNodeDrag(payload: { nodes: any[] }) {
+		flowStore.syncNodePositions(
+			payload.nodes.map((n) => ({ id: n.id, position: n.position }))
+		);
+	}
+
 	function handleConnect(params: any) {
 		const newEdge = {
 			id: `e-${Date.now()}`,
@@ -81,6 +91,8 @@
 			onnodeclick={handleNodeClick}
 			onedgeclick={handleEdgeClick}
 			onpaneClick={handlePaneClick}
+			onnodedragstart={handleNodeDragStart}
+			onnodedrag={handleNodeDrag}
 			proOptions={{ hideAttribution: true }}
 			className="erd-canvas"
 		>

@@ -11,19 +11,25 @@
 		LogOut,
 		Plus,
 		ChevronLeft,
+		ShieldCheck,
 	} from 'lucide-svelte';
+	import NewProjectModal from '$lib/components/features/project/NewProjectModal.svelte';
+	import { openNewProject } from '$lib/stores/new-project.store.svelte';
 
 	let { data, children } = $props();
 
 	const user = $derived(data.user);
 
-	const navItems = [
+	const navItems = $derived([
 		{ label: 'Overview', href: '/dashboard', icon: LayoutDashboard },
 		{ label: 'Projects', href: '/dashboard/projects', icon: FolderKanban },
 		{ label: 'Templates', href: '/dashboard/templates', icon: LayoutTemplate },
 		{ label: 'Activity', href: '/dashboard/activity', icon: Activity },
 		{ label: 'Trash', href: '/dashboard/trash', icon: Trash2 },
-	];
+		...(user?.role === 'admin'
+			? [{ label: 'Admin', href: '/admin', icon: ShieldCheck }]
+			: []),
+	]);
 
 	const bottomItems = [
 		{ label: 'Settings', href: '/settings', icon: Settings },
@@ -60,16 +66,16 @@
 
 		<!-- New Project -->
 		<div class="relative px-4 pt-5 pb-3">
-			<a
-				href="/dashboard/projects/new"
-				class="group flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 hover:shadow-orange-600/30 transition-all active:scale-[0.98] overflow-hidden"
+			<button
+				onclick={openNewProject}
+				class="group relative flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 hover:shadow-orange-600/30 transition-all active:scale-[0.98] overflow-hidden"
 			>
 				<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
 				<Plus class="relative w-4 h-4" />
 				{#if !collapsed}
 					<span class="relative">New Project</span>
 				{/if}
-			</a>
+			</button>
 		</div>
 
 		<!-- Nav -->
@@ -184,9 +190,9 @@
 			<span class="text-sm font-bold text-white">Ai<span class="text-orange-500">KanAja</span></span>
 		</a>
 
-		<a href="/dashboard/projects/new" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-600 text-xs font-bold text-slate-950 shadow-lg shadow-orange-600/20">
+		<button onclick={openNewProject} class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-600 text-xs font-bold text-slate-950 shadow-lg shadow-orange-600/20 transition-all active:scale-[0.98]">
 			<Plus class="w-3.5 h-3.5" /> New
-		</a>
+		</button>
 	</header>
 
 	<!-- Mobile Sidebar Overlay -->
@@ -211,13 +217,12 @@
 
 				<!-- New Project -->
 				<div class="px-4 pt-4 pb-2">
-					<a
-						href="/dashboard/projects/new"
-						onclick={() => mobileOpen = false}
-						class="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-orange-600 text-slate-950 font-bold text-xs"
+					<button
+						onclick={() => { mobileOpen = false; openNewProject(); }}
+						class="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-orange-600 text-slate-950 font-bold text-xs transition-all active:scale-[0.98]"
 					>
 						<Plus class="w-4 h-4" /> New Project
-					</a>
+					</button>
 				</div>
 
 				<!-- Nav -->
@@ -262,4 +267,6 @@
 	<main class="flex-1 min-w-0 pt-14 lg:pt-0 overflow-y-auto overflow-x-hidden">
 		{@render children()}
 	</main>
+
+	<NewProjectModal />
 </div>

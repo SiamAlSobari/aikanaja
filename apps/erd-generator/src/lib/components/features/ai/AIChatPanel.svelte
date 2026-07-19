@@ -8,8 +8,10 @@
 		KeyRound,
 		Infinity as InfinityIcon,
 		Coins,
-		AlertCircle
+		AlertCircle,
+		Trash2
 	} from 'lucide-svelte';
+	import { onMount } from 'svelte';
 	import { erdApi } from '$lib/api/erd';
 	import { flowStore } from '$lib/stores/flow.store.svelte';
 	import type { ErdSchema } from '$lib/types/erd';
@@ -18,11 +20,15 @@
 
 	let {
 		collapsed = $bindable(false),
+		projectId,
 		onGenerated
 	}: {
 		collapsed?: boolean;
+		projectId?: string;
 		onGenerated?: (schema: ErdSchema) => void;
 	} = $props();
+
+	const STORAGE_PREFIX = 'aikanaja:chat:';
 
 	interface ChatMsg {
 		id: string;
@@ -34,6 +40,7 @@
 
 	let prompt = $state('');
 	let isGenerating = $state(false);
+	let isLoading = $state(false);
 	let error = $state('');
 	let messages = $state<ChatMsg[]>([]);
 	let usage = $state<{ count: number; limit: number; remaining: number | string; isUnlimited: boolean } | null>(null);
@@ -49,6 +56,65 @@
 		if (scrollEl && messages.length) {
 			scrollEl.scrollTop = scrollEl.scrollHeight;
 		}
+	});
+
+	$effect(() => {
+		if (projectId && messages.length) {
+			try {
+				localStorage.setItem(STORAGE_PREFIX + projectId, JSON.stringify(messages));
+			} catch {
+				/* ignore quota/serialization errors */
+			}
+		}
+	});
+
+	async function loadMessages() {
+		if (!projectId) return;
+		isLoading = true;
+		try {
+			const local = localStorage.getItem(STORAGE_PREFIX + projectId);
+			if (local) messages = JSON.parse(local);
+			const res = await erdApi.getChat(projectId);
+			if (res.data?.length) {
+				messages = res.data.map((m) => ({
+					id: m.id,
+					role: m.role as 'user' | 'ai',
+					content: m.content,
+					timestamp: new Date(m.createdAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+					tableCount: m.tableCount ?? undefined
+				}));
+			}
+		} catch {
+			/* server unavailable — fall back to localStorage already loaded */
+		} finally {
+			isLoading = false;
+		}
+	}
+
+	async function persist(role: 'user' | 'ai', content: string, tableCount?: number) {
+		if (!projectId) return;
+		try {
+			await erdApi.addChatMessage(projectId, { role, content, tableCount });
+		} catch {
+			/* ignore — localStorage already keeps it */
+		}
+	}
+
+	async function clearHistory() {
+		if (!confirm('Hapus seluruh riwayat chat project ini?')) return;
+		messages = [];
+		if (projectId) {
+			localStorage.removeItem(STORAGE_PREFIX + projectId);
+			try {
+				await erdApi.clearChat(projectId);
+			} catch {
+				/* ignore */
+			}
+		}
+	}
+
+	onMount(() => {
+		loadMessages();
 	});
 
 	async function loadUsage() {
@@ -69,15 +135,16 @@
 		isGenerating = true;
 		error = '';
 
+		const sentPrompt = prompt.trim();
 		const userMsg: ChatMsg = {
 			id: crypto.randomUUID(),
 			role: 'user',
-			content: prompt.trim(),
+			content: sentPrompt,
 			timestamp: nowTime()
 		};
 		messages = [...messages, userMsg];
-		const sentPrompt = prompt.trim();
 		prompt = '';
+		await persist('user', sentPrompt);
 
 		try {
 			const apiKey = localStorage.getItem('sf_api_key') || undefined;
@@ -88,29 +155,33 @@
 			flowStore.loadFromSchema(schema);
 			onGenerated?.(schema);
 
+			const aiContent = `Berhasil membuat ERD dari deskripsi "${sentPrompt.slice(0, 40)}${sentPrompt.length > 40 ? '…' : ''}".`;
 			messages = [
 				...messages,
 				{
 					id: crypto.randomUUID(),
 					role: 'ai',
-					content: `Berhasil membuat ERD dari deskripsi "${sentPrompt.slice(0, 40)}${sentPrompt.length > 40 ? '…' : ''}".`,
+					content: aiContent,
 					timestamp: nowTime(),
 					tableCount: schema.tables.length
 				}
 			];
+			await persist('ai', aiContent, schema.tables.length);
 
 			await loadUsage();
 		} catch (err: any) {
 			error = err.message || 'Gagal generate schema';
+			const failContent = 'Maaf, terjadi kesalahan saat generate. Coba lagi atau periksa quota Anda.';
 			messages = [
 				...messages,
 				{
 					id: crypto.randomUUID(),
 					role: 'ai',
-					content: 'Maaf, terjadi kesalahan saat generate. Coba lagi atau periksa quota Anda.',
+					content: failContent,
 					timestamp: nowTime()
 				}
 			];
+			await persist('ai', failContent);
 		} finally {
 			isGenerating = false;
 		}
@@ -145,13 +216,24 @@
 				</div>
 				<h2 class="text-sm font-bold text-white">AI Generator</h2>
 			</div>
-			<button
-				onclick={() => (collapsed = true)}
-				class="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-slate-800/60 transition-all"
-				title="Tutup"
-			>
-				<PanelLeftClose class="w-4 h-4" />
-			</button>
+			<div class="flex items-center gap-1">
+				{#if messages.length > 0}
+					<button
+						onclick={clearHistory}
+						class="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-all"
+						title="Hapus riwayat chat"
+					>
+						<Trash2 class="w-4 h-4" />
+					</button>
+				{/if}
+				<button
+					onclick={() => (collapsed = true)}
+					class="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-slate-800/60 transition-all"
+					title="Tutup"
+				>
+					<PanelLeftClose class="w-4 h-4" />
+				</button>
+			</div>
 		</div>
 
 		<!-- Quota indicator -->
@@ -176,7 +258,11 @@
 
 		<!-- Messages -->
 		<div bind:this={scrollEl} class="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-4">
-			{#if messages.length === 0}
+			{#if isLoading}
+				<div class="flex items-center justify-center gap-2 py-8 text-[11px] text-slate-600">
+					<Loader2 class="w-3.5 h-3.5 animate-spin" /> Memuat riwayat…
+				</div>
+			{:else if messages.length === 0}
 				<div class="flex flex-col items-center gap-3 text-center mt-6">
 					<div class="w-12 h-12 rounded-2xl bg-slate-900/80 border border-slate-800/60 flex items-center justify-center">
 						<Sparkles class="w-5 h-5 text-orange-500/60" />
