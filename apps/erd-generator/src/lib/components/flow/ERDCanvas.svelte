@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SvelteFlow, Background, Controls } from '@xyflow/svelte';
+	import { SvelteFlow, Background, Controls, SvelteFlowProvider } from '@xyflow/svelte';
 	import '@xyflow/svelte/dist/style.css';
 	import TableNode from './TableNode.svelte';
 	import RelationEdge from './RelationEdge.svelte';
@@ -60,39 +60,41 @@
 	}
 </script>
 
-<div class="w-full h-full relative" class:select-none={!activeReadOnly}>
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<SvelteFlow
-		nodes={mappedNodes}
-		edges={edges ?? flowStore.edges}
-		{nodeTypes}
-		{edgeTypes}
-		fitView
-		panOnDrag={true}
-		nodesDraggable={!activeReadOnly}
-		nodesConnectable={!activeReadOnly}
-		elementsSelectable={!activeReadOnly}
-		zoomOnScroll
-		connectOnDrag={!activeReadOnly}
-		onConnect={handleConnect}
-		minZoom={0.2}
-		maxZoom={3}
-		onnodeclick={handleNodeClick}
-		onedgeclick={handleEdgeClick}
-		onpaneClick={handlePaneClick}
-		proOptions={{ hideAttribution: true }}
-		className="erd-canvas"
-	>
-		<Background
-			gap={20}
-			size={1}
-			color="rgba(148, 163, 184, 0.08)"
-		/>
-		<Controls showInteractive={false} />
-	</SvelteFlow>
+<SvelteFlowProvider>
+	<div class="w-full h-full relative" class:select-none={!activeReadOnly}>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<SvelteFlow
+			nodes={mappedNodes}
+			edges={edges ?? flowStore.edges}
+			{nodeTypes}
+			{edgeTypes}
+			fitView
+			panOnDrag={true}
+			nodesDraggable={!activeReadOnly}
+			nodesConnectable={!activeReadOnly}
+			elementsSelectable={!activeReadOnly}
+			zoomOnScroll
+			connectOnDrag={!activeReadOnly}
+			onConnect={handleConnect}
+			minZoom={0.2}
+			maxZoom={3}
+			onnodeclick={handleNodeClick}
+			onedgeclick={handleEdgeClick}
+			onpaneClick={handlePaneClick}
+			proOptions={{ hideAttribution: true }}
+			className="erd-canvas"
+		>
+			<Background
+				gap={20}
+				size={1}
+				color="rgba(148, 163, 184, 0.08)"
+			/>
+			<Controls showInteractive={false} />
+		</SvelteFlow>
 
-	<CanvasControls />
-</div>
+		<CanvasControls />
+	</div>
+</SvelteFlowProvider>
 
 <style>
 	:global(.erd-canvas .svelte-flow__pane) {
