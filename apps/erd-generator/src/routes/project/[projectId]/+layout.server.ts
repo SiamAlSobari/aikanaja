@@ -1,15 +1,15 @@
 import type { LayoutServerLoad } from './$types';
-import { fail } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { erdApi } from '$lib/api/erd';
 
-export const load: LayoutServerLoad = async ({ params, cookies }) => {
+export const load: LayoutServerLoad = async ({ params }) => {
 	const projectId = params.projectId;
 
 	try {
 		const response = await erdApi.getProject(projectId);
 
 		if (!response.data) {
-			return fail(404, { error: 'Project not found' });
+			throw error(404, { message: 'Project not found' });
 		}
 
 		const project = response.data;
@@ -17,8 +17,11 @@ export const load: LayoutServerLoad = async ({ params, cookies }) => {
 		return {
 			project
 		};
-	} catch (error) {
-		console.error('[ProjectLayout.load] Error loading project:', error);
-		return fail(500, { error: 'Failed to load project' });
+	} catch (e: any) {
+		console.error('[ProjectLayout.load] Error loading project:', e);
+		if (e?.message === 'Unauthorized') {
+			throw redirect(302, '/auth/login');
+		}
+		throw error(500, { message: e?.message || 'Failed to load project' });
 	}
 };
