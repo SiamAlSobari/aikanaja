@@ -95,23 +95,7 @@
 		return str.length > len ? str.slice(0, len) + '...' : str;
 	}
 
-	let showNewModal = $state(false);
-	let newName = $state('');
-	let isCreating = $state(false);
 
-	async function createProject() {
-		if (!newName.trim() || isCreating) return;
-		isCreating = true;
-		try {
-			const { erdApi } = await import('$lib/api/erd');
-			const res = await erdApi.create({ name: newName });
-			if (res.data?.id) window.location.href = `/project/${res.data.id}`;
-		} catch (err) {
-			console.error('[projects.create]', err);
-		} finally {
-			isCreating = false;
-		}
-	}
 
 	async function deleteProject(id: string, name: string) {
 		if (!confirm(`Delete "${name}"? It will be moved to trash.`)) return;
@@ -146,12 +130,12 @@
 				<h1 class="text-2xl font-extrabold text-white tracking-tight">Projects</h1>
 				<p class="text-sm text-slate-500 mt-1">{data.pagination.total} project{data.pagination.total !== 1 ? 's' : ''}</p>
 			</div>
-			<button
-				onclick={() => showNewModal = true}
+			<a
+				href="/dashboard/projects/new"
 				class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 hover:shadow-orange-600/30 transition-all active:scale-[0.98]"
 			>
 				<Plus class="w-4 h-4" /> New Project
-			</button>
+			</a>
 		</div>
 
 		<!-- Toolbar -->
@@ -322,12 +306,12 @@
 						{data.filters.search ? `No projects matching "${data.filters.search}"` : 'Create your first ERD from a text description.'}
 					</p>
 					{#if !data.filters.search}
-						<button
-							onclick={() => showNewModal = true}
+						<a
+							href="/dashboard/projects/new"
 							class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-xs shadow-lg shadow-orange-600/20 transition-all active:scale-[0.98]"
 						>
 							<Zap class="w-3.5 h-3.5" /> Get Started
-						</button>
+						</a>
 					{/if}
 				</div>
 			</div>
@@ -335,49 +319,7 @@
 	</div>
 </div>
 
-<!-- New Project Modal -->
-{#if showNewModal}
-	<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
-	<div
-		class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
-		onclick={() => showNewModal = false}
-	>
-		<div
-			class="w-full max-w-md bg-slate-900 border border-slate-800/80 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden animate-scale-in"
-			onclick={(e) => e.stopPropagation()}
-		>
-			<div class="px-6 py-5 border-b border-slate-800/60">
-				<h3 class="text-lg font-bold text-white">New Project</h3>
-			</div>
-			<div class="px-6 py-5">
-				<input
-					type="text"
-					bind:value={newName}
-					placeholder="e.g., E-Commerce Database"
-					class="w-full bg-slate-950/60 border border-slate-800 text-slate-200 text-sm rounded-xl
-						focus:outline-none focus:border-orange-600/50 focus:ring-1 focus:ring-orange-600/20
-						placeholder:text-slate-600 px-4 py-3"
-					onkeydown={(e) => { if (e.key === 'Enter') createProject(); }}
-				/>
-			</div>
-			<div class="px-6 py-4 border-t border-slate-800/60 flex items-center justify-end gap-3">
-				<button onclick={() => showNewModal = false} class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/50 transition-colors">Cancel</button>
-				<button
-					onclick={createProject}
-					disabled={!newName.trim() || isCreating}
-					class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-slate-950 font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-orange-600/20"
-				>
-					{#if isCreating}
-						<span class="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin"></span>
-					{:else}
-						<Zap class="w-4 h-4" />
-					{/if}
-					Create
-				</button>
-			</div>
-		</div>
-	</div>
-{/if}
+
 
 <style>
 	@keyframes fade-in-up {
