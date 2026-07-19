@@ -8,11 +8,19 @@
 
 	let {
 		readonly = false,
+		isReadOnly = false,
 		onNodeClick,
+		nodes,
+		edges,
 	}: {
 		readonly?: boolean;
+		isReadOnly?: boolean;
 		onNodeClick?: (nodeId: string) => void;
+		nodes?: any[];
+		edges?: any[];
 	} = $props();
+
+	const activeReadOnly = $derived(readonly || isReadOnly);
 
 	const nodeTypes = { table: TableNode };
 	const edgeTypes = { relation: RelationEdge };
@@ -47,17 +55,17 @@
 	}
 </script>
 
-<div class="w-full h-full relative" class:select-none={!readonly}>
+<div class="w-full h-full relative" class:select-none={!activeReadOnly}>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<SvelteFlow
-		nodes={flowStore.nodes}
-		edges={flowStore.edges}
+		nodes={nodes ?? flowStore.nodes}
+		edges={edges ?? flowStore.edges}
 		{nodeTypes}
 		{edgeTypes}
 		fitView
-		panOnDrag={!readonly}
+		panOnDrag={!activeReadOnly}
 		zoomOnScroll
-		connectOnDrag
+		connectOnDrag={!activeReadOnly}
 		onConnect={handleConnect}
 		minZoom={0.2}
 		maxZoom={3}
