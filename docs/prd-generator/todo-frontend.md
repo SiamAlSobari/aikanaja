@@ -137,9 +137,11 @@ _Status: IN PROGRESS_
   - `prdApi.qualityAudit(content)` — POST `/prd/quality-audit`
   - `prdApi.sprintPlan(content)` — POST `/prd/sprint-plan`
   - `prdApi.exportAgentPrompt(content)` — POST `/prd/export-agent`
+  - `prdApi.exportJsonSpec(content)` — POST `/prd/export-json`
   - `prdApi.getVersions(id)` — GET `/prd/projects/:id/versions`
   - `prdApi.getVersionDiff(id, vA, vB)` — GET `/prd/projects/:id/diff`
   - `prdApi.share(id)` — POST `/prd/projects/:id/share`
+  - `prdApi.getPrdQuota()` — GET `/prd/quota` (Terpisah dari ERD Generator)
 
 ### 1.2 Svelte Stores (Svelte 5 runes)
 
@@ -261,5 +263,14 @@ _Status: IN PROGRESS_
 - [ ] 🔴 `src/routes/settings/account/+page.svelte`
 - [ ] 🔴 `src/routes/settings/api-keys/+page.svelte`: Management Custom API Key (Google Gemini 2.0 Flash / Groq) di LocalStorage
 - [ ] 🔴 `src/routes/settings/appearance/+page.svelte`
-- [ ] 🟡 `src/routes/settings/billing/+page.svelte`
+- [ ] 🟡 `src/routes/settings/billing/+page.svelte`: Tampilan Kuota & Subskripsi terpisah antara PRD Generator dan ERD Generator
 - [ ] 🟡 `src/routes/settings/notifications/+page.svelte`
+
+---
+
+## Phase 8 — Enterprise Chat History, Stakeholder Review History, Templates & Audit Trail
+
+- [ ] 🔴 `src/lib/components/features/copilot/CopilotChatHistory.svelte`: Persisted copilot message history loader
+- [ ] 🔴 `src/lib/components/features/audit/VirtualReviewHistoryModal.svelte`: Past stakeholder review snapshots comparison
+- [ ] 🔴 `src/lib/components/features/templates/TemplateGalleryModal.svelte`: Preset template selector (SaaS, Mobile, E-commerce, API, AI)
+- [ ] 🔴 `src/lib/components/features/audit/AuditTrailDrawer.svelte`: Real-time section edit audit trail drawer

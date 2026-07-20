@@ -1,36 +1,149 @@
+// 1. PROJECT UTAMA
 model PrdProject {
-  id          String   @id @default(uuid())
-  title       String
-  description String?
-  author      String
-  userId      String
-  content     String?  // Markdown PRD content
-  templateType String? // saas, ecommerce, mobile, api, custom
-  erdLinkId   String?  // Optional link to ERD project
-  status      String   @default("draft") // draft, active, deleted
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String   @id @default(uuid())
+  title            String
+  description      String?
+  author           String
+  userId           String
+  content          String?  // Markdown PRD content
+  templateType     String?  // saas, ecommerce, mobile, api, custom
+  targetUser       String?  // Target audience info
+  techStack        String?  // Tech stack info
+  erdLinkId        String?  // Optional link to ERD project
+  shareToken       String?  @unique
+  visibility       String   @default("private") // private, public, team
+  status           String   @default("active")  // active, archived, deleted
+  qualityScore     Int?     // Skor Kesehatan PRD (0-100)
+  storyPointsTotal Int?     // Total Fibonacci Story Points
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
-  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  versions PrdVersion[]
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  versions       PrdVersion[]
+  shares         PrdShare[]
+  shareLinks     PrdShareLink[]
+  chatMessages   PrdChatMessage[]
+  virtualReviews PrdVirtualReview[]
+  auditLogs      PrdAuditLog[]
 
   @@index([userId])
   @@index([status])
   @@index([userId, status])
 }
 
+// 2. RIWAYAT VERSI (Version History & Visual Diff)
 model PrdVersion {
-  id          String   @id @default(uuid())
-  projectId   String
-  versionNum  Int
-  title       String?
-  content     String   // Markdown snapshot
-  qualityScore Int?
+  id               String   @id @default(uuid())
+  projectId        String
+  versionNum       Int
+  title            String?
+  changelog        String?  // Catatan perubahan versi
+  content          String   // Markdown snapshot
+  qualityScore     Int?
   storyPointsTotal Int?
-  createdAt   DateTime @default(now())
+  createdBy        String?
+  createdAt        DateTime @default(now())
 
   project PrdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId])
+  @@index([projectId, createdAt])
+}
+
+// 3. RIWAYAT AI CHAT & COPILOT INTERACTION LOGS
+model PrdChatMessage {
+  id                  String   @id @default(uuid())
+  projectId           String
+  userId              String
+  role                String   // user, assistant, system
+  actionType          String   @default("chat") // chat, inline_edit, selection_highlight, section_expand
+  content             String   // Teks pesan / instruksi
+  revisedSnippet      String?  // Hasil potongan markdown yang direvisi AI
+  modelUsed           String?  // gemini-2.0-flash, llama-3.3-70b
+  promptTokenCount    Int?
+  responseTokenCount Int?
+  createdAt           DateTime @default(now())
+
+  project PrdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
+}
+
+// 4. RIWAYAT VIRTUAL STAKEHOLDER REVIEWS (Tech Lead, QA, Product Sponsor)
+model PrdVirtualReview {
+  id                     String   @id @default(uuid())
+  projectId              String
+  overallScore           Int      // Skor rata-rata 0-100
+  techLeadScore          Int
+  techLeadFeedback       String   // JSON string feedback Tech Lead
+  qaScore                Int
+  qaFeedback             String   // JSON string feedback QA Engineer
+  productSponsorScore    Int
+  productSponsorFeedback String   // JSON string feedback Business Sponsor
+  recommendations        String?  // JSON array string
+  createdAt              DateTime @default(now())
+
+  project PrdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
+}
+
+// 5. KOLABORASI TIM & HAK AKSES ANGGOTA
+model PrdShare {
+  id        String   @id @default(uuid())
+  projectId String
+  userId    String
+  role      String   @default("view") // view, edit, admin
+  createdAt DateTime @default(now())
+
+  project PrdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([userId])
+}
+
+// 6. TAUTAN SHARE PUBLIK (Tautan Berbagi Read-Only)
+model PrdShareLink {
+  id            String    @id @default(uuid())
+  projectId     String
+  token         String    @unique
+  allowComments Boolean   @default(false)
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  project PrdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([token])
+}
+
+// 7. KATALOG TEMPLATE PRD PRESET
+model PrdTemplate {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?
+  category        String   // saas, ecommerce, mobile, api, ai
+  templateContent String   // Markdown boilerplate template
+  icon            String?
+  thumbnail       String?
+  isOfficial      Boolean  @default(true)
+  createdAt       DateTime @default(now())
+
+  @@index([category])
+}
+
+// 8. AUDIT LOG AKTIVITAS DETIL (Audit Trail PRD)
+model PrdAuditLog {
+  id          String   @id @default(uuid())
+  projectId   String
+  userId      String
+  action      String   // create, copilot_edit, virtual_review, version_restore, export, share
+  sectionName String?  // Nama bab yang diedit
+  details     String?  // JSON string
+  createdAt   DateTime @default(now())
+
+  project PrdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
   @@index([projectId, createdAt])
 }

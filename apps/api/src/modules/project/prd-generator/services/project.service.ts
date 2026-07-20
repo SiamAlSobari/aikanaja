@@ -12,6 +12,7 @@ interface ListProjectsOptions {
 
 const PROJECT_SELECT = {
   id: true,
+  userId: true,
   title: true,
   description: true,
   author: true,

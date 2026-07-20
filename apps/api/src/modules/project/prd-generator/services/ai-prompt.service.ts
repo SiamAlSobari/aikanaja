@@ -1,6 +1,6 @@
 import { createGroq } from '@ai-sdk/groq'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
-import { streamText } from 'ai'
+import { generateText, streamText } from 'ai'
 import { config } from '../../../../config'
 
 type Provider = 'groq' | 'gemini'
@@ -197,6 +197,53 @@ export class AiPromptService {
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err))
         console.error(`[AiPromptService.streamCopilot] Attempt ${i + 1}/${attempts.length} gagal`, {
+          provider,
+          source,
+          error: lastError.message,
+        })
+      }
+    }
+
+    throw lastError || new Error('All API keys exhausted')
+  }
+
+  /**
+   * Non-streaming text generation with key/provider fallback mechanism.
+   */
+  async generateText(
+    systemPrompt: string,
+    prompt: string,
+    userApiKey?: string,
+    preferredProvider: Provider = 'gemini'
+  ): Promise<string> {
+    const attempts = buildAttemptList(preferredProvider, userApiKey)
+
+    if (attempts.length === 0) {
+      throw new Error('No API keys available')
+    }
+
+    let lastError: Error | null = null
+
+    for (let i = 0; i < attempts.length; i++) {
+      const { provider, key, source } = attempts[i]
+      try {
+        const aiProvider = createAiProvider(provider, key)
+        const model = getModel(provider)
+
+        const result = await generateText({
+          model: aiProvider(model),
+          system: systemPrompt,
+          prompt,
+        })
+
+        if (i > 0) {
+          console.log(`[AiPromptService.generateText] Fallback ke attempt ${i + 1} — ${provider} (${source})`)
+        }
+
+        return result.text
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err))
+        console.error(`[AiPromptService.generateText] Attempt ${i + 1}/${attempts.length} gagal`, {
           provider,
           source,
           error: lastError.message,
