@@ -1,56 +1,68 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import { motion } from '@humanspeak/svelte-motion';
-	import { ArrowRight } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+	import { ArrowRight, Sparkles } from 'lucide-svelte';
+
+	let sectionEl = $state<HTMLElement | null>(null);
+
+	onMount(async () => {
+		const { gsap } = await import('gsap');
+		if (!sectionEl) return;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+						if (entry.isIntersecting && sectionEl) {
+						gsap.from(sectionEl.querySelectorAll('.cta-item'), {
+							opacity: 0,
+							y: 25,
+							duration: 0.6,
+							stagger: 0.1,
+							ease: 'power3.out'
+						});
+						observer.disconnect();
+					}
+				});
+			},
+			{ threshold: 0.2 }
+		);
+		observer.observe(sectionEl);
+	});
 </script>
 
-<section class="relative py-32 lg:py-44 overflow-hidden">
-	<!-- Background glow -->
-	<div
-		class="absolute inset-0 pointer-events-none"
-		style="background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,62,0,0.08) 0%, transparent 70%);"
-	></div>
-
-	<div class="max-w-4xl mx-auto px-5 text-center relative z-10">
-		<motion.div
-			initial={{ opacity: 0, y: 30 }}
-			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: true }}
-			transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-			class="space-y-8"
-		>
-			<h2
-				class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-[-0.04em] text-white leading-[0.95]"
-			>
-				Siap?<br />
-				<span class="text-orange-500">Mulai.</span>
+<section bind:this={sectionEl} class="max-w-4xl mx-auto px-6 py-24 w-full text-center">
+	<div class="space-y-8">
+		<div class="cta-item space-y-4">
+			<h2 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
+				Siap Merancang
+				<br />
+				<span class="bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-200 bg-clip-text text-transparent">
+					PRD Enterprise?
+				</span>
 			</h2>
-
-			<p class="text-lg text-slate-400 max-w-md mx-auto">
-				Berbungkus PRD yang ambiguous. Waktunya buat PRD yang benar-benar siap implementasi.
+			<p class="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
+				Ubah gagasan produk Anda menjadi dokumen PRD komprehensif dalam hitungan menit, bukan jam.
 			</p>
+		</div>
 
-			<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-				<motion.a
-					href="{base}/try"
-					whileHover={{ scale: 1.03 }}
-					whileTap={{ scale: 0.98 }}
-					transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-					class="group inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-base transition-all shadow-xl shadow-orange-600/20 hover:shadow-orange-600/30"
-				>
-					Coba Gratis
-					<ArrowRight class="w-4.5 h-4.5 group-hover:translate-x-1 transition-transform" />
-				</motion.a>
-				<motion.a
-					href="{base}/auth/login"
-					whileHover={{ scale: 1.03 }}
-					whileTap={{ scale: 0.98 }}
-					transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-					class="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl border border-white/10 hover:border-white/20 text-slate-300 hover:text-white font-medium text-base transition-all"
-				>
-					Masuk dengan Akun
-				</motion.a>
-			</div>
-		</motion.div>
+		<div class="cta-item flex flex-col sm:flex-row items-center justify-center gap-4">
+			<a
+				href="/try"
+				class="px-8 py-4 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-slate-950 font-black text-sm shadow-xl shadow-orange-500/25 transition-all active:scale-95 flex items-center gap-2"
+			>
+				<Sparkles class="w-4 h-4" />
+				Mulai Gratis di /try
+				<ArrowRight class="w-4 h-4" />
+			</a>
+			<a
+				href="/dashboard"
+				class="px-8 py-4 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:border-orange-500/30 text-white font-bold text-sm transition-all flex items-center gap-2"
+			>
+				Buka Dashboard
+			</a>
+		</div>
+
+		<div class="cta-item pt-4">
+			<p class="text-xs text-slate-500 font-mono">Tanpa kartu kredit. Tanpa login. Langsung coba.</p>
+		</div>
 	</div>
 </section>

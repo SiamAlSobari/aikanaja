@@ -171,13 +171,6 @@ _Status: IN PROGRESS_
 
 ### 2.1 Root Layout
 
-- [ ] 🔴 `src/routes/+layout.svelte`:
-  - Import DaisyUI & Tailwind v4
-  - Theme provider (light/dark)
-  - Toast container
-  - Global navbar
-- [ ] 🔴 `src/routes/+layout.server.ts`:
-  - Load session user (if any)
 
 ### 2.2 Base UI Components
 

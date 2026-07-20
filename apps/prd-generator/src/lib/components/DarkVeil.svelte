@@ -13,12 +13,12 @@
 	};
 
 	let {
-		hueShift = 0,
-		noiseIntensity = 0,
+		hueShift = 25,
+		noiseIntensity = 0.012,
 		scanlineIntensity = 0,
-		speed = 0.5,
+		speed = 0.3,
 		scanlineFrequency = 0,
-		warpAmount = 0,
+		warpAmount = 0.08,
 		resolutionScale = 1
 	}: Props = $props();
 

@@ -3,8 +3,8 @@
 @plugin 'daisyui';
 
 @theme {
-	--color-brand-orange: #ff3e00;
-	--color-brand-amber: #f97316;
+	--color-brand-orange: #ff6b00;
+	--color-brand-amber: #f59e0b;
 }
 
 /* Glow blur */
@@ -25,7 +25,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-	background: #020617;
+	background: #030712;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -34,11 +34,11 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #ff3e00;
+	background: #ff6b00;
 }
 
 /* Selection color */
 ::selection {
-	background: rgba(255, 62, 0, 0.3);
-	color: #fed7aa;
+	background: rgba(255, 140, 50, 0.3);
+	color: #fef3c7;
 }
