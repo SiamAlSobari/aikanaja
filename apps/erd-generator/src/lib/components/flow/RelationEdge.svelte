@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { BaseEdge, getBezierPath, type EdgeProps } from '@xyflow/svelte';
+	import { BaseEdge, getBezierPath } from '@xyflow/svelte';
 	import { flowStore } from '$lib/stores/flow.store.svelte';
 
-	let props = $props() as EdgeProps;
-	const isSelected = $derived(flowStore.selectedEdgeId === props.id);
+	let edgeProps: any = $props();
+	const isSelected = $derived(flowStore.selectedEdgeId === edgeProps.id);
 
 	const pathData = $derived(
 		getBezierPath({
-			sourceX: props.sourceX,
-			sourceY: props.sourceY,
-			sourcePosition: props.sourcePosition,
-			targetX: props.targetX,
-			targetY: props.targetY,
-			targetPosition: props.targetPosition
+			sourceX: edgeProps.sourceX,
+			sourceY: edgeProps.sourceY,
+			sourcePosition: edgeProps.sourcePosition,
+			targetX: edgeProps.targetX,
+			targetY: edgeProps.targetY,
+			targetPosition: edgeProps.targetPosition
 		})
 	);
 	const path = $derived(pathData[0]);
@@ -21,15 +21,15 @@
 </script>
 
 <BaseEdge
-	id={props.id}
-	path={path}
-	markerEnd={props.markerEnd}
+	id={edgeProps.id}
+	{path}
+	markerEnd={edgeProps.markerEnd}
 	style={isSelected ? 'stroke: #fb923c; stroke-width: 2.5;' : 'stroke: #f97316; stroke-width: 1.5;'}
 />
 
-{#if props.label}
+{#if edgeProps.label}
 	<foreignObject x={labelX - 26} y={labelY - 12} width="52" height="24" class="overflow-visible pointer-events-none">
-		<div class="erd-edge-label {isSelected ? 'erd-edge-selected' : ''}">{props.label}</div>
+		<div class="erd-edge-label {isSelected ? 'erd-edge-selected' : ''}">{edgeProps.label}</div>
 	</foreignObject>
 {/if}
 

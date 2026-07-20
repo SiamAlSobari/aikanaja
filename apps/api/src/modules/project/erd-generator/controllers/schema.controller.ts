@@ -13,13 +13,14 @@ export const schemaController = new Elysia({ prefix: '/erd' })
   // POST /erd/generate — Generate ERD schema (non-streaming)
   .post(
     '/generate',
-    async ({ body, user }) => {
+    async ({ body, user, headers }) => {
       const userId = user?.id || null
+      const apiKey = body.apiKey || (headers['x-custom-api-key'] as string | undefined)
 
       const schema = await schemaService.generateSchema(userId, {
         prompt: body.prompt,
         provider: body.provider,
-        apiKey: body.apiKey,
+        apiKey,
       })
 
       return { data: schema }
@@ -30,13 +31,14 @@ export const schemaController = new Elysia({ prefix: '/erd' })
   // POST /erd/generate/stream — Generate ERD schema (streaming)
   .post(
     '/generate/stream',
-    async ({ body, user, request }) => {
+    async ({ body, user, headers, request }) => {
       const userId = user?.id || null
+      const apiKey = body.apiKey || (headers['x-custom-api-key'] as string | undefined)
 
       const stream = await schemaService.generateSchemaStream(userId, {
         prompt: body.prompt,
         provider: body.provider,
-        apiKey: body.apiKey,
+        apiKey,
         signal: request.signal,
       })
 

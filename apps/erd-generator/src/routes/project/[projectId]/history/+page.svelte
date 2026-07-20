@@ -11,7 +11,8 @@
 	let restoring = $state<string | null>(null);
 
 	function tablesOf(v: Version): string[] {
-		return (v.schema?.nodes ?? []).map((n: any) => n.data?.name ?? '?');
+		const s: any = v.schema;
+		return (s?.tables ?? s?.nodes ?? []).map((n: any) => n.name ?? n.data?.name ?? '?');
 	}
 	function fmt(d: string) {
 		return new Date(d).toLocaleString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });

@@ -11,8 +11,8 @@
 
 	onMount(async () => {
 		try {
-			const b = await erdApi.getBilling();
-			payments = b.payments;
+			const b: any = await erdApi.getBilling();
+			payments = b.payments || [];
 		} catch (e: any) {
 			error = e.message || 'Gagal memuat';
 		} finally {

@@ -10,8 +10,9 @@
 
 	let restoring = $state(false);
 
-	const nodes = $derived(data.version.schema?.nodes ?? []);
-	const edges = $derived(data.version.schema?.edges ?? []);
+	const schema: any = $derived(data.version.schema);
+	const nodes = $derived(schema?.tables ?? schema?.nodes ?? []);
+	const edges = $derived(schema?.relations ?? schema?.edges ?? []);
 
 	function fmt(d: string) {
 		return new Date(d).toLocaleString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });

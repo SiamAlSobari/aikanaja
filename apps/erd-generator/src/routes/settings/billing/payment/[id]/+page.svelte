@@ -25,8 +25,10 @@
 
 	onMount(async () => {
 		try {
-			payment = await erdApi.getPayment(id);
-			proofUrl = payment.proof ?? '';
+			const paymentId = id || '';
+			const res: any = await erdApi.getPayment(paymentId);
+			payment = res.data ?? res;
+			proofUrl = payment?.proof ?? '';
 		} catch (e: any) {
 			error = e.message || 'Gagal memuat';
 		} finally {
@@ -60,9 +62,10 @@
 		if (!proofUrl) return;
 		submitting = true;
 		try {
-			await erdApi.uploadProof(id, proofUrl);
+			await erdApi.uploadProof(id || '', proofUrl);
 			addToast('success', 'Bukti dikirim, menunggu verifikasi');
-			payment = await erdApi.getPayment(id);
+			const res: any = await erdApi.getPayment(id || '');
+			payment = res.data ?? res;
 		} catch (e: any) {
 			addToast('error', e.message || 'Gagal kirim');
 		} finally {

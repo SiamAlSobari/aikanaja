@@ -78,7 +78,7 @@
 			<div class="mt-5">
 				<div class="flex items-center justify-between text-xs mb-1.5">
 					<span class="text-slate-400">Penggunaan tabel</span>
-					<span class="text-slate-300 font-medium">{unlimited ? 'Unlimited' : `${usage.count} / ${usage.limit}`}</span>
+					<span class="text-slate-300 font-medium">{unlimited ? 'Unlimited' : `${usage?.count ?? 0} / ${usage?.limit ?? 5}`}</span>
 				</div>
 				<div class="h-2 rounded-full bg-slate-800 overflow-hidden">
 					<div class="h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-400 transition-all" style="width:{unlimited ? 100 : pct}%"></div>

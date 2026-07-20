@@ -10,6 +10,21 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 		...((options.headers as Record<string, string>) || {})
 	};
 
+	// Attach local custom API key if present in LocalStorage (Zero-Persistence Client Security)
+	if (browser) {
+		try {
+			const stored = localStorage.getItem('aikanaja_custom_keys');
+			if (stored) {
+				const keys = JSON.parse(stored);
+				if (Array.isArray(keys) && keys.length > 0) {
+					headers['x-custom-api-key'] = keys[0].key;
+				}
+			}
+		} catch {
+			/* ignore storage error */
+		}
+	}
+
 	const response = await fetch(url, {
 		...options,
 		headers,

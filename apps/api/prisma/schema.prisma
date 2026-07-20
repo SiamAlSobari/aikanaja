@@ -5,7 +5,6 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-
 }
 
 model User {
@@ -25,19 +24,4 @@ model User {
   usage        Usage[]
   payments     Payment[]
   activities   Activity[]
-  apiKeys      ApiKey[]
-}
-
-model ApiKey {
-  id        String   @id @default(uuid())
-  userId    String
-  provider  String // 'groq' | 'gemini'
-  key       String // raw API key (dipakai server-side)
-  label     String?
-  isDefault Boolean  @default(false)
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, provider, key])
-  @@index([userId, provider])
 }

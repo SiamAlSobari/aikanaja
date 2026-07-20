@@ -120,7 +120,7 @@
 				<div class="min-w-0">
 					<p class="font-medium text-white truncate flex items-center gap-1.5">
 						{payment?.user?.name}
-						{#if payment?.user?.role === 'admin'}<ShieldCheck class="w-3.5 h-3.5 text-orange-500" />{/if}
+						{#if (payment?.user as any)?.role === 'admin'}<ShieldCheck class="w-3.5 h-3.5 text-orange-500" />{/if}
 					</p>
 					<p class="text-[11px] text-slate-500 truncate">{payment?.user?.email}</p>
 				</div>

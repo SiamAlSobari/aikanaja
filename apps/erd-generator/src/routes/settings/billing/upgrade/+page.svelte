@@ -18,9 +18,10 @@
 		if (tier === 'free' || tier === current) return;
 		loading = tier;
 		try {
-			const res = await erdApi.requestUpgrade(tier);
+			const res: any = await erdApi.requestUpgrade(tier);
+			const paymentId = res.data?.payment?.id ?? res.payment?.id;
 			addToast('success', `Permintaan ${tier} dibuat. Upload bukti transfer.`);
-			goto(`/settings/billing/payment/${res.payment.id}`);
+			goto(`/settings/billing/payment/${paymentId}`);
 		} catch (e: any) {
 			addToast('error', e.message || 'Gagal memproses');
 		} finally {

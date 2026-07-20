@@ -4,7 +4,7 @@ import type { PageServerLoad } from './$types';
 import type { BillingInfo } from '$lib/api/erd';
 
 export const load: PageServerLoad = async ({ fetch, locals, request }) => {
-	if (!locals.user) throw redirect(303, '/login');
+	if (!(locals as any).user) throw redirect(303, '/auth/login');
 	const cookie = request.headers.get('cookie') || '';
 	try {
 		const res = await fetch(`${getApiUrl()}/erd/billing`, { headers: { cookie } });

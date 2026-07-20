@@ -1,7 +1,6 @@
 import { AiService } from './ai.service'
 import { QuotaService } from './quota.service'
 import { ActivityService } from './activity.service'
-import { ApiKeyService } from '../../../shared/api-key/api-key.service'
 import { GENERATE_ERD_SYSTEM_PROMPT, buildGeneratePrompt } from '../prompts/generate-erd.prompt'
 import {
   BadRequestException,
@@ -52,13 +51,11 @@ export class SchemaService {
   private aiService: AiService
   private quotaService: QuotaService
   private activityService: ActivityService
-  private apiKeyService: ApiKeyService
 
   constructor() {
     this.aiService = new AiService()
     this.quotaService = new QuotaService()
     this.activityService = new ActivityService()
-    this.apiKeyService = new ApiKeyService()
   }
 
   /**
@@ -78,12 +75,7 @@ export class SchemaService {
       throw new BadRequestException('Prompt must be at least 5 characters')
     }
 
-    // Resolve API key: body > default key user (provider default 'groq')
-    let apiKey = input.apiKey
-    if (!apiKey && userId) {
-      const provider = input.provider || 'groq'
-      apiKey = (await this.apiKeyService.getDefaultKey(userId, provider)) || undefined
-    }
+    const apiKey = input.apiKey
 
     // Cek quota (skip jika pakai API key sendiri)
     if (!apiKey && userId) {
@@ -144,12 +136,7 @@ export class SchemaService {
       throw new BadRequestException('Prompt must be at least 5 characters')
     }
 
-    // Resolve API key: body > default key user (provider default 'groq')
-    let apiKey = input.apiKey
-    if (!apiKey && userId) {
-      const provider = input.provider || 'groq'
-      apiKey = (await this.apiKeyService.getDefaultKey(userId, provider)) || undefined
-    }
+    const apiKey = input.apiKey
 
     // Cek quota (skip jika pakai API key sendiri)
     if (!apiKey && userId) {
@@ -185,16 +172,9 @@ export class SchemaService {
 
   /**
    * Parse AI response menjadi ErdSchema.
-   * - Bersihkan markdown code blocks
-   * - Parse JSON
-   * - Validasi struktur (tables, columns, relations)
-   * - Auto-add primary key jika tidak ada
-   *
-   * @throws InternalServerErrorException jika response bukan JSON valid
    */
   private parseSchemaResponse(text: string): ErdSchema {
     try {
-      // Bersihkan response (hapus markdown code blocks jika ada)
       let cleanText = text.trim()
       if (cleanText.startsWith('```json')) {
         cleanText = cleanText.slice(7)
@@ -209,7 +189,6 @@ export class SchemaService {
 
       const parsed = JSON.parse(cleanText)
 
-      // Validasi struktur dasar
       if (!parsed.tables || !Array.isArray(parsed.tables)) {
         throw new Error('Invalid schema: missing tables array')
       }
@@ -218,16 +197,13 @@ export class SchemaService {
         throw new Error('Invalid schema: missing relations array')
       }
 
-      // Validasi setiap tabel
       for (const table of parsed.tables) {
         if (!table.id || !table.name || !Array.isArray(table.columns)) {
           throw new Error(`Invalid table structure: ${JSON.stringify(table)}`)
         }
 
-        // Pastikan ada primary key
         const hasPk = table.columns.some((col: any) => col.primaryKey === true)
         if (!hasPk) {
-          // Auto-add id sebagai primary key jika tidak ada
           table.columns.unshift({
             id: `${table.id}-pk`,
             name: 'id',
