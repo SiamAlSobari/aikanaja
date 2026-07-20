@@ -121,7 +121,7 @@ src/modules/
 
 ### 2.1 Project Service
 
-- [ ] 🔴 `src/modules/project/prd-generator/services/project.service.ts`:
+- [x] 🔴 `src/modules/project/prd-generator/services/project.service.ts`:
   - `listProjects(userId, { page, limit, sort, filter })`
   - `getProject(userId, projectId)`
   - `createProject(userId, { name, description, templateType })`
@@ -131,7 +131,7 @@ src/modules/
 
 ### 2.2 Project Controller
 
-- [ ] 🔴 `src/modules/project/prd-generator/controllers/project.controller.ts`:
+- [x] 🔴 `src/modules/project/prd-generator/controllers/project.controller.ts`:
   - GET `/prd/projects`
   - GET `/prd/projects/:id`
   - POST `/prd/projects`
@@ -145,7 +145,7 @@ src/modules/
 
 ### 3.1 AI Prompt Service
 
-- [ ] 🔴 `src/modules/project/prd-generator/services/ai-prompt.service.ts`:
+- [x] 🔴 `src/modules/project/prd-generator/services/ai-prompt.service.ts`:
   - Primary System Prompt for Gemini 2.0 Flash (`@ai-sdk/google`)
   - Provider fallback engine (Gemini 2.0 Flash -> Groq)
   - Custom API Key Header extractor (`x-custom-api-key`)
@@ -153,7 +153,7 @@ src/modules/
 
 ### 3.2 AI Controllers
 
-- [ ] 🔴 `src/modules/project/prd-generator/controllers/ai.controller.ts`:
+- [x] 🔴 `src/modules/project/prd-generator/controllers/ai.controller.ts`:
   - POST `/prd/generate` — streaming PRD generator
   - POST `/prd/copilot` — streaming inline copilot modifier
 
