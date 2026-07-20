@@ -1,5 +1,6 @@
 import { prisma } from '../../../../lib/prisma'
 import { NotFoundException, BadRequestException } from 'elysia-http-exception'
+import { getCurrentMonth } from '../helpers/date.helper'
 
 type PlanTier = 'free' | 'pro' | 'team'
 
@@ -12,9 +13,9 @@ interface BillingInfo {
 
 // Plan limits
 const PLAN_LIMITS: Record<PlanTier, number> = {
-  free: 10,
-  pro: -1, // unlimited
-  team: -1,
+  free: 5,
+  pro: 20,
+  team: 50,
 }
 
 // Dana payment info (bisa dipindah ke env)
@@ -34,7 +35,7 @@ export class BillingService {
     if (!user) throw new NotFoundException('User not found')
 
     // Get usage bulan ini
-    const month = this.getCurrentMonth()
+    const month = getCurrentMonth()
     const usage = await prisma.usage.findUnique({
       where: { userId_month: { userId, month } },
     })
@@ -80,7 +81,7 @@ export class BillingService {
     }
 
     // Amount berdasarkan plan
-    const amount = plan === 'pro' ? 99000 : 299000 // Rp 99rb / Rp 299rb
+    const amount = plan === 'pro' ? 7000 : 15000 // Rp 7rb / Rp 15rb
 
     const payment = await prisma.payment.create({
       data: {
@@ -130,7 +131,7 @@ export class BillingService {
 
     // Update usage limit
     const limit = PLAN_LIMITS[payment.plan as PlanTier]
-    const month = this.getCurrentMonth()
+    const month = getCurrentMonth()
     await prisma.usage.upsert({
       where: { userId_month: { userId: payment.userId, month } },
       update: { limit },
@@ -205,7 +206,7 @@ export class BillingService {
     })
 
     // Update usage limit ke free
-    const month = this.getCurrentMonth()
+    const month = getCurrentMonth()
     await prisma.usage.upsert({
       where: { userId_month: { userId, month } },
       update: { limit: PLAN_LIMITS.free },
@@ -221,10 +222,5 @@ export class BillingService {
     if (role === 'pro') return 'pro'
     if (role === 'team') return 'team'
     return 'free'
-  }
-
-  private getCurrentMonth(): string {
-    const now = new Date()
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`
   }
 }

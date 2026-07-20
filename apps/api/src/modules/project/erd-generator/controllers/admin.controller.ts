@@ -227,7 +227,7 @@ export const adminController = new Elysia({ prefix: '/erd/admin' })
     })
 
     // Update usage limit
-    const limit = payment.plan === 'pro' ? -1 : -1 // unlimited for pro/team
+    const limit = payment.plan === 'pro' ? 20 : 50 // pro: 20, team: 50
     const month = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}`
     await prisma.usage.upsert({
       where: { userId_month: { userId: payment.userId, month } },

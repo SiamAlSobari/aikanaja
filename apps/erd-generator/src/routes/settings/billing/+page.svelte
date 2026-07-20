@@ -8,9 +8,9 @@
 	let { data }: { data: { billing: BillingInfo | null } } = $props();
 
 	const PLAN_META: Record<PlanTier, { name: string; price: string; tables: string; accent: string }> = {
-		free: { name: 'Free', price: 'Rp 0', tables: '10 tabel', accent: 'slate' },
-		pro: { name: 'Pro', price: 'Rp 49.000/bln', tables: 'Unlimited', accent: 'orange' },
-		team: { name: 'Team', price: 'Rp 149.000/bln', tables: 'Unlimited + Kolaborasi', accent: 'violet' }
+		free: { name: 'Free', price: 'Rp 0', tables: '5 generate', accent: 'slate' },
+		pro: { name: 'Pro', price: 'Rp 7.000/bln', tables: '20 generate', accent: 'orange' },
+		team: { name: 'Team', price: 'Rp 15.000/bln', tables: '50 generate', accent: 'violet' }
 	};
 
 	let billing = $derived(data.billing);

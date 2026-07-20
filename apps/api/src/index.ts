@@ -16,6 +16,16 @@ const app = new Elysia({ prefix: '/api' })
       credentials: true
     })
   )
+  // Cache-Control untuk endpoint GET read-only (private, 30s)
+  // Hindari cache untuk /auth dan /session agar tidak simpan data sensitif
+  .onAfterResponse(({ request, set }) => {
+    const url = new URL(request.url)
+    const isGet = request.method === 'GET'
+    const safePath = !url.pathname.includes('/auth') && !url.pathname.includes('/session')
+    if (isGet && safePath) {
+      set.headers['Cache-Control'] = 'private, max-age=30'
+    }
+  })
   .use(httpExceptionPlugin())
   .use(
     logixlysia({

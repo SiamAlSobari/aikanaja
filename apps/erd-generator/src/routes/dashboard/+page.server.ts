@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 	return {
 		recentProjects: projects.data || [],
 		totalProjects: projects.pagination?.total || 0,
-		usage: usage.data || { count: 0, limit: 10, remaining: 10, isUnlimited: false },
+		usage: usage.data || { count: 0, limit: 5, remaining: 5, isUnlimited: false },
 		stats: stats.data || { totalProjects: 0, monthlyGenerates: 0, recentActivities: [] },
 	};
 };

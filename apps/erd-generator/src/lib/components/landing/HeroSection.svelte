@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Cpu, Sparkles, ChevronRight, Database } from 'lucide-svelte';
 	import { base } from '$app/paths';
+	import Reveal from '$lib/components/ui/Reveal.svelte';
 
 	let promptText = $state('');
 	let isTyping = $state(false);
@@ -57,7 +58,7 @@
 	class="max-w-7xl mx-auto px-6 pt-28 pb-24 md:pt-36 md:pb-32 grid md:grid-cols-12 gap-12 items-center relative z-10"
 >
 	<!-- Hero Left: Prompt Input Simulator -->
-	<div class="md:col-span-6 space-y-8">
+	<Reveal trigger="mount" class="md:col-span-6 space-y-8">
 		<div
 			class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-600/10 border border-orange-600/20 text-xs font-semibold text-orange-500"
 		>
@@ -129,10 +130,10 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</Reveal>
 
 	<!-- Hero Right: Tilted 3D Parallax ERD Canvas Mockup -->
-	<div class="md:col-span-6 flex justify-center items-center">
+	<Reveal trigger="mount" delay={0.15} class="md:col-span-6 flex justify-center items-center">
 		<div
 			bind:this={containerEl}
 			onmousemove={handleMouseMove}
@@ -271,5 +272,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</Reveal>
 </section>

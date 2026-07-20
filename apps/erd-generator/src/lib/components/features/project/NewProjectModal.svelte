@@ -47,6 +47,7 @@
 		role="presentation"
 	>
 		<div
+			tabindex="-1"
 			class="w-full max-w-md bg-slate-900 border border-slate-800/80 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden"
 			transition:scale={{ duration: 200, easing: cubicOut, start: 0.95 }}
 			onclick={(e) => e.stopPropagation()}
@@ -80,7 +81,6 @@
 						id="np-name"
 						type="text"
 						bind:value={name}
-						autofocus
 						placeholder="e.g., E-Commerce Database"
 						class="w-full bg-slate-950/60 border border-slate-800 text-slate-200 text-sm rounded-xl
 							focus:outline-none focus:border-orange-600/50 focus:ring-1 focus:ring-orange-600/20

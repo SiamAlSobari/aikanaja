@@ -7,9 +7,9 @@
 
 	let { data, form }: { data: { user: User | null }; form: { success?: boolean; error?: string } | null } = $props();
 
-	let name = $state(data.user?.name ?? '');
-	let bio = $state(data.user?.bio ?? '');
-	let avatarUrl = $state(data.user?.avatar ?? '');
+	let name = $derived(data.user?.name ?? '');
+	let bio = $derived(data.user?.bio ?? '');
+	let avatarUrl = $derived(data.user?.avatar ?? '');
 	let uploading = $state(false);
 
 	$effect(() => {

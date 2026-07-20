@@ -159,8 +159,8 @@
 			<h2 class="text-sm font-semibold text-white">Role & Akses</h2>
 			<p class="mt-1 text-[11px] text-slate-500">Atur hak akses akun ini.</p>
 			<div class="mt-4">
-				<label class="text-[11px] font-medium uppercase tracking-wider text-slate-500">Role</label>
-				<select bind:value={selectedRole} class="mt-1.5 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-orange-600/50">
+				<label for="user-role" class="text-[11px] font-medium uppercase tracking-wider text-slate-500">Role</label>
+				<select id="user-role" bind:value={selectedRole} class="mt-1.5 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-orange-600/50">
 					{#each roles as r}<option value={r}>{r}</option>{/each}
 				</select>
 				<button
@@ -174,8 +174,8 @@
 			</div>
 
 			<div class="mt-5 border-t border-slate-800/60 pt-5">
-				<label class="text-[11px] font-medium uppercase tracking-wider text-slate-500">Plan Langsung (override)</label>
-				<select bind:value={selectedPlan} class="mt-1.5 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-orange-600/50">
+				<label for="user-plan" class="text-[11px] font-medium uppercase tracking-wider text-slate-500">Plan Langsung (override)</label>
+				<select id="user-plan" bind:value={selectedPlan} class="mt-1.5 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:outline-none focus:border-orange-600/50">
 					{#each plans as pl}<option value={pl}>{pl}</option>{/each}
 				</select>
 				<button

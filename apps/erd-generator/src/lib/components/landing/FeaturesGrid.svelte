@@ -1,5 +1,16 @@
 <script lang="ts">
 	import { Cpu, Layers, RefreshCw, Code, ArrowRight, CheckCircle2, Check } from 'lucide-svelte';
+	import { motion } from '@humanspeak/svelte-motion';
+	import Reveal from '$lib/components/ui/Reveal.svelte';
+
+	const container = {
+		hidden: {},
+		visible: { transition: { staggerChildren: 0.12 } }
+	};
+	const item = {
+		hidden: { opacity: 0, y: 24 },
+		visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+	};
 
 	function handleCardMouseMove(e: MouseEvent) {
 		const card = e.currentTarget as HTMLElement;
@@ -12,7 +23,7 @@
 </script>
 
 <section id="features" class="max-w-7xl mx-auto px-6 py-24 space-y-16 relative z-10">
-	<div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+	<Reveal class="text-center max-w-2xl mx-auto mb-16 space-y-4">
 		<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
 			Merancang Database Menjadi Menyenangkan
 		</h2>
@@ -20,11 +31,18 @@
 			Fitur-fitur andalan yang memadukan kecepatan kecerdasan AI dengan kontrol penuh rancangan
 			visual Anda.
 		</p>
-	</div>
+	</Reveal>
 
-	<div class="grid md:grid-cols-12 gap-8">
+	<motion.div
+		class="grid md:grid-cols-12 gap-8"
+		variants={container}
+		initial="hidden"
+		whileInView="visible"
+		viewport={{ once: true, amount: 0.1 }}
+	>
 		<!-- Feature 1: Multi-Provider -->
-		<div
+		<motion.div
+			variants={item}
 			onmousemove={handleCardMouseMove}
 			role="presentation"
 			class="md:col-span-8 group rounded-3xl bg-slate-900/40 border border-slate-900 hover:border-slate-800/80 p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
@@ -57,10 +75,11 @@
 					><CheckCircle2 class="w-3.5 h-3.5 text-orange-500" /> Generasi Skema Valid</span
 				>
 			</div>
-		</div>
+		</motion.div>
 
 		<!-- Feature 2: Visual Editor -->
-		<div
+		<motion.div
+			variants={item}
 			onmousemove={handleCardMouseMove}
 			role="presentation"
 			class="md:col-span-4 group rounded-3xl bg-slate-900/40 border border-slate-900 hover:border-slate-800/80 p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
@@ -89,10 +108,11 @@
 			>
 				Coba Kanvas Visual <ArrowRight class="w-3.5 h-3.5" />
 			</div>
-		</div>
+		</motion.div>
 
 		<!-- Feature 3: Custom API Key -->
-		<div
+		<motion.div
+			variants={item}
 			onmousemove={handleCardMouseMove}
 			role="presentation"
 			class="md:col-span-4 group rounded-3xl bg-slate-900/40 border border-slate-900 hover:border-slate-800/80 p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
@@ -121,10 +141,11 @@
 			>
 				Tersimpan aman di localStorage browser
 			</div>
-		</div>
+		</motion.div>
 
 		<!-- Feature 4: Code Export -->
-		<div
+		<motion.div
+			variants={item}
 			onmousemove={handleCardMouseMove}
 			role="presentation"
 			class="md:col-span-8 group rounded-3xl bg-slate-900/40 border border-slate-900 hover:border-slate-800/80 p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden"
@@ -161,6 +182,6 @@
 					><Check class="w-3.5 h-3.5 text-orange-500" /> TS Interfaces</span
 				>
 			</div>
-		</div>
-	</div>
+		</motion.div>
+	</motion.div>
 </section>

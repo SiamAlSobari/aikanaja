@@ -3,8 +3,7 @@
 	import { fly } from 'svelte/transition';
 	import { Database, Menu, X } from 'lucide-svelte';
 	import { base } from '$app/paths';
-
-	let { isScrolled }: { isScrolled: boolean } = $props();
+	import { motion } from '@humanspeak/svelte-motion';
 
 	let user = $state<{ name?: string; email?: string } | null>(null);
 	let mobileOpen = $state(false);
@@ -30,13 +29,10 @@
 </script>
 
 <div
-	class="fixed left-0 right-0 z-50 transition-all duration-300 ease-out {isScrolled ? 'top-3 px-3 sm:px-4' : 'top-0 px-0'}"
+	class="fixed left-0 right-0 z-50 px-3 sm:px-4 top-3 transition-all duration-300 ease-out"
 >
 	<header
-		class="mx-auto flex items-center justify-between transition-all duration-300 ease-out
-			{isScrolled
-			? 'max-w-5xl rounded-2xl border border-white/10 bg-slate-900/70 px-4 sm:px-5 h-14 backdrop-blur-xl shadow-xl shadow-black/30'
-			: 'max-w-7xl rounded-none border-b border-white/5 bg-transparent px-6 h-16'}"
+		class="mx-auto flex items-center justify-between max-w-5xl rounded-2xl border border-white/10 bg-slate-900/70 px-4 sm:px-5 h-14 backdrop-blur-xl shadow-xl shadow-black/30 transition-all duration-300 ease-out"
 	>
 		<!-- Logo -->
 		<a href="{base}/" class="flex items-center gap-2.5 group shrink-0">
@@ -56,19 +52,25 @@
 		<!-- Right actions -->
 		<div class="flex items-center gap-2.5 shrink-0">
 			{#if user}
-				<a
+				<motion.a
 					href="{base}/dashboard"
-					class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-slate-950 bg-orange-500 hover:bg-orange-400 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all active:scale-[0.98]"
+					whileHover={{ scale: 1.04 }}
+					whileTap={{ scale: 0.97 }}
+					transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+					class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-slate-950 bg-orange-500 hover:bg-orange-400 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all"
 				>
 					Dashboard
-				</a>
+				</motion.a>
 			{:else}
-				<a
+				<motion.a
 					href="{base}/auth/login"
-					class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-slate-950 bg-white hover:bg-slate-100 shadow-lg shadow-black/20 transition-all active:scale-[0.98]"
+					whileHover={{ scale: 1.04 }}
+					whileTap={{ scale: 0.97 }}
+					transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+					class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-orange-400 bg-orange-500/10 border border-orange-500/25 hover:bg-orange-500/20 hover:border-orange-500/40 transition-all"
 				>
 					Masuk
-				</a>
+				</motion.a>
 			{/if}
 
 			<!-- Mobile toggle -->

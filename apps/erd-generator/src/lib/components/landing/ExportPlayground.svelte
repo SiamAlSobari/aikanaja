@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Check, Clipboard } from 'lucide-svelte';
+	import Reveal from '$lib/components/ui/Reveal.svelte';
 
 	let activeTab = $state<'sql' | 'prisma' | 'types'>('sql');
 	let isCopied = $state(false);
@@ -19,7 +20,7 @@
 
 <section id="playground" class="border-t border-slate-900 bg-slate-950/30 py-28 relative z-10">
 	<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-12 items-center">
-		<div class="md:col-span-5 space-y-6">
+		<Reveal class="md:col-span-5 space-y-6">
 			<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
 				Hasilkan Sintaks Skema <br />Siap Deploy
 			</h2>
@@ -46,9 +47,9 @@
 					<span>Output Kode Rapi & Sesuai Spesifikasi ORM</span>
 				</div>
 			</div>
-		</div>
+		</Reveal>
 
-		<div
+		<Reveal delay={0.15}
 			class="md:col-span-7 bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-md"
 		>
 			<div
@@ -87,6 +88,6 @@
 			>
 				<pre class="text-slate-350">{codeSnippets[activeTab]}</pre>
 			</div>
-		</div>
+		</Reveal>
 	</div>
 </section>

@@ -42,7 +42,7 @@
 				border border-slate-800/40 hover:border-orange-600/25 transition-all duration-200"
 		>
 			<span class="w-7 h-7 shrink-0 rounded-lg bg-slate-900/80 border border-slate-800/60 flex items-center justify-center group-hover:border-orange-600/30 transition-colors">
-				<svelte:component this={s.icon} class="w-3.5 h-3.5 text-slate-500 group-hover:text-orange-500 transition-colors" />
+				{@render s.icon({ class: 'w-3.5 h-3.5 text-slate-500 group-hover:text-orange-500 transition-colors' })}
 			</span>
 			<span class="flex-1 leading-relaxed">{s.text}</span>
 			<span class="shrink-0 text-[9px] font-mono text-slate-600 bg-slate-900/60 px-1.5 py-0.5 rounded group-hover:text-orange-500/70">{s.tag}</span>

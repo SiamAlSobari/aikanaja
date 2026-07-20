@@ -13,6 +13,7 @@ interface GenerateSchemaInput {
   prompt: string
   provider?: 'groq' | 'gemini'
   apiKey?: string
+  signal?: AbortSignal
 }
 
 interface ErdColumn {
@@ -168,11 +169,17 @@ export class SchemaService {
     const systemPrompt = GENERATE_ERD_SYSTEM_PROMPT
     const userPrompt = buildGeneratePrompt(input.prompt.trim())
 
+    // Increment quota (hanya jika pakai server key) — cegah bypass via stream
+    if (!apiKey && userId) {
+      await this.quotaService.incrementUsage(userId)
+    }
+
     return this.aiService.generateStream({
       system: systemPrompt,
       prompt: userPrompt,
       provider: input.provider,
       userApiKey: apiKey,
+      signal: input.signal,
     })
   }
 

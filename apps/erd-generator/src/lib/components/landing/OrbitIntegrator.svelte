@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Database } from 'lucide-svelte';
+	import Reveal from '$lib/components/ui/Reveal.svelte';
 
 	let activeOrbitTech = $state<string | null>(null);
 	let orbitAngle = $state(0);
@@ -40,7 +41,7 @@
 
 	<div class="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-16 items-center">
 		<!-- Orbit Visual -->
-		<div class="md:col-span-6 flex justify-center items-center relative py-12 min-h-[460px]">
+		<Reveal delay={0.15} class="md:col-span-6 flex justify-center items-center relative py-12 min-h-[460px]">
 			<!-- Outer decorative ring (slow rotate) -->
 			<div
 				class="absolute w-[380px] h-[380px] rounded-full pointer-events-none"
@@ -159,10 +160,10 @@
 
 			<!-- Big ambient glow -->
 			<div class="absolute w-[300px] h-[300px] rounded-full bg-orange-600/4 blur-[80px] pointer-events-none"></div>
-		</div>
+		</Reveal>
 
 		<!-- Text Content -->
-		<div class="md:col-span-6 space-y-6">
+		<Reveal class="md:col-span-6 space-y-6">
 			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-600/10 border border-orange-600/20 text-[11px] font-medium text-orange-400">
 				<Database class="w-3 h-3" /> Universal Compatibility
 			</div>
@@ -227,7 +228,7 @@
 						<span class="text-[10px] {isActive ? 'text-slate-300' : 'text-slate-500'} font-medium truncate transition-colors">{tech.name}</span>
 					</div>
 				{/each}
-			</div>
-		</div>
+				</div>
+		</Reveal>
 	</div>
 </section>

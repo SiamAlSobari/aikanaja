@@ -30,13 +30,14 @@ export const schemaController = new Elysia({ prefix: '/erd' })
   // POST /erd/generate/stream — Generate ERD schema (streaming)
   .post(
     '/generate/stream',
-    async ({ body, user }) => {
+    async ({ body, user, request }) => {
       const userId = user?.id || null
 
       const stream = await schemaService.generateSchemaStream(userId, {
         prompt: body.prompt,
         provider: body.provider,
         apiKey: body.apiKey,
+        signal: request.signal,
       })
 
       return sse(stream.textStream)

@@ -25,24 +25,14 @@ export const load: PageServerLoad = async ({ url, fetch }) => {
 		});
 		const data = await res.json();
 
-		// Fetch schema for each project (for thumbnail preview)
-		const projects = data.data || [];
-		const projectsWithSchema = await Promise.all(
-			projects.map(async (p: any) => {
-				try {
-					const detailRes = await fetch(`${apiUrl}/erd/projects/${p.id}`, {
-						credentials: 'include',
-					});
-					const detail = await detailRes.json();
-					return { ...p, schema: detail.data?.schema ? JSON.parse(detail.data.schema) : null };
-				} catch {
-					return { ...p, schema: null };
-				}
-			})
-		);
+		// Schema sudah include di response list — tidak perlu N+1 fetch
+		const projects = (data.data || []).map((p: any) => ({
+			...p,
+			schema: p.schema ? JSON.parse(p.schema) : null,
+		}));
 
 		return {
-			projects: projectsWithSchema,
+			projects,
 			pagination: data.pagination || { page: 1, limit: 12, total: 0, totalPages: 0 },
 			filters: { page, limit, sort, order, filter, search },
 		};

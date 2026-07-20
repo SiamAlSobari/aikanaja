@@ -10,69 +10,103 @@ interface GenerateOptions {
   prompt: string
   provider?: Provider
   userApiKey?: string
+  signal?: AbortSignal
 }
 
-// Key rotation state
-const groqKeyIndex = { current: 0 }
-const geminiKeyIndex = { current: 0 }
+// ── Helper functions ────────────────────────────────────────
 
-// Load keys dari env
-function getGroqKeys(): string[] {
-  return config.ai.groqKeys
+function getKeys(provider: Provider): string[] {
+  return provider === 'groq' ? config.ai.groqKeys : config.ai.geminiKeys
 }
 
-function getGeminiKeys(): string[] {
-  return config.ai.geminiKeys
+function createAiProvider(provider: Provider, apiKey: string) {
+  return provider === 'groq'
+    ? createGroq({ apiKey })
+    : createGoogleGenerativeAI({ apiKey })
 }
 
-// Round-robin key selection
-function getNextKey(keys: string[], index: { current: number }): string {
-  if (keys.length === 0) throw new Error('No API keys available')
-  const key = keys[index.current % keys.length]
-  index.current++
-  return key
-}
-
-// Create provider instance
-function createProvider(provider: Provider, apiKey?: string) {
-  if (provider === 'groq') {
-    const key = apiKey || getNextKey(getGroqKeys(), groqKeyIndex)
-    return createGroq({ apiKey: key })
-  } else {
-    const key = apiKey || getNextKey(getGeminiKeys(), geminiKeyIndex)
-    return createGoogleGenerativeAI({ apiKey: key })
-  }
-}
-
-// Get model name
 function getModel(provider: Provider) {
   return provider === 'groq'
     ? 'llama-3.3-70b-versatile'
     : 'gemini-2.0-flash'
 }
 
+// ── Attempt list builder ────────────────────────────────────
+
+interface Attempt {
+  provider: Provider
+  key: string
+  source: 'user' | 'server'
+}
+
+/**
+ * Susun daftar semua key yang bisa dicoba, urut prioritas:
+ * 1. User API key (kalau ada) — pakai provider yang diminta
+ * 2. Semua server key dari provider yang diminta
+ * 3. Semua server key dari provider lain (fallback cross-provider)
+ */
+function buildAttemptList(preferredProvider: Provider, userApiKey?: string): Attempt[] {
+  const attempts: Attempt[] = []
+  const fallbackProvider: Provider = preferredProvider === 'groq' ? 'gemini' : 'groq'
+
+  // 1. User API key duluan
+  if (userApiKey) {
+    attempts.push({ provider: preferredProvider, key: userApiKey, source: 'user' })
+  }
+
+  // 2. Server keys — provider yang diminta
+  for (const key of getKeys(preferredProvider)) {
+    attempts.push({ provider: preferredProvider, key, source: 'server' })
+  }
+
+  // 3. Server keys — provider lain
+  for (const key of getKeys(fallbackProvider)) {
+    attempts.push({ provider: fallbackProvider, key, source: 'server' })
+  }
+
+  return attempts
+}
+
+// ── AI Service ──────────────────────────────────────────────
+
 export class AiService {
   /**
    * Generate text dari AI (non-streaming).
-   * - Support Groq dan Gemini provider
-   * - Key rotation dengan retry (max 3 attempts)
-   * - Jika user API key gagal, langsung throw (tidak retry)
+   *
+   * Fallback chain:
+   *  User key → server keys provider utama → server keys provider lain
+   *
+   * Semua dicoba satu-satu. Baru throw kalau beneran semua gagal.
    */
   async generate(options: GenerateOptions) {
-    const provider = options.provider || 'groq'
-    const maxRetries = 3
+    const preferred = options.provider || 'groq'
+    const attempts = buildAttemptList(preferred, options.userApiKey)
+
+    if (attempts.length === 0) {
+      throw new Error('No API keys available for any provider')
+    }
+
     let lastError: Error | null = null
 
-    for (let attempt = 0; attempt < maxRetries; attempt++) {
+    for (let i = 0; i < attempts.length; i++) {
+      const { provider, key, source } = attempts[i]
       try {
-        const aiProvider = createProvider(provider, options.userApiKey)
+        const aiProvider = createAiProvider(provider, key)
         const model = getModel(provider)
 
         const result = await generateText({
           model: aiProvider(model),
           system: options.system,
           prompt: options.prompt,
+          abortSignal: options.signal,
         })
+
+        // Log kalau bukan attempt pertama (berarti ada fallback)
+        if (i > 0) {
+          console.log(
+            `[AiService.generate] Berhasil di attempt ${i + 1} — ${provider} (${source})`
+          )
+        }
 
         return {
           text: result.text,
@@ -81,32 +115,62 @@ export class AiService {
         }
       } catch (err) {
         lastError = err instanceof Error ? err : new Error(String(err))
-        console.error(`[AiService.generate] Attempt ${attempt + 1} failed`, {
-          provider,
-          error: lastError.message,
-        })
-
-        // Jika user API key gagal, jangan retry dengan key lain
-        if (options.userApiKey) throw lastError
-
-        // Retry dengan key berikutnya
-        continue
+        console.error(
+          `[AiService.generate] Attempt ${i + 1}/${attempts.length} gagal`,
+          { provider, source, error: lastError.message }
+        )
       }
     }
 
-    throw lastError || new Error('All retry attempts failed')
+    throw lastError || new Error('All API keys exhausted across all providers')
   }
 
-  /** Generate text dengan streaming (untuk SSE response) */
+  /**
+   * Generate text dengan streaming (untuk SSE response).
+   *
+   * Sama kayak generate(), coba semua key satu-satu.
+   * Catatan: error yang terjadi *di tengah* streaming tetap bisa lolos,
+   * tapi error saat inisialisasi (key invalid, auth gagal) akan di-catch.
+   */
   async generateStream(options: GenerateOptions) {
-    const provider = options.provider || 'groq'
-    const aiProvider = createProvider(provider, options.userApiKey)
-    const model = getModel(provider)
+    const preferred = options.provider || 'groq'
+    const attempts = buildAttemptList(preferred, options.userApiKey)
 
-    return streamText({
-      model: aiProvider(model),
-      system: options.system,
-      prompt: options.prompt,
-    })
+    if (attempts.length === 0) {
+      throw new Error('No API keys available for any provider')
+    }
+
+    let lastError: Error | null = null
+
+    for (let i = 0; i < attempts.length; i++) {
+      const { provider, key, source } = attempts[i]
+      try {
+        const aiProvider = createAiProvider(provider, key)
+        const model = getModel(provider)
+
+        const stream = streamText({
+          model: aiProvider(model),
+          system: options.system,
+          prompt: options.prompt,
+          abortSignal: options.signal,
+        })
+
+        if (i > 0) {
+          console.log(
+            `[AiService.generateStream] Berhasil di attempt ${i + 1} — ${provider} (${source})`
+          )
+        }
+
+        return stream
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err))
+        console.error(
+          `[AiService.generateStream] Attempt ${i + 1}/${attempts.length} gagal`,
+          { provider, source, error: lastError.message }
+        )
+      }
+    }
+
+    throw lastError || new Error('All API keys exhausted across all providers')
   }
 }

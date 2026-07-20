@@ -22,7 +22,9 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 			throw new Error('Unauthorized');
 		}
 		const error = await response.json().catch(() => ({ message: 'Request failed' }));
-		throw new Error(error.message || `HTTP ${response.status}`);
+		const err = new Error(error.message || `HTTP ${response.status}`);
+		(err as unknown as { status: number }).status = response.status;
+		throw err;
 	}
 
 	return response.json();

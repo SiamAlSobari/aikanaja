@@ -46,7 +46,7 @@ export class ProjectService {
         prisma.erdProject.findMany({
           where,
           select: {
-            ...PROJECT_SELECT,
+            ...PROJECT_SELECT_WITH_SCHEMA,
             _count: { select: { versions: true, shares: true } },
           },
           orderBy: { [sort]: order },
@@ -70,6 +70,16 @@ export class ProjectService {
       console.error('[ProjectService.listProjects]', err)
       throw new InternalServerErrorException('Failed to fetch projects')
     }
+  }
+
+  /** Batch ambil schema beberapa project sekaligus (hindari N+1) */
+  async getSchemasBatch(ids: string[]) {
+    if (ids.length === 0) return []
+    const projects = await prisma.erdProject.findMany({
+      where: { id: { in: ids } },
+      select: { id: true, schema: true },
+    })
+    return projects
   }
 
   /** Get single project dengan schema dan access check */

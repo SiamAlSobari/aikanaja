@@ -1,4 +1,4 @@
-import { Elysia } from 'elysia'
+import { Elysia, t } from 'elysia'
 import { authMiddleware } from '../../../../common/middlewares/auth.middleware'
 import { ProjectService } from '../services/project.service'
 import {
@@ -36,6 +36,22 @@ export const projectController = new Elysia({ prefix: '/erd/projects' })
       return projectService.getProject(user.id, params.id)
     },
     { params: ProjectIdParams }
+  )
+
+  // GET /erd/projects/schemas?ids=a,b,c — Batch ambil schema (hindari N+1)
+  .get(
+    '/schemas',
+    async ({ query }) => {
+      const ids = String(query.ids || '')
+        .split(',')
+        .map((id) => id.trim())
+        .filter(Boolean)
+      const schemas = await projectService.getSchemasBatch(ids)
+      return { data: schemas }
+    },
+    {
+      query: t.Object({ ids: t.Optional(t.String()) }),
+    }
   )
 
   // POST /erd/projects — Create project

@@ -38,6 +38,7 @@
 	},
 	"dependencies": {
 		"@aikanaja/shared": "workspace:*",
+		"@humanspeak/svelte-motion": "^0.7.19",
 		"@xyflow/svelte": "^1.6.2",
 		"daisyui": "^5.6.18",
 		"lucide-svelte": "^1.0.1"

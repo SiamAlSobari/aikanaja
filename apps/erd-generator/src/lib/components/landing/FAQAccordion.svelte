@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { HelpCircle, ChevronDown } from 'lucide-svelte';
 	import { slide } from 'svelte/transition';
+	import Reveal from '$lib/components/ui/Reveal.svelte';
 
 	let activeFaq = $state<number | null>(null);
 
@@ -33,7 +34,7 @@
 	<div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
 
 	<div class="max-w-4xl mx-auto px-6">
-		<div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+		<Reveal class="text-center max-w-2xl mx-auto mb-16 space-y-4">
 			<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white flex items-center justify-center gap-3">
 				<div class="w-10 h-10 rounded-xl bg-orange-600/10 border border-orange-600/20 flex items-center justify-center">
 					<HelpCircle class="w-5 h-5 text-orange-500" />
@@ -42,11 +43,12 @@
 			</h2>
 			<p class="text-slate-400">
 				Jawaban cepat atas keraguan Anda mengenai privasi, kuota token, dan dukungan database.
-			</p>
-		</div>
+		</p>
+	</Reveal>
 
 		<div class="space-y-3">
 			{#each faqs as faq, i (faq.q)}
+				<Reveal delay={i * 0.08}>
 				<div
 					class="rounded-2xl overflow-hidden transition-all duration-300 {activeFaq === i
 						? 'bg-slate-900/60 border border-orange-600/20 shadow-lg shadow-orange-600/5'
@@ -71,11 +73,12 @@
 							transition:slide={{ duration: 250 }}
 							class="px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-slate-800/50 pt-4"
 						>
-							{faq.a}
-						</div>
-					{/if}
+						{faq.a}
+					</div>
+				{/if}
 				</div>
-			{/each}
+			</Reveal>
+		{/each}
 		</div>
 	</div>
 </section>

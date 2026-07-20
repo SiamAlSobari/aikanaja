@@ -23,6 +23,7 @@ export const authController = new Elysia({ prefix: '/auth' })
       const token = await jwt.sign({ id: result.data.id, email: result.data.email, role: result.data.role })
       cookie.token.value = token
       cookie.token.httpOnly = true
+      cookie.token.secure = process.env.NODE_ENV === 'production'
       cookie.token.sameSite = 'lax'
       cookie.token.maxAge = 60 * 60 * 24 * 7
 
@@ -41,6 +42,7 @@ export const authController = new Elysia({ prefix: '/auth' })
       const token = await jwt.sign({ id: result.data.id, email: result.data.email, role: result.data.role })
       cookie.token.value = token
       cookie.token.httpOnly = true
+      cookie.token.secure = process.env.NODE_ENV === 'production'
       cookie.token.sameSite = 'lax'
       cookie.token.maxAge = 60 * 60 * 24 * 7
 
@@ -103,6 +105,7 @@ export const authController = new Elysia({ prefix: '/auth' })
         // Set cookie
         cookie.token.value = token
         cookie.token.httpOnly = true
+        cookie.token.secure = process.env.NODE_ENV === 'production'
         cookie.token.sameSite = 'lax'
         cookie.token.maxAge = 60 * 60 * 24 * 7 // 7 hari
 

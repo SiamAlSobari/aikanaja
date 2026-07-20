@@ -1,3 +1,5 @@
+import { randomBytes } from 'crypto'
+
 function parseCorsOrigin(value: string): string | string[] {
 	if (value.includes(',')) {
 		return value
@@ -20,7 +22,7 @@ export const config = {
 	nodeEnv: process.env.NODE_ENV || 'development',
 	databaseUrl: process.env.DATABASE_URL || 'file:./data/dev.db',
 	jwt: {
-		secret: process.env.JWT_SECRET || 'super-secret-key',
+		secret: process.env.JWT_SECRET || randomBytes(32).toString('hex'),
 		expiresIn: '7d',
 	},
 	cors: {

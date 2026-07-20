@@ -199,11 +199,13 @@
 	{#if mobileOpen}
 		<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
 		<div
+			role="none"
 			class="lg:hidden fixed inset-0 z-50"
 			onclick={() => mobileOpen = false}
 		>
 			<div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 			<div
+				role="none"
 				class="absolute left-0 top-0 bottom-0 w-[280px] bg-slate-900/95 border-r border-slate-800/60 flex flex-col backdrop-blur-xl"
 				onclick={(e) => e.stopPropagation()}
 			>

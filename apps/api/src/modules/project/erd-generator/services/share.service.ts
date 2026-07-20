@@ -6,6 +6,7 @@ import {
 } from 'elysia-http-exception'
 import { checkProjectAccess } from '../helpers/project.helper'
 import { ActivityService } from './activity.service'
+import { randomUUID } from 'crypto'
 
 const activityService = new ActivityService()
 
@@ -105,7 +106,7 @@ export class ShareService {
     await checkProjectAccess(userId, projectId, 'edit')
 
     // Generate unique link
-    const link = `share_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+    const link = `share_${randomUUID()}`
 
     const shareLink = await prisma.erdShareLink.create({
       data: {

@@ -8,9 +8,9 @@
 	let current = $derived(data.billing?.plan ?? 'free');
 
 	const PLANS: { tier: PlanTier; name: string; price: string; period: string; desc: string; features: string[]; icon: any; highlight?: boolean }[] = [
-		{ tier: 'free', name: 'Free', price: 'Rp 0', period: 'selamanya', desc: 'Untuk eksplorasi.', icon: Sparkles, features: ['10 tabel', 'Export SQL/Prisma', '1 project aktif'] },
-		{ tier: 'pro', name: 'Pro', price: 'Rp 49.000', period: '/ bulan', desc: 'Untuk developer solo.', icon: Crown, highlight: true, features: ['Tabel unlimited', 'AI generate unlimited', 'Project unlimited', 'Priority support'] },
-		{ tier: 'team', name: 'Team', price: 'Rp 149.000', period: '/ bulan', desc: 'Untuk tim.', icon: Users, features: ['Semua fitur Pro', 'Kolaborasi tim', 'Share & role', 'Version history'] }
+		{ tier: 'free', name: 'Free', price: 'Rp 0', period: 'selamanya', desc: 'Untuk eksplorasi.', icon: Sparkles, features: ['5 generate/bulan', 'Export SQL/Prisma', '1 project aktif'] },
+		{ tier: 'pro', name: 'Pro', price: 'Rp 7.000', period: '/ bulan', desc: 'Untuk developer solo.', icon: Crown, highlight: true, features: ['20 generate/bulan', 'Project unlimited', 'Custom API key', 'Priority support'] },
+		{ tier: 'team', name: 'Team', price: 'Rp 15.000', period: '/ bulan', desc: 'Untuk tim.', icon: Users, features: ['50 generate/bulan', 'Semua fitur Pro', 'Kolaborasi tim', 'Share & role'] }
 	];
 
 	let loading = $state<PlanTier | null>(null);

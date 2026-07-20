@@ -2,6 +2,7 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { getUiState, removeToast } from '$lib/stores/ui.store.svelte';
+	import QuotaExceededModal from '$lib/components/QuotaExceededModal.svelte';
 
 	let { children } = $props();
 
@@ -31,6 +32,9 @@
 		</button>
 	{/each}
 </div>
+
+<!-- Global Quota Exceeded Modal -->
+<QuotaExceededModal />
 
 <style>
 	@keyframes toast-in {

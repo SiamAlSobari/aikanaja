@@ -20,8 +20,8 @@
 
 	let { data } = $props();
 
+	let searchQuery = $derived(data.filters.search || '');
 	let viewMode = $state<'grid' | 'list'>('grid');
-	let searchQuery = $state(data.filters.search || '');
 	let showSortMenu = $state(false);
 	let showFilterMenu = $state(false);
 
@@ -335,10 +335,8 @@
 		from { opacity: 0; }
 		to { opacity: 1; }
 	}
-	.animate-fade-in { animation: fade-in 0.2s ease-out; }
 	@keyframes scale-in {
 		from { opacity: 0; transform: scale(0.95); }
 		to { opacity: 1; transform: scale(1); }
 	}
-	.animate-scale-in { animation: scale-in 0.2s ease-out; }
 </style>

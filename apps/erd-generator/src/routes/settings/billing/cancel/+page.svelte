@@ -33,7 +33,7 @@
 				<p class="font-bold">Are you sure you want to downgrade?</p>
 				<p class="text-slate-400">
 					Your account will revert to the Free plan. You will lose version history, custom API key
-					options, and your monthly generate quota limit will reset to 10 generates.
+					options, and your monthly generate quota limit will reset to 5 generates.
 				</p>
 			</div>
 		</div>

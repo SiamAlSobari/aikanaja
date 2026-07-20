@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import Reveal from '$lib/components/ui/Reveal.svelte';
 
 	const steps = [
 		{
@@ -34,17 +35,18 @@
 
 <section id="showcase" class="border-t border-slate-900 bg-slate-950/30 py-28 relative z-10">
 	<div class="max-w-7xl mx-auto px-6">
-		<div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
+		<Reveal class="text-center max-w-2xl mx-auto mb-20 space-y-4">
 			<h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
 				Workflow Cepat & Bebas Hambatan
 			</h2>
 			<p class="text-slate-400">
 				Tidak ada setup yang melelahkan. Visualisasikan, edit skema, lalu pasang di backend Anda.
 			</p>
-		</div>
+		</Reveal>
 
 		<div class="grid md:grid-cols-3 gap-8">
 			{#each steps as step, i (step.title)}
+				<Reveal delay={i * 0.12}>
 				<button
 					onclick={() => selectStep(i)}
 					class="text-left w-full relative group rounded-2xl p-6 border transition-all duration-500 focus:outline-none {activeStep ===
@@ -75,6 +77,7 @@
 						></div>
 					{/if}
 				</button>
+				</Reveal>
 			{/each}
 		</div>
 	</div>
