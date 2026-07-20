@@ -1,0 +1,760 @@
+{
+  "nodes": [
+    {
+      "id": "apps_api_AGENTS",
+      "type": "document",
+      "file_type": "document",
+      "label": "API AGENTS.md",
+      "source_file": "apps/api/AGENTS.md",
+      "concepts": [
+        "Elysia",
+        "Prisma",
+        "SQLite",
+        "JWT",
+        "@elysia/jwt",
+        "logixlysia",
+        "Bun",
+        "multi-project monolith",
+        "DRY",
+        "KISS",
+        "YAGNI",
+        "module pattern",
+        "auth middleware",
+        "shared modules",
+        "Prisma multi-file schema"
+      ]
+    },
+    {
+      "id": "apps_erd-generator_AGENTS",
+      "type": "document",
+      "file_type": "document",
+      "label": "ERD Generator AGENTS.md",
+      "source_file": "apps/erd-generator/AGENTS.md",
+      "concepts": [
+        "SvelteKit",
+        "Svelte 5 runes",
+        "Tailwind CSS",
+        "DaisyUI",
+        "@xyflow/svelte",
+        "Bun",
+        "DRY",
+        "KISS",
+        "YAGNI",
+        "file size rules",
+        "Svelte Flow",
+        "$state.raw",
+        "data fetching pattern",
+        "naming conventions"
+      ]
+    },
+    {
+      "id": "apps_erd-generator_GEMINI",
+      "type": "document",
+      "file_type": "document",
+      "label": "ERD Generator GEMINI.md",
+      "source_file": "apps/erd-generator/GEMINI.md",
+      "concepts": [
+        "SvelteKit",
+        "Svelte 5 runes",
+        "Tailwind CSS",
+        "DaisyUI",
+        "@xyflow/svelte",
+        "Bun",
+        "DRY",
+        "KISS",
+        "YAGNI",
+        "Svelte MCP Tools",
+        "list-sections",
+        "get-documentation",
+        "svelte-autofixer",
+        "playground-link"
+      ]
+    },
+    {
+      "id": "apps_erd-generator_README",
+      "type": "document",
+      "file_type": "document",
+      "label": "ERD Generator README.md",
+      "source_file": "apps/erd-generator/README.md",
+      "concepts": [
+        "sv CLI",
+        "Svelte project scaffolding",
+        "bun x sv create",
+        "TailwindCSS plugins typography/forms",
+        "Prettier",
+        "ESLint",
+        "MCP Gemini"
+      ]
+    },
+    {
+      "id": "docs_erd-generator_README",
+      "type": "document",
+      "file_type": "document",
+      "label": "ERD Generator Docs README",
+      "source_file": "docs/erd-generator/README.md",
+      "concepts": [
+        "AiKanAja",
+        "ERD Generator docs index",
+        "prd.md",
+        "todo-frontend.md",
+        "todo-backend.md"
+      ]
+    },
+    {
+      "id": "docs_erd-generator_prd",
+      "type": "document",
+      "file_type": "document",
+      "label": "PRD - AiKanAja ERD Generator",
+      "source_file": "docs/erd-generator/prd.md",
+      "concepts": [
+        "AiKanAja",
+        "Entity Relationship Diagram",
+        "natural language to schema",
+        "interactive visualization",
+        "export SQL/Prisma",
+        "SvelteKit",
+        "Tailwind CSS",
+        "DaisyUI",
+        "@xyflow/svelte",
+        "Elysia",
+        "Bun",
+        "Prisma 7",
+        "SQLite",
+        "JWT Auth",
+        "Google OAuth",
+        "Vercel AI SDK",
+        "Groq",
+        "Gemini",
+        "multi-project monolith",
+        "PRD Generator",
+        "billing system",
+        "quota system",
+        "Dana transfer",
+        "Stripe webhook",
+        "SSE streaming",
+        "undo/redo",
+        "version history",
+        "share/collaborate",
+        "templates",
+        "admin module",
+        "landing page",
+        "try workspace",
+        "dashboard",
+        "workspace layout",
+        "3-column layout",
+        "component hierarchy",
+        "data flow",
+        "UX flows",
+        "guest flow",
+        "user flow",
+        "design system",
+        "theme system",
+        "responsive breakpoints",
+        "file-based routing",
+        "load functions",
+        "Svelte 5 runes",
+        "$state.raw",
+        "API endpoints",
+        "Prisma multi-file schema",
+        "auto-merge"
+      ]
+    },
+    {
+      "id": "docs_erd-generator_todo-backend",
+      "type": "document",
+      "file_type": "document",
+      "label": "Todo Backend",
+      "source_file": "docs/erd-generator/todo-backend.md",
+      "concepts": [
+        "Bun",
+        "Elysia",
+        "Prisma 7",
+        "SQLite",
+        "JWT",
+        "Google OAuth 2.0",
+        "Vercel AI SDK",
+        "@ai-sdk/groq",
+        "@ai-sdk/google",
+        "module pattern",
+        "service layer",
+        "controller pattern",
+        "validation",
+        "error handling",
+        "phase 0 foundation",
+        "phase 1 ERD schema",
+        "ErdProject",
+        "ErdVersion",
+        "ErdShare",
+        "ErdShareLink",
+        "ErdTemplate",
+        "Usage",
+        "Payment",
+        "phase 2 Google OAuth",
+        "phase 3 ERD CRUD",
+        "phase 4 AI generate",
+        "key rotation",
+        "schema generation",
+        "prompt engineering",
+        "phase 5 export",
+        "SQL DDL",
+        "Prisma Schema",
+        "phase 6 quota billing",
+        "phase 7 share collaboration",
+        "phase 8 version history",
+        "phase 9 templates",
+        "phase 10 API key",
+        "phase 11 admin module",
+        "phase 12 testing polish",
+        "seed data",
+        "E-commerce template",
+        "Blog template",
+        "Inventory template",
+        "Social Media template",
+        "School template"
+      ]
+    },
+    {
+      "id": "docs_erd-generator_todo-frontend",
+      "type": "document",
+      "file_type": "document",
+      "label": "Todo Frontend",
+      "source_file": "docs/erd-generator/todo-frontend.md",
+      "concepts": [
+        "SvelteKit",
+        "Svelte 5 runes",
+        "TypeScript",
+        "Tailwind CSS",
+        "DaisyUI",
+        "@xyflow/svelte",
+        "$state",
+        "$derived",
+        "$state.raw",
+        "load functions",
+        "JWT cookie",
+        "phase 0 foundation",
+        "phase 1 API client stores",
+        "ErdProject",
+        "ErdSchema",
+        "ErdTable",
+        "ErdColumn",
+        "ErdRelation",
+        "RelationType",
+        "User",
+        "AuthState",
+        "ApiResponse",
+        "PaginatedResponse",
+        "PlanTier",
+        "UsageInfo",
+        "phase 2 layout UI components",
+        "Button",
+        "Input",
+        "Textarea",
+        "Select",
+        "Modal",
+        "Card",
+        "Badge",
+        "Toast",
+        "Spinner",
+        "Tooltip",
+        "Dropdown",
+        "Tabs",
+        "Navbar",
+        "Footer",
+        "DashboardLayout",
+        "WorkspaceLayout",
+        "phase 3 auth pages",
+        "Google OAuth button",
+        "AuthGuard",
+        "phase 4 landing try workspace",
+        "phase 5 dashboard",
+        "phase 6 ERD workspace core",
+        "ERDCanvas",
+        "TableNode",
+        "RelationEdge",
+        "SchemaToolbar",
+        "AIChatPanel",
+        "AIMessage",
+        "PromptSuggestions",
+        "TableDetailPanel",
+        "ColumnEditor",
+        "RelationEditor",
+        "ExportModal",
+        "phase 7 settings",
+        "profile",
+        "account",
+        "API keys",
+        "appearance",
+        "notifications",
+        "billing",
+        "phase 8 billing quota",
+        "phase 9 project sub-pages",
+        "share view",
+        "history",
+        "version preview",
+        "phase 10 error polish",
+        "Skeleton",
+        "responsive",
+        "dark mode",
+        "phase 11 admin module",
+        "AdminGuard",
+        "payments approval queue",
+        "manual plan override",
+        "seeding admin email"
+      ]
+    },
+    {
+      "id": "docs_superpowers_plans_landing-page",
+      "type": "document",
+      "file_type": "document",
+      "label": "Landing Page Implementation Plan",
+      "source_file": "docs/superpowers/plans/2026-07-18-landing-page.md",
+      "concepts": [
+        "Svelte 5 runes",
+        "$state",
+        "$derived",
+        "Tailwind CSS v4",
+        "DaisyUI",
+        "Lucide Svelte",
+        "glassmorphic pill navbar",
+        "mouse parallax",
+        "accordion states",
+        "GPU-accelerated CSS",
+        "custom CSS transitions",
+        "keyframes",
+        "orbit animations",
+        "gradient utilities",
+        "slate-950",
+        "emerald-400",
+        "JetBrains Mono",
+        "layout.css",
+        "high-performance landing page",
+        "animated typewriter",
+        "before/after comparison",
+        "database stack orbit visualizer",
+        "FAQ accordion"
+      ]
+    },
+    {
+      "id": "docs_superpowers_specs_landing-page-design",
+      "type": "document",
+      "file_type": "document",
+      "label": "Landing Page Design Spec",
+      "source_file": "docs/superpowers/specs/2026-07-18-landing-page-design.md",
+      "concepts": [
+        "floating pill navbar",
+        "glassmorphic",
+        "bg-slate-950",
+        "emerald accents",
+        "hero section",
+        "typewriter prompt simulator",
+        "3D parallax",
+        "comparison panel",
+        "tech stack orbit",
+        "PostgreSQL",
+        "MySQL",
+        "SQLite",
+        "Prisma",
+        "Supabase",
+        "Neon",
+        "PlanetScale",
+        "Drizzle",
+        "bezier path animation",
+        "FAQ accordion grid",
+        "benefits-focused copywriting",
+        "soft-dark theme"
+      ]
+    },
+    {
+      "id": "erlang_concept_module_pattern",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Module Pattern",
+      "rationale": "Backend uses thin controller layer delegating to service layer for business logic; validations are schema-only without logic; prompts separated from logic. Frontend mirrors with components organized by concern (ui/layout/flow/features)."
+    },
+    {
+      "id": "erlang_concept_multi_project_monolith",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Multi-Project Monolith",
+      "rationale": "Single Elysia backend serves multiple projects (ERD, PRD) via modular structure. Each project has its own Prisma schema in prisma/projects/ that auto-merges via Prisma 6+ multi-file schema."
+    },
+    {
+      "id": "erlang_concept_dry_kiss_yagni",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "DRY/KISS/YAGNI Principles",
+      "rationale": "Both frontend and backend enforce these principles: no copy-paste (DRY), simple code with file size limits (KISS), no speculative abstractions (YAGNI). Backend: functions max 30-50 lines, files max 200 lines. Frontend: components max 100-150 lines, pages max 200 lines, stores max 100 lines."
+    },
+    {
+      "id": "erlang_concept_svelte_flow_state",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Svelte Flow State Management",
+      "rationale": "Uses $state.raw for nodes/edges (not deep reactive) for performance. Undo/redo via snapshot stack. Custom node/edge components in src/lib/components/flow/. Nodes represent tables, edges represent relations."
+    },
+    {
+      "id": "erlang_concept_data_fetching_pattern",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "SvelteKit Data Fetching Pattern",
+      "rationale": "Server-side load functions (+page.server.ts) fetch data from backend. Client components receive via $props(). Mutations via form actions or direct API calls. No client-side fetch for data loading (except SSE/real-time)."
+    },
+    {
+      "id": "erlang_concept_ai_key_infrastructure",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "AI API Key Infrastructure",
+      "rationale": "Two-tier: server keys (env vars, fallback) and user keys (localStorage only, never persisted to DB). User keys bypass quota. Key rotation via round-robin/random selection across multiple keys per provider."
+    },
+    {
+      "id": "erlang_concept_billing_system",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Billing & Quota System",
+      "rationale": "Three tiers (Free/Pro/Team). Quota tracked per month via Usage table. Payment via Dana transfer + WhatsApp verification (manual flow). Admin verifies payments and updates user plan."
+    },
+    {
+      "id": "erlang_concept_export_formats",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Export Formats",
+      "rationale": "SQL DDL (MySQL/PostgreSQL/SQLite) and Prisma Schema. Generated client-side via Blob download. Includes type mapping per target DB, constraint generation, optional documentation comments and migration files."
+    },
+    {
+      "id": "erlang_concept_auth_flow",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Authentication Flow",
+      "rationale": "Google OAuth only (no email/password). httpOnly JWT cookies. Flow: redirect to Google -> callback -> create/update user -> set JWT cookie -> redirect to dashboard. Admin role auto-assigned via ADMIN_EMAILS env var."
+    },
+    {
+      "id": "erlang_concept_workspace_layout",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "ERD Workspace Layout",
+      "rationale": "Full-screen 3-column layout: left AI Chat Panel (collapsible), center Svelte Flow Canvas, right Table Detail Panel (collapsible, appears on node select). Floating toolbar at top with undo/redo/auto-layout/zoom/export."
+    },
+    {
+      "id": "erlang_concept_template_system",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Template System",
+      "rationale": "Pre-built ERD templates (E-commerce, Blog, Inventory, Social Media, School). Public listing, detail view with preview, 'Use Template' creates new project with pre-filled schema."
+    },
+    {
+      "id": "erlang_concept_share_collaboration",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Share & Collaboration",
+      "rationale": "Email-based invites with view/edit roles. Public share links (read-only, no login). Collaborator management (list/remove/change role). Soft-delete projects with 30-day auto-purge trash."
+    },
+    {
+      "id": "erlang_concept_version_history",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Version History",
+      "rationale": "Auto-save snapshots. Max 100 versions per project. Preview per version, diff view for changes, restore to revert. Used for rollback and audit trail."
+    },
+    {
+      "id": "erlang_concept_admin_module",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Admin Module",
+      "rationale": "Protected by adminMiddleware checking role==='admin'. Endpoints for stats, user management, project listing, payment verification/rejection. Admin can manually override user plans. seeder assigns admin role to siamqueen52@gmail.com."
+    },
+    {
+      "id": "erlang_concept_seeding",
+      "type": "concept",
+      "file_type": "concept",
+      "label": "Database Seeding",
+      "rationale": "Seed script populates sample ERD templates (5 categories). Admin email auto-assigned admin role via google.service.ts ADMIN_EMAILS constant during OAuth flow."
+    }
+  ],
+  "edges": [
+    {
+      "source": "apps_api_AGENTS",
+      "target": "docs_erd-generator_prd",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "apps_api_AGENTS",
+      "target": "docs_erd-generator_todo-backend",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "apps_erd-generator_AGENTS",
+      "target": "docs_erd-generator_todo-frontend",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "apps_erd-generator_GEMINI",
+      "target": "docs_erd-generator_todo-frontend",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "apps_erd-generator_README",
+      "target": "docs_erd-generator_README",
+      "relation": "INFERRED",
+      "confidence_score": 0.85
+    },
+    {
+      "source": "docs_erd-generator_README",
+      "target": "docs_erd-generator_prd",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_README",
+      "target": "docs_erd-generator_todo-frontend",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_README",
+      "target": "docs_erd-generator_todo-backend",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "docs_erd-generator_todo-backend",
+      "relation": "INFERRED",
+      "confidence_score": 0.95
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "docs_erd-generator_todo-frontend",
+      "relation": "INFERRED",
+      "confidence_score": 0.95
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_module_pattern",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_multi_project_monolith",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_ai_key_infrastructure",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_billing_system",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_export_formats",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_auth_flow",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_workspace_layout",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_template_system",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_share_collaboration",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_version_history",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_admin_module",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_svelte_flow_state",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_data_fetching_pattern",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_module_pattern",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_auth_flow",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_ai_key_infrastructure",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_billing_system",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_export_formats",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_share_collaboration",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_version_history",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_template_system",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_admin_module",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-backend",
+      "target": "erlang_concept_seeding",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-frontend",
+      "target": "erlang_concept_svelte_flow_state",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-frontend",
+      "target": "erlang_concept_data_fetching_pattern",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-frontend",
+      "target": "erlang_concept_workspace_layout",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-frontend",
+      "target": "erlang_concept_auth_flow",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-frontend",
+      "target": "erlang_concept_billing_system",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-frontend",
+      "target": "erlang_concept_share_collaboration",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_todo-frontend",
+      "target": "erlang_concept_admin_module",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_superpowers_plans_landing-page",
+      "target": "docs_superpowers_specs_landing-page-design",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_superpowers_specs_landing-page-design",
+      "target": "erlang_concept_multi_project_monolith",
+      "relation": "INFERRED",
+      "confidence_score": 0.75
+    },
+    {
+      "source": "docs_superpowers_specs_landing-page-design",
+      "target": "erlang_concept_dry_kiss_yagni",
+      "relation": "INFERRED",
+      "confidence_score": 0.65
+    },
+    {
+      "source": "apps_api_AGENTS",
+      "target": "erlang_concept_dry_kiss_yagni",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "apps_erd-generator_AGENTS",
+      "target": "erlang_concept_dry_kiss_yagni",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "apps_erd-generator_GEMINI",
+      "target": "erlang_concept_dry_kiss_yagni",
+      "relation": "EXTRACTED",
+      "confidence_score": 1.0
+    },
+    {
+      "source": "docs_erd-generator_prd",
+      "target": "erlang_concept_dry_kiss_yagni",
+      "relation": "INFERRED",
+      "confidence_score": 0.75
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}
