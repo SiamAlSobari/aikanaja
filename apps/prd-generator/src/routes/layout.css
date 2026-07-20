@@ -1,3 +1,44 @@
 @import 'tailwindcss';
-@plugin "@tailwindcss/typography";
-@plugin "daisyui";
+@plugin '@tailwindcss/typography';
+@plugin 'daisyui';
+
+@theme {
+	--color-brand-orange: #ff3e00;
+	--color-brand-amber: #f97316;
+}
+
+/* Glow blur */
+.glow-blur {
+	filter: blur(120px);
+	will-change: filter;
+}
+
+/* Scroll smoothness */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 6px;
+	height: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #1e293b;
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #ff3e00;
+}
+
+/* Selection color */
+::selection {
+	background: rgba(255, 62, 0, 0.3);
+	color: #fed7aa;
+}

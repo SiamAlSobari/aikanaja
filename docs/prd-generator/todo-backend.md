@@ -111,9 +111,9 @@ src/modules/
 
 ## Phase 1 — Auth Module (Google OAuth)
 
-- [ ] 🔴 `src/modules/shared/auth/google.service.ts`
-- [ ] 🔴 `src/modules/shared/auth/auth.controller.ts` (GET `/auth/google`, GET `/auth/callback`, POST `/auth/logout`)
-- [ ] 🔴 `src/common/middlewares/auth.middleware.ts` (`authMiddleware`, `optionalAuthMiddleware`)
+- [x] 🔴 `src/modules/shared/auth/google.service.ts`
+- [x] 🔴 `src/modules/shared/auth/auth.controller.ts` (GET `/auth/google`, GET `/auth/callback`, POST `/auth/logout`)
+- [x] 🔴 `src/common/middlewares/auth.middleware.ts` (`authMiddleware`, `optionalAuthMiddleware`)
 
 ---
 
