@@ -3,7 +3,34 @@ model PrdProject {
   title       String
   description String?
   author      String
-  status      String   @default("draft")
+  userId      String
+  content     String?  // Markdown PRD content
+  templateType String? // saas, ecommerce, mobile, api, custom
+  erdLinkId   String?  // Optional link to ERD project
+  status      String   @default("draft") // draft, active, deleted
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  versions PrdVersion[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([userId, status])
+}
+
+model PrdVersion {
+  id          String   @id @default(uuid())
+  projectId   String
+  versionNum  Int
+  title       String?
+  content     String   // Markdown snapshot
+  qualityScore Int?
+  storyPointsTotal Int?
+  createdAt   DateTime @default(now())
+
+  project PrdProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([projectId, createdAt])
 }

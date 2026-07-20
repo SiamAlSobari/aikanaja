@@ -1,5 +1,7 @@
 import { Elysia } from 'elysia'
-import { prdExampleController } from './controllers/example.controller'
+import { projectController } from './controllers/project.controller'
+import { aiController } from './controllers/ai.controller'
 
 export const prdModule = new Elysia()
-  .use(prdExampleController)
+  .use(projectController)
+  .use(aiController)

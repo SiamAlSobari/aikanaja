@@ -24,4 +24,7 @@ model User {
   usage        Usage[]
   payments     Payment[]
   activities   Activity[]
+
+  // PRD Generator relations
+  prdProjects  PrdProject[]
 }
