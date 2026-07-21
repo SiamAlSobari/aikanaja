@@ -9,6 +9,7 @@
 	import ComparisonSection from '$lib/components/landing/ComparisonSection.svelte';
 	import SecurityBanner from '$lib/components/landing/SecurityBanner.svelte';
 	import CTASection from '$lib/components/landing/CTASection.svelte';
+	import FAQAccordion from '$lib/components/landing/FAQAccordion.svelte';
 	import Footer from '$lib/components/landing/Footer.svelte';
 </script>
 
@@ -45,6 +46,7 @@
 			<ComparisonSection />
 			<SecurityBanner />
 			<CTASection />
+			<FAQAccordion />
 		</main>
 		<Footer />
 	</div>

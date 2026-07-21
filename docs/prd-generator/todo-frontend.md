@@ -80,9 +80,9 @@ _Status: IN PROGRESS_
 
 ### 0.2 Environment & Config
 
-- [ ] 🔴 Setup `.env` file:
+- [x] 🔴 Setup `.env` file:
   - `VITE_API_URL` — Backend API URL (default: `http://localhost:3000`)
-- [ ] 🔴 Setup `src/lib/api/client.ts` — base fetch wrapper:
+- [x] 🔴 Setup `src/lib/api/client.ts` — base fetch wrapper:
   - Auto-attach JWT cookie (`credentials: 'include'`)
   - Auto-attach Custom API Key dari `localStorage` jika ada (`x-custom-api-key`)
   - Error handling (401 → redirect login)
@@ -91,7 +91,7 @@ _Status: IN PROGRESS_
 
 ### 0.3 TypeScript Types
 
-- [ ] 🔴 `src/lib/types/prd.ts`:
+- [x] 🔴 `src/lib/types/prd.ts`:
   - `PrdProject` — id, name, description, templateType, erdLinkId, currentVersion, createdAt, updatedAt
   - `PrdVersion` — id, projectId, versionNum, title, content, qualityScore, storyPointsTotal, createdAt
   - `PrdShareLink` — id, projectId, shareToken, isPublic, createdAt
@@ -99,10 +99,10 @@ _Status: IN PROGRESS_
   - `VirtualReviewResult` — techLeadFeedback, qaEngineerFeedback, businessSponsorFeedback
   - `QualityAuditResult` — score, ambiguityWarnings[], completenessCheck
   - `SprintRoadmap` — sprint1[], sprint2[], sprint3[]
-- [ ] 🔴 `src/lib/types/user.ts`:
+- [x] 🔴 `src/lib/types/user.ts`:
   - `User` — id, name, email, role, avatar, plan, createdAt
   - `AuthState` — user, isAuthenticated, isLoading
-- [ ] 🔴 `src/lib/types/api.ts`:
+- [x] 🔴 `src/lib/types/api.ts`:
   - `ApiResponse<T>` — success, data?, error?, message?
   - `PaginatedResponse<T>` — data[], total, page, limit
   - `PlanTier` — 'free' | 'pro' | 'team'
@@ -114,17 +114,17 @@ _Status: IN PROGRESS_
 
 ### 1.1 API Client Layer
 
-- [ ] 🔴 `src/lib/api/client.ts` — base fetch wrapper:
+- [x] 🔴 `src/lib/api/client.ts` — base fetch wrapper:
   - `apiGet<T>(path)` — GET request
   - `apiPost<T>(path, body)` — POST request
   - `apiPatch<T>(path, body)` — PATCH request
   - `apiDelete<T>(path)` — DELETE request
   - Auto cookie, error handling, JSON parse
-- [ ] 🔴 `src/lib/api/auth.ts`:
+- [x] 🔴 `src/lib/api/auth.ts`:
   - `authApi.loginGoogle()` — redirect ke `/auth/google`
   - `authApi.getSession()` — GET `/session`
   - `authApi.logout()` — POST `/auth/logout`
-- [ ] 🔴 `src/lib/api/prd.ts`:
+- [x] 🔴 `src/lib/api/prd.ts`:
   - `prdApi.getProjects()` — GET `/prd/projects`
   - `prdApi.getProject(id)` — GET `/prd/projects/:id`
   - `prdApi.create(data)` — POST `/prd/projects`
@@ -145,24 +145,24 @@ _Status: IN PROGRESS_
 
 ### 1.2 Svelte Stores (Svelte 5 runes)
 
-- [ ] 🔴 `src/lib/stores/auth.store.ts`:
+- [x] 🔴 `src/lib/stores/auth.store.ts`:
   - `user` — `$state<User | null>(null)`
   - `isAuthenticated` — `$derived(!!user)`
   - `isLoading` — `$state(true)`
   - `login()`, `logout()`, `fetchSession()`
-- [ ] 🔴 `src/lib/stores/ui.store.ts`:
+- [x] 🔴 `src/lib/stores/ui.store.ts`:
   - `sidebarOpen` — `$state(false)`
   - `theme` — `$state<'light' | 'dark' | 'system'>('system')`
   - `toasts` — `$state<Toast[]>([])`
   - `addToast()`, `removeToast()`
-- [ ] 🔴 `src/lib/stores/prd.store.ts`:
+- [x] 🔴 `src/lib/stores/prd.store.ts`:
   - `projects` — `$state<PrdProject[]>([])`
   - `currentProject` — `$state<PrdProject | null>(null)`
   - `rawMarkdown` — `$state<string>('')`
   - `qualityScore` — `$state<number | null>(null)`
   - `virtualReview` — `$state<VirtualReviewResult | null>(null)`
   - `sprintRoadmap` — `$state<SprintRoadmap | null>(null)`
-- [ ] 🔴 `src/lib/stores/wizard.store.ts`:
+- [x] 🔴 `src/lib/stores/wizard.store.ts`:
   - `step` — `$state(1)`
   - `formData` — `$state<PrdWizardForm>(...)`
   - `nextStep()`, `prevStep()`, `reset()`
@@ -176,17 +176,17 @@ _Status: IN PROGRESS_
 
 ### 2.2 Base UI Components
 
-- [ ] 🔴 `src/lib/components/ui/Button.svelte`
-- [ ] 🔴 `src/lib/components/ui/Input.svelte`
-- [ ] 🔴 `src/lib/components/ui/Textarea.svelte`
-- [ ] 🔴 `src/lib/components/ui/Select.svelte`
-- [ ] 🔴 `src/lib/components/ui/Modal.svelte`
-- [ ] 🔴 `src/lib/components/ui/Badge.svelte`
-- [ ] 🔴 `src/lib/components/ui/Toast.svelte`
-- [ ] 🔴 `src/lib/components/ui/Spinner.svelte`
-- [ ] 🔴 `src/lib/components/ui/GlowBlob.svelte`
-- [ ] 🔴 `src/lib/components/ui/Reveal.svelte`
-- [ ] 🔴 `src/lib/components/ui/Sparkline.svelte`
+- [x] 🔴 `src/lib/components/ui/Button.svelte`
+- [x] 🔴 `src/lib/components/ui/Input.svelte`
+- [x] 🔴 `src/lib/components/ui/Textarea.svelte`
+- [x] 🔴 `src/lib/components/ui/Select.svelte`
+- [x] 🔴 `src/lib/components/ui/Modal.svelte`
+- [x] 🔴 `src/lib/components/ui/Badge.svelte`
+- [x] 🔴 `src/lib/components/ui/Toast.svelte`
+- [x] 🔴 `src/lib/components/ui/Spinner.svelte`
+- [x] 🔴 `src/lib/components/ui/GlowBlob.svelte`
+- [x] 🔴 `src/lib/components/ui/Reveal.svelte`
+- [x] 🔴 `src/lib/components/ui/Sparkline.svelte`
 
 ---
 
@@ -194,21 +194,21 @@ _Status: IN PROGRESS_
 
 ### 3.1 Landing Page Components
 
-- [ ] 🔴 `src/lib/components/landing/HeroSection.svelte`:
+- [x] 🔴 `src/lib/components/landing/HeroSection.svelte`:
   - Hero headline, sub-headline, CTA buttons
-- [ ] 🔴 `src/lib/components/landing/FeaturesGrid.svelte`:
+- [x] 🔴 `src/lib/components/landing/FeaturesGrid.svelte`:
   - 4 Killer Features Grid (Virtual Review, Mermaid Diagrams, Quality Audit, Agent Exporter)
-- [ ] 🔴 `src/lib/components/landing/ComparisonSection.svelte`:
+- [x] 🔴 `src/lib/components/landing/ComparisonSection.svelte`:
   - Tabel perbandingan: PRD Generator vs Manual ChatGPT vs Notion Templates
-- [ ] 🔴 `src/lib/components/landing/WorkflowStepper.svelte`:
+- [x] 🔴 `src/lib/components/landing/WorkflowStepper.svelte`:
   - Visual step 1 (Wizard) -> step 2 (AI Auto Gen) -> step 3 (Copilot & Audit) -> step 4 (Export)
-- [ ] 🔴 `src/lib/components/landing/CTASection.svelte`
-- [ ] 🔴 `src/lib/components/landing/FAQAccordion.svelte`
-- [ ] 🔴 `src/routes/+page.svelte`: Landing Page utama
+- [x] 🔴 `src/lib/components/landing/CTASection.svelte`
+- [x] 🔴 `src/lib/components/landing/FAQAccordion.svelte`
+- [x] 🔴 `src/routes/+page.svelte`: Landing Page utama
 
 ### 3.2 Guest Try Mode (`/try`)
 
-- [ ] 🔴 `src/routes/try/+page.svelte`:
+- [x] 🔴 `src/routes/try/+page.svelte`:
   - Halaman uji coba tanpa login
   - Menyimpan draf sementara di `localStorage`
   - Banner "Save to Cloud Account"
@@ -217,33 +217,33 @@ _Status: IN PROGRESS_
 
 ## Phase 4 — Dashboard & Project Management
 
-- [ ] 🔴 `src/routes/dashboard/+layout.svelte`: Dashboard Sidebar & Header Layout
-- [ ] 🔴 `src/routes/dashboard/+page.svelte`: Project overview & quick statistics
-- [ ] 🔴 `src/routes/dashboard/projects/+page.svelte`: List proyek PRD dengan pagination & filter
-- [ ] 🔴 `src/routes/dashboard/templates/+page.svelte`: Katalog Template PRD (SaaS, Mobile, API, AI)
-- [ ] 🔴 `src/routes/dashboard/activity/+page.svelte`: Audit log riwayat aktivitas pembuatan PRD
-- [ ] 🔴 `src/routes/dashboard/trash/+page.svelte`: Soft-deleted PRD trash & restore
-- [ ] 🔴 `src/lib/components/features/project/ProjectCard.svelte`
-- [ ] 🔴 `src/lib/components/features/project/NewProjectModal.svelte`
+- [x] 🔴 `src/routes/dashboard/+layout.svelte`: Dashboard Sidebar & Header Layout
+- [x] 🔴 `src/routes/dashboard/+page.svelte`: Project overview & quick statistics
+- [x] 🔴 `src/routes/dashboard/projects/+page.svelte`: List proyek PRD dengan pagination & filter
+- [x] 🔴 `src/routes/dashboard/templates/+page.svelte`: Katalog Template PRD (SaaS, Mobile, API, AI)
+- [x] 🔴 `src/routes/dashboard/activity/+page.svelte`: Audit log riwayat aktivitas pembuatan PRD
+- [x] 🔴 `src/routes/dashboard/trash/+page.svelte`: Soft-deleted PRD trash & restore
+- [x] 🔴 `src/lib/components/features/project/ProjectCard.svelte`
+- [x] 🔴 `src/lib/components/features/project/NewProjectModal.svelte`
 
 ---
 
 ## Phase 5 — Workspace & PRD Live Editor (`/project/[projectId]`)
 
-- [ ] 🔴 `src/routes/project/[projectId]/+layout.svelte`: Workspace Layout
-- [ ] 🔴 `src/routes/project/[projectId]/+page.svelte`: Main PRD Editor Page
-- [ ] 🔴 `src/lib/components/features/editor/PrdEditorHeader.svelte`: Topbar status, version selector, export button
-- [ ] 🔴 `src/lib/components/features/editor/PrdSplitEditor.svelte`: Split view container
-- [ ] 🔴 `src/lib/components/features/editor/MarkdownPreviewPane.svelte`: Marked + DOMPurify + Mermaid.js renderer
-- [ ] 🔴 `src/lib/components/features/copilot/CopilotSidebar.svelte`: AI Chat Copilot panel
-- [ ] 🔴 `src/lib/components/features/copilot/SectionActionToolbar.svelte`: Inline Section Actions
-- [ ] 🔴 `src/lib/components/features/copilot/SelectionPopover.svelte`: Text selection highlight AI popup
-- [ ] 🔴 `src/lib/components/features/audit/VirtualReviewTab.svelte`: Multi-agent 3 Persona Review (Tech Lead, QA, Business)
-- [ ] 🔴 `src/lib/components/features/audit/QualityAuditBadge.svelte`: Health score (0-100) & Ambiguity Warnings
-- [ ] 🔴 `src/lib/components/features/sprint/SprintRoadmapView.svelte`: Story points (1-13) & Sprint 1/2/3 allocation
-- [ ] 🔴 `src/lib/components/features/version/VersionDiffViewer.svelte`: Visual Git-style Diff viewer
-- [ ] 🔴 `src/lib/components/features/export/ExportModal.svelte`: Export modal (MD, PDF, AGENTS.md, JSON Spec)
-- [ ] 🔴 `src/lib/components/features/share/ShareModal.svelte`: Public Share Link generator
+- [x] 🔴 `src/routes/project/[projectId]/+layout.svelte`: Workspace Layout
+- [x] 🔴 `src/routes/project/[projectId]/+page.svelte`: Main PRD Editor Page
+- [x] 🔴 `src/lib/components/features/editor/PrdEditorHeader.svelte`: Topbar status, version selector, export button
+- [x] 🔴 `src/lib/components/features/editor/PrdSplitEditor.svelte`: Split view container
+- [x] 🔴 `src/lib/components/features/editor/MarkdownPreviewPane.svelte`: Marked + DOMPurify + Mermaid.js renderer
+- [x] 🔴 `src/lib/components/features/copilot/CopilotSidebar.svelte`: AI Chat Copilot panel
+- [x] 🔴 `src/lib/components/features/copilot/SectionActionToolbar.svelte`: Inline Section Actions
+- [x] 🔴 `src/lib/components/features/copilot/SelectionPopover.svelte`: Text selection highlight AI popup
+- [x] 🔴 `src/lib/components/features/audit/VirtualReviewTab.svelte`: Multi-agent 3 Persona Review (Tech Lead, QA, Business)
+- [x] 🔴 `src/lib/components/features/audit/QualityAuditBadge.svelte`: Health score (0-100) & Ambiguity Warnings
+- [x] 🔴 `src/lib/components/features/sprint/SprintRoadmapView.svelte`: Story points (1-13) & Sprint 1/2/3 allocation
+- [x] 🔴 `src/lib/components/features/version/VersionDiffViewer.svelte`: Visual Git-style Diff viewer
+- [x] 🔴 `src/lib/components/features/export/ExportModal.svelte`: Export modal (MD, PDF, AGENTS.md, JSON Spec)
+- [x] 🔴 `src/lib/components/features/share/ShareModal.svelte`: Public Share Link generator
 
 ---
 
