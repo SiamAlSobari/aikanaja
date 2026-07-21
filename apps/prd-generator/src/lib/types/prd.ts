@@ -58,6 +58,7 @@ export interface VirtualReviewResult {
   productSponsorScore: number;
   productSponsorFeedback: string;
   recommendations?: string[];
+  createdAt?: string;
 }
 
 export interface QualityAuditResult {

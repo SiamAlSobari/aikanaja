@@ -271,7 +271,7 @@ _Status: IN PROGRESS_
 
 ## Phase 8 — Enterprise Chat History, Stakeholder Review History, Templates & Audit Trail
 
-- [ ] 🔴 `src/lib/components/features/copilot/CopilotChatHistory.svelte`: Persisted copilot message history loader
-- [ ] 🔴 `src/lib/components/features/audit/VirtualReviewHistoryModal.svelte`: Past stakeholder review snapshots comparison
-- [ ] 🔴 `src/lib/components/features/templates/TemplateGalleryModal.svelte`: Preset template selector (SaaS, Mobile, E-commerce, API, AI)
-- [ ] 🔴 `src/lib/components/features/audit/AuditTrailDrawer.svelte`: Real-time section edit audit trail drawer
+- [x] 🔴 `src/lib/components/features/copilot/CopilotChatHistory.svelte`: Persisted copilot message history loader
+- [x] 🔴 `src/lib/components/features/audit/VirtualReviewHistoryModal.svelte`: Past stakeholder review snapshots comparison
+- [x] 🔴 `src/lib/components/features/templates/TemplateGalleryModal.svelte`: Preset template selector (SaaS, Mobile, E-commerce, API, AI)
+- [x] 🔴 `src/lib/components/features/audit/AuditTrailDrawer.svelte`: Real-time section edit audit trail drawer
