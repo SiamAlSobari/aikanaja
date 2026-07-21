@@ -249,22 +249,23 @@ _Status: IN PROGRESS_
 
 ## Phase 6 — Admin Panel
 
-- [ ] 🟡 `src/routes/admin/+layout.svelte`
-- [ ] 🟡 `src/routes/admin/users/+page.svelte`
-- [ ] 🟡 `src/routes/admin/projects/+page.svelte`
-- [ ] 🟡 `src/routes/admin/payments/+page.svelte`
+- [x] 🟡 `src/routes/admin/+layout.svelte`
+- [x] 🟡 `src/routes/admin/+page.svelte`
+- [x] 🟡 `src/routes/admin/users/+page.svelte`
+- [x] 🟡 `src/routes/admin/projects/+page.svelte`
+- [x] 🟡 `src/routes/admin/payments/+page.svelte`
 
 ---
 
 ## Phase 7 — Settings & Account
 
-- [ ] 🔴 `src/routes/settings/+layout.svelte`
-- [ ] 🔴 `src/routes/settings/profile/+page.svelte`
-- [ ] 🔴 `src/routes/settings/account/+page.svelte`
-- [ ] 🔴 `src/routes/settings/api-keys/+page.svelte`: Management Custom API Key (Google Gemini 2.0 Flash / Groq) di LocalStorage
-- [ ] 🔴 `src/routes/settings/appearance/+page.svelte`
-- [ ] 🟡 `src/routes/settings/billing/+page.svelte`: Tampilan Kuota & Subskripsi terpisah antara PRD Generator dan ERD Generator
-- [ ] 🟡 `src/routes/settings/notifications/+page.svelte`
+- [x] 🔴 `src/routes/settings/+layout.svelte`
+- [x] 🔴 `src/routes/settings/profile/+page.svelte`
+- [x] 🔴 `src/routes/settings/account/+page.svelte`
+- [x] 🔴 `src/routes/settings/api-keys/+page.svelte`: Management Custom API Key (Google Gemini 2.0 Flash / Groq) di LocalStorage
+- [x] 🔴 `src/routes/settings/appearance/+page.svelte`
+- [x] 🟡 `src/routes/settings/billing/+page.svelte`: Tampilan Kuota & Subskripsi terpisah antara PRD Generator dan ERD Generator
+- [x] 🟡 `src/routes/settings/notifications/+page.svelte`
 
 ---
 
